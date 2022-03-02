@@ -3,6 +3,14 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+# TODO: 
+
+Change action mailer to actual domain on environments/production.rb
+
+```ruby
+config.action_mailer.default_url_options = { host: 'example.com', port: 3000 }
+```
+
 Things you may want to cover:
 
 * Ruby version
