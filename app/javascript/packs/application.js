@@ -8,9 +8,15 @@ import Turbolinks from "turbolinks"
 import "bootstrap"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import toastr from "toastr/toastr";
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
 const jQuery = $
+global.toastr = require("toastr")
+
+if (window.location.href.includes('/register')) {
+    require("packs/registrations")
+}

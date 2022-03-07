@@ -15,6 +15,7 @@
  */
 
 @import "bootstrap/scss/bootstrap";
+@import "toastr/toastr";
 
 .full-width {
     width: 100vw !important;
@@ -46,4 +47,8 @@
 
 .auto-width {
     width: auto !important;
+}
+
+.point_me {
+    cursor: pointer;
 }

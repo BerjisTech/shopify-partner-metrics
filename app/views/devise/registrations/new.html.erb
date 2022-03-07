@@ -1,34 +1,53 @@
 <div class="row">
   <div class="col-sm-7 full-height">
-    <div class="">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="d-flex flex-column align-items-center justify-content-center full-height">
+        <div class="row">
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="col-sm-12 alerts mb-4"></div>
+          <div class="col-sm-12 user-set">
+            <div class="d-flex align-items-center user_block">
+              <div class="form-floating my-2">
+                <%= f.text_field :username, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Placeholder" %>
+                <%= f.label :username %>
+              </div>
+              <div class="validity"></div>
+            </div>
+          </div>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <div class="col-sm-12 email-set">
+            <div class="form-floating my-2">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Placeholder" %>
+              <%= f.label :email %>
+            </div>
+          </div>
+
+          <div class="col-sm-12 ps-set">
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <div class="form-floating my-2">
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
+              <%= f.label :password %>
+            </div>
+          </div>
+
+          <div class="col-sm-12 ps-confirm">
+            <div class="form-floating my-2">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
+              <%= f.label :password_confirmation %>
+            </div>
+          </div>
+
+          <div class="actions d-flex algin-items-center justify-content-end next_button"></div>
+
+          <div class="actions d-flex algin-items-center justify-content-end">
+            <%= f.submit "Sign up", class: "btn btn-primary btn-lg form-control", disabled: "disabled" %>
+          </div>
         </div>
-
-        <div class="field">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Sign up" %>
-        </div>
-      <% end %>
-
-      <%= render "devise/shared/links" %>
-    </div>
+        <%= render "devise/shared/links" %>
+      </div>
+    <% end %>
   </div>
   <div class="col-sm-5 full-height">
     <div class="d-flex align-items-center justify-content-end whole-height whole-width">
