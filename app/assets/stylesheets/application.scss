@@ -17,6 +17,12 @@
 @import "bootstrap/scss/bootstrap";
 @import "toastr/toastr";
 
+a,
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none !important;
+}
 
 .profiler-results {
     display: none;
