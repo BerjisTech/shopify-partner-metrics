@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let ps_confirm = $('.ps-confirm')
 
     user_good.remove()
-    submit_button.remove()
+    submit_button.hide()
     email_set.remove()
     ps_set.remove()
     ps_confirm.remove()
@@ -24,12 +24,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('[name="user[email]"]').on('input', (e) => {
                 let email = $(e.target).val()
                 if (email.match(mail_format)) {
+                    $('.next_button').html('')
                     ps_set.insertBefore('.next_button')
                     ps_confirm.insertBefore('.next_button')
+                    $(submit_button).show()
                 }
                 else {
+                    $('.next_button').html('<span class="btn btn-lg btn-info form-control text-white go_to_email">Next</span>')
                     ps_set.remove()
                     ps_confirm.remove()
+                    submit_button.hide()
                 }
             })
         })
@@ -43,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             ps_set.remove()
             ps_confirm.remove()
             $('.user-good').hide()
-            $('.alerts').html(`<span class="alert alert-danger user_alert">You need a username to proceed <span class="material-icons point_me" onclick="document.querySelector('.alerts').html('')">cancel</span></psan>`)
+            $('.alerts').html(`<span class="alert alert-danger user_alert">You need a username to proceed <span class="material-icons point_me" onclick="document.querySelector('.alerts').innerHTML = ''">cancel</span></psan>`)
             return;
         }
         $.ajax({
@@ -68,4 +72,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         })
     })
+
 })

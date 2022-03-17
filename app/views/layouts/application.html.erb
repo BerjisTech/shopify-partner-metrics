@@ -14,14 +14,16 @@
   <body>
     <%= render 'layouts/constants' %>
 
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
+    <% if user_signed_in? %>
+      <%= render 'layouts/nav' %>
+      <%= render 'layouts/account_bar' %>
+      <div class="main-content">
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= yield %>
     <% end %>
 
-    <%= yield %>
     <%= toastr_flash %>
 
   </body>

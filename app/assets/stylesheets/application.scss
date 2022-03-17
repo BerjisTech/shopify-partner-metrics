@@ -17,6 +17,11 @@
 @import "bootstrap/scss/bootstrap";
 @import "toastr/toastr";
 
+
+.profiler-results {
+    display: none;
+}
+
 .full-width {
     width: 100vw !important;
 }
@@ -49,6 +54,51 @@
     width: auto !important;
 }
 
-.point_me {
+.point_me,
+.pointer,
+.pointed {
     cursor: pointer;
+}
+
+.account_bar {
+    display         : table !important;
+    position        : fixed;
+    height          : 6vh;
+    top             : 0px;
+    left            : 0px;
+    background-color: white;
+}
+
+.main-nav {
+    width     : 350px;
+    overflow-y: auto;
+    position  : fixed;
+    top       : 0;
+    transform : translate(-550px, 0px);
+    z-index   : 30;
+
+    .nav-header,
+    .nav-footer {
+        height: 6vh;
+    }
+
+    .nav-body {
+        height    : 88vh;
+        overflow-y: auto;
+    }
+}
+
+.big-nav-hider {
+    display   : none;
+    background: rgba(3, 3, 3, 0.3);
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    z-index   : 30;
+}
+
+.main-content {
+    display   : table;
+    margin-top: 7vh;
+    min-height: 194vh;
 }
