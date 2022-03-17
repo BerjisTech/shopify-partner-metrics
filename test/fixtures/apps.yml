@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_name: MyText
+  user_id: 
+  platform_id: 
+
+two:
+  app_name: MyText
+  user_id: 
+  platform_id: 

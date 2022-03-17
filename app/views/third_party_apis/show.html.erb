@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Platform:</strong>
+  <%= @third_party_api.platform_id %>
+</p>
+
+<p>
+  <strong>Api key:</strong>
+  <%= @third_party_api.api_key %>
+</p>
+
+<p>
+  <strong>Api secret:</strong>
+  <%= @third_party_api.api_secret %>
+</p>
+
+<p>
+  <strong>Secondary api key:</strong>
+  <%= @third_party_api.secondary_api_key %>
+</p>
+
+<p>
+  <strong>Secondary api secret:</strong>
+  <%= @third_party_api.secondary_api_secret %>
+</p>
+
+<%= link_to 'Edit', edit_third_party_api_path(@third_party_api) %> |
+<%= link_to 'Back', third_party_apis_path %>

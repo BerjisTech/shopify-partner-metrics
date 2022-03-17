@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @running_datum.date %>
+</p>
+
+<p>
+  <strong>Gross paying mrr:</strong>
+  <%= @running_datum.gross_paying_mrr %>
+</p>
+
+<p>
+  <strong>Gross trial mrr:</strong>
+  <%= @running_datum.gross_trial_mrr %>
+</p>
+
+<p>
+  <strong>Gross paying users:</strong>
+  <%= @running_datum.gross_paying_users %>
+</p>
+
+<p>
+  <strong>Gross trial users:</strong>
+  <%= @running_datum.gross_trial_users %>
+</p>
+
+<%= link_to 'Edit', edit_running_datum_path(@running_datum) %> |
+<%= link_to 'Back', running_data_path %>

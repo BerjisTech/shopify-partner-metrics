@@ -1,0 +1,2 @@
+class RunningDatum < ApplicationRecord
+end

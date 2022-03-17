@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2022-03-18 01:08:45
+  gross_paying_mrr: 1.5
+  gross_trial_mrr: 1.5
+  gross_paying_users: 1
+  gross_trial_users: 1
+
+two:
+  date: 2022-03-18 01:08:45
+  gross_paying_mrr: 1.5
+  gross_trial_mrr: 1.5
+  gross_paying_users: 1
+  gross_trial_users: 1

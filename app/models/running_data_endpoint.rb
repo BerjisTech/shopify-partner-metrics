@@ -1,0 +1,2 @@
+class RunningDataEndpoint < ApplicationRecord
+end

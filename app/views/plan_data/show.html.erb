@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @plan_datum.app_id %>
+</p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @plan_datum.plan_id %>
+</p>
+
+<p>
+  <strong>Plan paying users:</strong>
+  <%= @plan_datum.plan_paying_users %>
+</p>
+
+<p>
+  <strong>Plan trial users:</strong>
+  <%= @plan_datum.plan_trial_users %>
+</p>
+
+<p>
+  <strong>Plan total users:</strong>
+  <%= @plan_datum.plan_total_users %>
+</p>
+
+<%= link_to 'Edit', edit_plan_datum_path(@plan_datum) %> |
+<%= link_to 'Back', plan_data_path %>

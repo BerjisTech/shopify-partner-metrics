@@ -1,0 +1,42 @@
+<%= form_with(model: running_datum) do |form| %>
+  <% if running_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(running_datum.errors.count, "error") %> prohibited this running_datum from being saved:</h2>
+
+      <ul>
+        <% running_datum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gross_paying_mrr %>
+    <%= form.text_field :gross_paying_mrr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gross_trial_mrr %>
+    <%= form.text_field :gross_trial_mrr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gross_paying_users %>
+    <%= form.number_field :gross_paying_users %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gross_trial_users %>
+    <%= form.number_field :gross_trial_users %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

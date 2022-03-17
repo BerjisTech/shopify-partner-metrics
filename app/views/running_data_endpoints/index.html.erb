@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Running Data Endpoints</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Endpoint</th>
+      <th>Data rounds</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @running_data_endpoints.each do |running_data_endpoint| %>
+      <tr>
+        <td><%= running_data_endpoint.app_id %></td>
+        <td><%= running_data_endpoint.endpoint %></td>
+        <td><%= running_data_endpoint.data_rounds %></td>
+        <td><%= link_to 'Show', running_data_endpoint %></td>
+        <td><%= link_to 'Edit', edit_running_data_endpoint_path(running_data_endpoint) %></td>
+        <td><%= link_to 'Destroy', running_data_endpoint, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Running Data Endpoint', new_running_data_endpoint_path %>

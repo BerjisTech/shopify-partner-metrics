@@ -1,0 +1,2 @@
+class ThirdPartyApi < ApplicationRecord
+end

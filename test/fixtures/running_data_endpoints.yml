@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_id: 
+  endpoint: MyText
+  data_rounds: 1
+
+two:
+  app_id: 
+  endpoint: MyText
+  data_rounds: 1

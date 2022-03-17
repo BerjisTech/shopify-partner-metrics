@@ -1,0 +1,42 @@
+<%= form_with(model: third_party_api) do |form| %>
+  <% if third_party_api.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(third_party_api.errors.count, "error") %> prohibited this third_party_api from being saved:</h2>
+
+      <ul>
+        <% third_party_api.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :platform_id %>
+    <%= form.text_field :platform_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_key %>
+    <%= form.text_area :api_key %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_secret %>
+    <%= form.text_area :api_secret %>
+  </div>
+
+  <div class="field">
+    <%= form.label :secondary_api_key %>
+    <%= form.text_area :secondary_api_key %>
+  </div>
+
+  <div class="field">
+    <%= form.label :secondary_api_secret %>
+    <%= form.text_area :secondary_api_secret %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

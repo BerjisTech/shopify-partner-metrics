@@ -1,0 +1,32 @@
+<%= form_with(model: running_data_endpoint) do |form| %>
+  <% if running_data_endpoint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(running_data_endpoint.errors.count, "error") %> prohibited this running_data_endpoint from being saved:</h2>
+
+      <ul>
+        <% running_data_endpoint.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :app_id %>
+    <%= form.text_field :app_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :endpoint %>
+    <%= form.text_area :endpoint %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_rounds %>
+    <%= form.number_field :data_rounds %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

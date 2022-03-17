@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Third Party Apis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Api key</th>
+      <th>Api secret</th>
+      <th>Secondary api key</th>
+      <th>Secondary api secret</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @third_party_apis.each do |third_party_api| %>
+      <tr>
+        <td><%= third_party_api.platform_id %></td>
+        <td><%= third_party_api.api_key %></td>
+        <td><%= third_party_api.api_secret %></td>
+        <td><%= third_party_api.secondary_api_key %></td>
+        <td><%= third_party_api.secondary_api_secret %></td>
+        <td><%= link_to 'Show', third_party_api %></td>
+        <td><%= link_to 'Edit', edit_third_party_api_path(third_party_api) %></td>
+        <td><%= link_to 'Destroy', third_party_api, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Third Party Api', new_third_party_api_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Plan Data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Plan</th>
+      <th>Plan paying users</th>
+      <th>Plan trial users</th>
+      <th>Plan total users</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plan_data.each do |plan_datum| %>
+      <tr>
+        <td><%= plan_datum.app_id %></td>
+        <td><%= plan_datum.plan_id %></td>
+        <td><%= plan_datum.plan_paying_users %></td>
+        <td><%= plan_datum.plan_trial_users %></td>
+        <td><%= plan_datum.plan_total_users %></td>
+        <td><%= link_to 'Show', plan_datum %></td>
+        <td><%= link_to 'Edit', edit_plan_datum_path(plan_datum) %></td>
+        <td><%= link_to 'Destroy', plan_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plan Datum', new_plan_datum_path %>
