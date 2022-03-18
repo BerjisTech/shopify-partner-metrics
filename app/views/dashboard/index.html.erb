@@ -1,1 +1,9 @@
+<div class="mt-4"></div>
 <%= render 'dashboard/stats/general' %>
+<div class="mt-4"></div>
+<%- if my_app_count(current_user.id).zero? %>
+  <%= render 'dashboard/stats/one_app' %>
+<% else %>
+  <%= render 'dashboard/stats/multiple_apps' %>
+<% end %>
+<div class="mt-4"></div>

@@ -8,7 +8,8 @@ import Turbolinks from "turbolinks"
 import "bootstrap"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import toastr from "toastr/toastr";
+import toastr from "toastr/toastr"
+import Chart from 'chart.js/auto'
 
 Rails.start()
 Turbolinks.start()
@@ -22,3 +23,16 @@ if (window.location.href.includes('/register')) {
 } else {
     require("custom")
 }
+
+document.addEventListener('turbolinks:load', () => {
+    var ctx = document.getElementById('myChart').getContext('2d')
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: JSON.parse(ctx.canvas.dataset.labels),
+            datasets: [{
+                data: JSON.parse(ctx.canvas.dataset.data),
+            }]
+        },
+    })
+})
