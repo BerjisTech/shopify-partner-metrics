@@ -17,6 +17,13 @@
 @import "bootstrap/scss/bootstrap";
 @import "toastr/toastr";
 
+html,
+body {
+    background-color: #FAFAFA !important;
+    margin          : 0px !important;
+    padding         : 0px !important;
+}
+
 a,
 a:hover,
 a:active,
@@ -37,7 +44,9 @@ a:focus {
 }
 
 .whole-width,
-.form-floating {
+.row,
+.form-floating,
+.main-content {
     width: 100% !important;
 }
 
