@@ -11,22 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :business_name %>
-    <%= form.text_area :business_name %>
+  <div class="spacer clearfix mt-5"></div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="d-flex flex-column align-items-start jsutify-content-center">
+        <span class="fs-3">Business Details</span>
+        <span class="fs-6">This information is used to identify your business</span>
+      </div>
+    </div>
+    <div class="col-sm-8">
+
+      <div class="border rounded bg-white p-4 shadow">
+        <div class="field">
+          <%= form.label :business_name %>
+          <%= form.text_area :business_name, class: "form-control my-2" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :user_id %>
+          <%= form.text_field :user_id, class: "form-control my-2" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :industry_id %>
+          <%= form.text_field :industry_id, class: "form-control my-2" %>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-12 my-5 border-bottom"></div>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :industry_id %>
-    <%= form.text_field :industry_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="row">
+    <div class="col-sm-12 mb-5">
+      <div class="actions whole-width text-end">
+        <%= form.submit class: "shopify-button" %>
+      </div>
+    </div>
   </div>
 <% end %>
