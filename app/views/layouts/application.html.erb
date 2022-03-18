@@ -18,7 +18,13 @@
       <%= render 'layouts/nav' %>
       <%= render 'layouts/account_bar' %>
       <div class="main-content">
-        <%= yield %>
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10">
+            <%= yield %>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
       </div>
     <% else %>
       <%= yield %>

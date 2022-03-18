@@ -1,23 +1,16 @@
 <div class="row">
-  <div class="col-sm-1"></div>
-  <div class="col-sm-10">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="d-flex flex-column mb-4">
-          <span class="fs-2">Add an app</span>
-          <span class="fs-6">Add a new app you own or manager and start monitoring your KPI in a few steps. Check our 
-            <%= link_to docs_path, target: "_BLANK" do %>
-              docs<span class="material-icons tiny-icons">open_in_new</span>
-            <% end %>
-            on how to setup running app data</span>
-        </div>
-      </div>
+  <div class="col-sm-12">
+    <div class="d-flex flex-column mb-4">
+      <span class="fs-2">Add an app</span>
+      <span class="fs-6">Add a new app you own or manager and start monitoring your KPI in a few steps. Check our 
+        <%= link_to docs_path, target: "_BLANK" do %>
+          docs<span class="material-icons tiny-icons">open_in_new</span>
+        <% end %>
+        on how to setup running app data</span>
     </div>
-
-    <%= render 'form', app: @app %>
-
-    <% link_to 'Back', apps_path %>
-
   </div>
-  <div class="col-sm-1"></div>
 </div>
+
+<%= render 'form', app: @app %>
+
+<% link_to 'Back', apps_path %>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :platforms
+  resources :industries
   resources :app_plans
   resources :plan_data
   resources :running_data

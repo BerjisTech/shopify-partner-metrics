@@ -2,4 +2,5 @@
 
 class Business < ApplicationRecord
   has_many :apps
+  belongs_to :industry
 end

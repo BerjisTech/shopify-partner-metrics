@@ -8,4 +8,5 @@ class App < ApplicationRecord
 
   belongs_to :running_data_endpoint
   belongs_to :business
+  belongs_to :platform
 end
