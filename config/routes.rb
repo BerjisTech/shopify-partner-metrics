@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'home/pricing'
   get 'home/faq'
   get 'home/api'
+  get 'docs', controller: :docs, action: :big_dicky
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   post 'verify_email', controller: :application, action: :verify_email
