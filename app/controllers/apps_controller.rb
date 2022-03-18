@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AppsController < ApplicationController
-  before_action :set_app, only: %i[ show edit update destroy ]
+  before_action :set_app, only: %i[show edit update destroy]
 
   # GET /apps or /apps.json
   def index
@@ -7,8 +9,7 @@ class AppsController < ApplicationController
   end
 
   # GET /apps/1 or /apps/1.json
-  def show
-  end
+  def show; end
 
   # GET /apps/new
   def new
@@ -16,8 +17,7 @@ class AppsController < ApplicationController
   end
 
   # GET /apps/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /apps or /apps.json
   def create
@@ -25,7 +25,7 @@ class AppsController < ApplicationController
 
     respond_to do |format|
       if @app.save
-        format.html { redirect_to app_url(@app), notice: "App was successfully created." }
+        format.html { redirect_to app_url(@app), notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class AppsController < ApplicationController
   def update
     respond_to do |format|
       if @app.update(app_params)
-        format.html { redirect_to app_url(@app), notice: "App was successfully updated." }
+        format.html { redirect_to app_url(@app), notice: 'App was successfully updated.' }
         format.json { render :show, status: :ok, location: @app }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class AppsController < ApplicationController
     @app.destroy
 
     respond_to do |format|
-      format.html { redirect_to apps_url, notice: "App was successfully destroyed." }
+      format.html { redirect_to apps_url, notice: 'App was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_app
-      @app = App.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def app_params
-      params.require(:app).permit(:app_name, :user_id, :platform_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_app
+    @app = App.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def app_params
+    params.require(:app).permit(:app_name, :user_id, :platform_id)
+  end
 end

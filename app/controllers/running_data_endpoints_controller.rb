@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RunningDataEndpointsController < ApplicationController
-  before_action :set_running_data_endpoint, only: %i[ show edit update destroy ]
+  before_action :set_running_data_endpoint, only: %i[show edit update destroy]
 
   # GET /running_data_endpoints or /running_data_endpoints.json
   def index
@@ -7,8 +9,7 @@ class RunningDataEndpointsController < ApplicationController
   end
 
   # GET /running_data_endpoints/1 or /running_data_endpoints/1.json
-  def show
-  end
+  def show; end
 
   # GET /running_data_endpoints/new
   def new
@@ -16,8 +17,7 @@ class RunningDataEndpointsController < ApplicationController
   end
 
   # GET /running_data_endpoints/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /running_data_endpoints or /running_data_endpoints.json
   def create
@@ -25,7 +25,10 @@ class RunningDataEndpointsController < ApplicationController
 
     respond_to do |format|
       if @running_data_endpoint.save
-        format.html { redirect_to running_data_endpoint_url(@running_data_endpoint), notice: "Running data endpoint was successfully created." }
+        format.html do
+          redirect_to running_data_endpoint_url(@running_data_endpoint),
+                      notice: 'Running data endpoint was successfully created.'
+        end
         format.json { render :show, status: :created, location: @running_data_endpoint }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,10 @@ class RunningDataEndpointsController < ApplicationController
   def update
     respond_to do |format|
       if @running_data_endpoint.update(running_data_endpoint_params)
-        format.html { redirect_to running_data_endpoint_url(@running_data_endpoint), notice: "Running data endpoint was successfully updated." }
+        format.html do
+          redirect_to running_data_endpoint_url(@running_data_endpoint),
+                      notice: 'Running data endpoint was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @running_data_endpoint }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +58,22 @@ class RunningDataEndpointsController < ApplicationController
     @running_data_endpoint.destroy
 
     respond_to do |format|
-      format.html { redirect_to running_data_endpoints_url, notice: "Running data endpoint was successfully destroyed." }
+      format.html do
+        redirect_to running_data_endpoints_url, notice: 'Running data endpoint was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_running_data_endpoint
-      @running_data_endpoint = RunningDataEndpoint.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def running_data_endpoint_params
-      params.require(:running_data_endpoint).permit(:app_id, :endpoint, :data_rounds)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_running_data_endpoint
+    @running_data_endpoint = RunningDataEndpoint.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def running_data_endpoint_params
+    params.require(:running_data_endpoint).permit(:app_id, :endpoint, :data_rounds)
+  end
 end

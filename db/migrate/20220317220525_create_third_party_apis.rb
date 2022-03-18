@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateThirdPartyApis < ActiveRecord::Migration[6.1]
   def change
     create_table :third_party_apis, id: :uuid do |t|

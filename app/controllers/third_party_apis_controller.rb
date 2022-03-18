@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ThirdPartyApisController < ApplicationController
-  before_action :set_third_party_api, only: %i[ show edit update destroy ]
+  before_action :set_third_party_api, only: %i[show edit update destroy]
 
   # GET /third_party_apis or /third_party_apis.json
   def index
@@ -7,8 +9,7 @@ class ThirdPartyApisController < ApplicationController
   end
 
   # GET /third_party_apis/1 or /third_party_apis/1.json
-  def show
-  end
+  def show; end
 
   # GET /third_party_apis/new
   def new
@@ -16,8 +17,7 @@ class ThirdPartyApisController < ApplicationController
   end
 
   # GET /third_party_apis/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /third_party_apis or /third_party_apis.json
   def create
@@ -25,7 +25,9 @@ class ThirdPartyApisController < ApplicationController
 
     respond_to do |format|
       if @third_party_api.save
-        format.html { redirect_to third_party_api_url(@third_party_api), notice: "Third party api was successfully created." }
+        format.html do
+          redirect_to third_party_api_url(@third_party_api), notice: 'Third party api was successfully created.'
+        end
         format.json { render :show, status: :created, location: @third_party_api }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,9 @@ class ThirdPartyApisController < ApplicationController
   def update
     respond_to do |format|
       if @third_party_api.update(third_party_api_params)
-        format.html { redirect_to third_party_api_url(@third_party_api), notice: "Third party api was successfully updated." }
+        format.html do
+          redirect_to third_party_api_url(@third_party_api), notice: 'Third party api was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @third_party_api }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,21 @@ class ThirdPartyApisController < ApplicationController
     @third_party_api.destroy
 
     respond_to do |format|
-      format.html { redirect_to third_party_apis_url, notice: "Third party api was successfully destroyed." }
+      format.html { redirect_to third_party_apis_url, notice: 'Third party api was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_third_party_api
-      @third_party_api = ThirdPartyApi.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def third_party_api_params
-      params.require(:third_party_api).permit(:platform_id, :api_key, :api_secret, :secondary_api_key, :secondary_api_secret)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_third_party_api
+    @third_party_api = ThirdPartyApi.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def third_party_api_params
+    params.require(:third_party_api).permit(:platform_id, :api_key, :api_secret, :secondary_api_key,
+                                            :secondary_api_secret)
+  end
 end
