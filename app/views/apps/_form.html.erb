@@ -49,8 +49,20 @@
     <div class="col-sm-8">
       <div class="border rounded bg-white p-4 shadow">
         <div class="field m-3">
+          <%= form.label :running_data_endpoint %>
+          <%= form.text_field "running_data_endpoint", class: "form-control my-2" %>
+        </div>
+        <div class="field m-3">
           <%= form.label :platform_id %>
           <%= form.text_field :platform_id, class: "form-control my-2" %>
+        </div>
+        <div class="field m-3">
+          <%= form.label :api_key %>
+          <%= form.text_field "api_key", class: "form-control my-2" %>
+        </div>
+        <div class="field m-3">
+          <%= form.label :api_secret %>
+          <%= form.text_field "api_secret", class: "form-control my-2" %>
         </div>
       </div>
     </div>
@@ -58,7 +70,7 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mb-5">
       <div class="actions whole-width text-end">
         <%= form.submit class: "shopify-button" %>
       </div>
