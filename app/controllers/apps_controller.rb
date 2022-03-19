@@ -5,7 +5,7 @@ class AppsController < ApplicationController
 
   # GET /apps or /apps.json
   def index
-    @apps = App.all
+    @apps = App.where(user_id: current_user.id).joins(:platform).select('*')
   end
 
   # GET /apps/1 or /apps/1.json

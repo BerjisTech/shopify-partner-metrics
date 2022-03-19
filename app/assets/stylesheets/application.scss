@@ -28,6 +28,10 @@ body {
     font-size: 10px !important;
 }
 
+.small-icons {
+    font-size: 16px !important;
+}
+
 .grey-text {
     color: #919699;
 }
@@ -123,20 +127,21 @@ a:focus {
 }
 
 .main-content {
-    display   : table;
-    margin-top: 7vh;
+    display       : table;
+    margin        : 7vh auto;
+    padding-top   : 2vh;
+    padding-bottom: 2vh;
 }
 
 .shopify_button,
 .shopify-button {
     border          : 2px solid #008060;
-    background-color: #008060;
-    color           : #ffffff;
-    padding         : 15px;
+    background-color: #008060 !important;
+    color           : #ffffff !important;
     border-radius   : 5px;
     min-width       : 250px;
 
     &:hover {
-        background-color: #002E25;
+        background-color: #002E25 !important;
     }
 }
