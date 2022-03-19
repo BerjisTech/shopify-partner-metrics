@@ -14,6 +14,11 @@ class AppsController < ApplicationController
   # GET /apps/new
   def new
     @app = App.new
+
+    if Business.mine(current_user.id).blank?
+      Business.find_or_create_by(user_id: current_user.id, business_name: 'Default',
+                                 industry_id: Industry.find_or_create_by(name: 'Other').id)
+    end
   end
 
   # GET /apps/1/edit
@@ -23,8 +28,13 @@ class AppsController < ApplicationController
   def create
     @app = App.new(app_params)
 
+    @app.user_id = current_user.id
+
     respond_to do |format|
       if @app.save
+        ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
+                                        api_secret: params[:app][:api_secret], platform_id: @app.platform_id)
+
         format.html { redirect_to app_url(@app), notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
       else
@@ -66,6 +76,6 @@ class AppsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def app_params
-    params.require(:app).permit(:app_name, :user_id, :platform_id)
+    params.require(:app).permit(:app_name, :user_id, :platform_id, :business_id, :running_data_endpoint)
   end
 end

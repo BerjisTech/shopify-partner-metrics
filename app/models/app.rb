@@ -6,7 +6,11 @@ class App < ApplicationRecord
   has_many :plan_data
   has_many :running_data
 
-  belongs_to :running_data_endpoint
   belongs_to :business
   belongs_to :platform
+  class << self
+    def mine(user_id)
+      App.where(user_id: user_id)
+    end
+  end
 end

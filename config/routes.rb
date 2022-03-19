@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   resources :plan_data
   resources :running_data
   resources :third_party_apis
-  resources :running_data_endpoints
   resources :apps
   resources :businesses
   get 'dashboard', controller: :dashboard, action: :index

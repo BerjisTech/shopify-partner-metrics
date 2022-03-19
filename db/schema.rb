@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_233141) do
+ActiveRecord::Schema.define(version: 2022_03_19_014628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 2022_03_18_233141) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "business_id"
+    t.text "app_url"
+    t.text "running_data_endpoint"
+    t.integer "data_rounds"
   end
 
   create_table "businesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -92,9 +95,11 @@ ActiveRecord::Schema.define(version: 2022_03_18_233141) do
     t.text "secondary_api_secret"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "app_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "integer_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

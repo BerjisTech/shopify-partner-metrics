@@ -70,7 +70,7 @@ class ThirdPartyApisController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def third_party_api_params
-    params.require(:third_party_api).permit(:platform_id, :api_key, :api_secret, :secondary_api_key,
+    params.require(:third_party_api).permit(:platform_id, :app_id, :api_key, :api_secret, :secondary_api_key,
                                             :secondary_api_secret)
   end
 end
