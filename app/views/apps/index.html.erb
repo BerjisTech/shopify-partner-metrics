@@ -11,9 +11,9 @@
   </div>
   <div class="mt-4"></div>
   <div class="col-sm-12">
-    <div class="input-group border rounded">
-      <input type="text" class="form-control" placeholder="Search for apps by title ID or ApI Key" />
-      <span class="point_me search-button d-flex align-items-center justify-content-center px-5">Search</span>
+    <div class="input-group shadow rounded">
+      <input type="text" class="form-control" placeholder="Search for business by title ID or ApI Key" />
+      <span class="point_me search-button d-flex align-items-center justify-content-center px-5 border rounded" search_for="business">Search</span>
     </div>
   </div>
   <div class="mt-4"></div>
@@ -27,7 +27,7 @@
             <th>Revenue</th>
             <th>Running Data Import</th>
             <th>Platform Data Import</th>
-            <th colspan="3"></th>
+            <th></th>
           </tr>
         </thead>
 
@@ -35,7 +35,7 @@
           <% @apps.each do |app| %>
             <tr>
               <td><%= app.app_name %></td>
-              <td><%= app.name %></td>
+              <td><%= link_to app.name, platform_path(app.platform_id) %></td>
               <td>$<%= RunningDatum.where(app_id: app.id).last || 0 %></td>
               <td>
                 <span class="text-success d-flex align-items-center justify-content-start">
@@ -50,8 +50,6 @@
                 </span>
               </td>
               <td><%= link_to 'Show', app %></td>
-              <td><%= link_to 'Edit', edit_app_path(app) %></td>
-              <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
         </tbody>

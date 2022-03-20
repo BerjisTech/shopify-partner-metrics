@@ -16,4 +16,5 @@
 </p>
 
 <%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', apps_path %>
