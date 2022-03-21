@@ -81,8 +81,7 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
 production:
   <<: *default
-  database: metrics_production
-  username: metrics
-  password: <%= ENV['METRICS_DATABASE_PASSWORD'] %>
+  URL: <%= ENV['DATABASE_URL'] %> # metrics_production
