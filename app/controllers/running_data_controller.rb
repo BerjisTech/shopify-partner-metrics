@@ -12,7 +12,7 @@ class RunningDataController < ApplicationController
   def show; end
 
   def test
-    RunningDatum.test_endpoint(params[:app_id])
+    render json: RunningDatum.test_endpoint(params[:app_id])
   end
 
   # GET /running_data/new
