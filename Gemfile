@@ -32,6 +32,8 @@ gem 'money'
 gem 'rubocop'
 gem 'rufo'
 gem 'sendgrid-ruby'
+gem 'sentry-rails'
+gem 'sentry-ruby'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
