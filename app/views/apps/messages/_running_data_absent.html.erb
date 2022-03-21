@@ -10,7 +10,7 @@
             <%= link_to @app.running_data_endpoint %>. 
             There's currently no data so let's get you set up
           </p>
-          <div><%= image_tag 'loader', class: "active_test_running_data_loader", style: "display: none;" %></div>
+          <div><img src='https://miro.medium.com/max/1076/1*Kr0i6XlnHE1-oAx_sNp-hQ.gif' class="active_test_running_data_loader" style="display: none;" /></div>
           <span class="shopify-button px-3 py-2 point_me" data-target="test_running_data" data-path="<%= test_running_data_url(@app.id) %>">Test Running Data Import</span>
           <div></div>
         </div>
