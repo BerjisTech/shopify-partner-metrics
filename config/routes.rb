@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :apps
     resources :businesses
     get 'dashboard', controller: :dashboard, action: :index
-    get 'test/data/running/:app_id', controller: :running_data, action: :test
+    get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data
   end
 
   get 'home/index'

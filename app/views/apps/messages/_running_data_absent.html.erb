@@ -1,7 +1,24 @@
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm-10">
-    <div class="bg-white shadow border rounded p-2"></div>
+    <div class="bg-white shadow border rounded p-4">
+      <div class="row">
+        <div class="col-sm-4 border-end pe-2">
+          <p>
+            <%= @app.app_name.humanize %>
+            has a running data endpoint pointed to 
+            <%= link_to @app.running_data_endpoint %>. 
+            There's currently no data so let's get you set up
+          </p>
+          <span class="shopify-button px-3 py-2 point_me" data-target="test_running_data" data-path="<%= test_running_data_url(@app.id) %>">Test Running Data Import</span>
+        </div>
+        <div class="col-sm-8">
+          <%= render 'apps/data/main_block' %>
+          <div class="my-3"></div>
+          <%= render 'apps/data/plan_block' %>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-sm-1"></div>
 </div>

@@ -1,0 +1,13 @@
+The endpoint should accept GET requests and return a dataset with the following nodes.
+<pre>
+{
+    gross_paying_mrr: 0 #float,
+    gross_trial_mrr: 0 #float,
+    gross_paying_users: 0 #integer,
+    gross_trial_users: 0 #integer,
+    plans: {
+        # Plan data go here
+    }
+}
+</pre>
+Check <%= link_to "our docs", docs_path %> to learnm how to calculate these from your app

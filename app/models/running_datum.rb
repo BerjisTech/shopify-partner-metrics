@@ -50,6 +50,28 @@ class RunningDatum < ApplicationRecord
         message = "#{message} We could not find the Gross paying mrr <code>gross_trial_users</code>, if you don't have or need this just pass it as 0 or nil<br />"
       end
 
+      if data['plans'].present?
+        message = "<br />#{message} <code>plans</code> block found<br />"
+        if data['plans']['plan_paying_users'].present?
+          message = "#{message} <code>plans['plan_paying_users']</code> block found<br />"
+        elsif message = "#{message} <code>plans['plan_paying_users']</code> block found<br />"
+        end
+        if data['plans']['plan_trial_users'].present?
+          message = "#{message} <code>plans['plan_trial_users']</code> block found<br />"
+        elsif message = "#{message} <code>plans['plan_trial_users']</code> block found<br />"
+        end
+        if data['plans']['plan_total_users'].present?
+          message = "#{message} <code>plans['plan_total_users']</code> block found<br />"
+        elsif message = "#{message} <code>plans['plan_total_users']</code> block found<br />"
+        end
+        if data['plans']['plan_price'].present?
+          message = "#{message} <code>plans['plan_price']</code> block found<br />"
+        elsif message = "#{message} <code>plans['plan_price']</code> block found<br />"
+        end
+      else
+        message = "<br />#{message} We could not find the plan block <code>plans</code>, kindly check that the data is correctly set up<br />"
+      end
+
       message
     end
 
