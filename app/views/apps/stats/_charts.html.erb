@@ -1,0 +1,39 @@
+<div class="row overview-charts m-3">
+
+  <div class="col-sm-8">
+    <div class="border rounded px-3 shadow bg-white">
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <span class="revenue_title_text">Revenue last 7 days</span>
+        <span class="flex-grow-1"></span>
+        <div class="dropdown p-3">
+          <select class="form-control fetch_metrics">
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 3 months</option>
+            <option value="180">Last 6 months</option>
+            <option value="365">Last 365 days</option>
+          </select>
+        </div>
+        <span><a class="nav-link" href="/apps">View all apps</a></span>
+      </div>
+      <%= render '/apps/stats/bar' %>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="border rounded px-3 shadow bg-white">
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <span class="revenue_title_text">Revenue last 7 days</span>
+        <span class="flex-grow-1"></span>
+        <div class="dropdown p-3">
+          <select class="form-control fetch_plan_metrics">
+            <option value="draw_plan_users">Plan Users</option>
+            <option value="draw_plan_revenue">Plan Revenue</option>
+          </select>
+        </div>
+      </div>
+      <%= render '/apps/stats/donut' %>
+    </div>
+  </div>
+
+</div>

@@ -71,8 +71,9 @@ a:focus {
 [class*="whole-"],
 [class*="full-"],
 .row {
-    margin : 0px !important;
-    padding: 0px !important;
+    margin-left : 0px !important;
+    margin-right: 0px !important;
+    padding     : 0px !important;
 }
 
 .auto-height {

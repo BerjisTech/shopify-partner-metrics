@@ -1,20 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="border-bottom pb-4">
+      <span class="fs-3"><%= @app.app_name %></span>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>App name:</strong>
-  <%= @app.app_name %>
-</p>
+<%= render '/apps/stats/general' %>
+<%= render '/apps/stats/charts' %>
+<%= render '/apps/stats/running_data' %>
+<%= render '/apps/stats/third_party_data' %>
 
-<p>
-  <strong>User:</strong>
-  <%= @app.user_id %>
-</p>
-
-<p>
-  <strong>Platform:</strong>
-  <%= @app.platform_id %>
-</p>
-
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', apps_path %>
+<% link_to 'Edit', edit_app_path(@app) %>
+<% link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% link_to 'Back', apps_path %>
