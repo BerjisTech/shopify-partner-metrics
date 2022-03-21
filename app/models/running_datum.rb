@@ -13,13 +13,13 @@ class RunningDatum < ApplicationRecord
       when 200
         check_dataset(running_data.body)
       when 404
-        'The link provided points to nowhere. Kindly double check to confirm that it is the correct link'
+        ['The link provided points to nowhere. Kindly double check to confirm that it is the correct link']
       when 500
-        'Something\'s wrong with the data returned. Kindly check that there are no internal errors'
+        ['Something\'s wrong with the data returned. Kindly check that there are no internal errors']
       when 302
-        'Something\'s wrong. Kindly check that the link returns a JSON dataset'
+        ['Something\'s wrong. Kindly check that the link returns a JSON dataset']
       else
-        running_data.status
+        [running_data.status]
       end
     end
 

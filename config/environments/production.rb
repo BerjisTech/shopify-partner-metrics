@@ -119,5 +119,16 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  ActionMailer::Base.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: '587',
+    authentication: :plain,
+    user_name: Rails.application.credentials[:user_name],
+    password: Rails.application.credentials[:password],
+    domain: 'heroku.com',
+    enable_starttls_auto: true
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'ltvmetrics.herokuapp.com', protocol: 'https' }
 end
