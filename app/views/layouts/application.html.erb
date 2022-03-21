@@ -18,7 +18,7 @@
       <%= render 'layouts/nav' %>
       <%= render 'layouts/account_bar' %>
       <div class="main-content">
-        <%- if controller_name == 'apps' %>
+        <%- if action_name == 'show' %>
           <%= yield %>
         <% else%>
           <div class="row">

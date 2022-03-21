@@ -11,6 +11,10 @@ class RunningDataController < ApplicationController
   # GET /running_data/1 or /running_data/1.json
   def show; end
 
+  def test
+    RunningDatum.test_endpoint(params[:app_id])
+  end
+
   # GET /running_data/new
   def new
     @running_datum = RunningDatum.new

@@ -2,7 +2,7 @@
 
   <div class="col-sm-3">
     <div class="border rounded p-3 shadow bg-white">
-      <div class="fs-1">$ 59,809.85</div>
+      <div class="fs-1"><%= App.mrr_at(30.days.ago, @app.id) %></div>
       <hr>
       <div style="font-size: 13px; opacity: 0.6;">Gross MRR 30 Days Ago</div>
     </div>
@@ -10,7 +10,7 @@
 
   <div class="col-sm-3">
     <div class="border rounded p-3 shadow bg-white">
-      <div class="fs-1">$ 61,563.47</div>
+      <div class="fs-1"><%= App.mrr_at(3.months.ago, @app.id) %></div>
       <hr>
       <div style="font-size: 13px; opacity: 0.6;">Gross MRR 3 Months Ago</div>
     </div>
@@ -18,7 +18,7 @@
 
   <div class="col-sm-3">
     <div class="border rounded p-3 shadow bg-white">
-      <div class="fs-1">$ 61,382.31</div>
+      <div class="fs-1"><%= App.mrr_at(6.months.ago, @app.id) %></div>
       <hr>
       <div style="font-size: 13px; opacity: 0.6;">Gross MRR 6 Months Ago</div>
     </div>
@@ -26,7 +26,7 @@
 
   <div class="col-sm-3">
     <div class="border rounded p-3 shadow bg-white">
-      <div class="fs-1">$ 0.00</div>
+      <div class="fs-1"><%= App.mrr_at(12.months.ago, @app.id) %></div>
       <hr>
       <div style="font-size: 13px; opacity: 0.6;">Gross MRR 12 Months Ago</div>
     </div>

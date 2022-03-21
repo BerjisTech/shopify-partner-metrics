@@ -7,7 +7,7 @@
       </div>
       <div class="d-flex flex-column">
         <span>Paying Revenue</span>
-        <span class="fs-1">$59,497.72</span>
+        <span class="fs-1"><%= App.latest_gross_paying_mrr(@app.id) %></span>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="d-flex flex-column">
         <span>Trial Revenue</span>
-        <span class="fs-1">$2,154.20</span>
+        <span class="fs-1"><%= App.latest_gross_trial_mrr(@app.id) %></span>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="d-flex flex-column">
         <span>Total Users</span>
-        <span class="fs-1">3,833</span>
+        <span class="fs-1"><%= App.latest_total_users(@app.id) %></span>
         <span></span>
       </div>
     </div>
@@ -44,7 +44,7 @@
       </div>
       <div class="d-flex flex-column">
         <span>Average Revenue Per User</span>
-        <span class="fs-1">$ 15.32</span>
+        <span class="fs-1"><%= App.latest_arpu(@app.id) %></span>
         <span></span>
       </div>
     </div>

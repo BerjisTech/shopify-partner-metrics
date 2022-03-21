@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeDataRoundsType < ActiveRecord::Migration[6.1]
   def change
     remove_column :apps, :data_rounds

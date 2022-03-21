@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :platforms
-  resources :industries
-  resources :app_plans
-  resources :plan_data
-  resources :running_data
-  resources :third_party_apis
-  resources :apps
-  resources :businesses
-  get 'dashboard', controller: :dashboard, action: :index
+  authenticated :user do
+    resources :platforms
+    resources :industries
+    resources :app_plans
+    resources :plan_data
+    resources :running_data
+    resources :third_party_apis
+    resources :apps
+    resources :businesses
+    get 'dashboard', controller: :dashboard, action: :index
+    get 'test/data/running/:app_id', controller: :running_data, action: :test
+  end
 
   get 'home/index'
   get 'home/about'
