@@ -10,36 +10,55 @@
       </ul>
     </div>
   <% end %>
+  <div class="spacer clearfix mt-5"></div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
+        <span class="fs-2">API Details</span>
+        <span class="fs-6">You can get these details from your platform's settings page or developer settings page.</span>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="border rounded bg-white p-4 shadow">
+        <div class="field form-floating">
+          <%= form.select :app_id, options_from_collection_for_select(App.where(user_id: current_user.id), :id, :app_name), {}, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :app_id %>
+        </div>
 
-  <div class="field">
-    <%= form.label :platform_id %>
-    <%= form.text_field :platform_id %>
-  </div>
+        <div class="field form-floating">
+          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {}, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :platform_id %>
+        </div>
 
-  <div class="field">
-    <%= form.label :api_key %>
-    <%= form.text_area :api_key %>
-  </div>
+        <div class="field form-floating">
+          <%= form.text_field :api_key, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :api_key %>
+        </div>
 
-  <div class="field">
-    <%= form.label :api_secret %>
-    <%= form.text_area :api_secret %>
-  </div>
+        <div class="field form-floating">
+          <%= form.text_field :api_secret, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :api_secret %>
+        </div>
 
-  <div class="field">
-    <%= form.label :secondary_api_key %>
-    <%= form.text_area :secondary_api_key %>
-  </div>
+        <div class="field form-floating">
+          <%= form.text_field :secondary_api_key, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :secondary_api_key %>
+        </div>
 
-  <div class="field">
-    <%= form.label :secondary_api_secret %>
-    <%= form.text_area :secondary_api_secret %>
+        <div class="field form-floating">
+          <%= form.text_field :secondary_api_secret, class: "form-control", placeholder: "Placeholder" %>
+          <%= form.label :secondary_api_secret %>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-12 my-5 border-bottom"></div>
   </div>
 
   <div class="row">
     <div class="col-sm-12 mb-5">
       <div class="actions whole-width text-end">
-        <%= form.submit class: "shopify-button" %>
+        <%= form.submit class: "shopify-button btn-lg" %>
       </div>
     </div>
   </div>

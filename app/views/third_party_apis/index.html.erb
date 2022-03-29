@@ -1,35 +1,53 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <h1>Connected Platforms</h1>
+      </div>
+      <div>
+        <%= link_to "Connect new platform", new_third_party_api_path, class: "shopify-button px-5 py-2" %>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4"></div>
+  <div class="col-sm-12">
+    <div class="input-group shadow rounded">
+      <input type="text" class="form-control" placeholder="Search for ApI Key" />
+      <span class="point_me search-button d-flex align-items-center justify-content-center px-5 border rounded" search_for="business">Search</span>
+    </div>
+  </div>
+  <div class="mt-4"></div>
+  <div class="col-sm-12">
+    <div class="border rounded bg-white">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Platform</th>
+            <th>Api key</th>
+            <th>Api secret</th>
+            <th>Secondary api key</th>
+            <th>Secondary api secret</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-<h1>Third Party Apis</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Platform</th>
-      <th>Api key</th>
-      <th>Api secret</th>
-      <th>Secondary api key</th>
-      <th>Secondary api secret</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @third_party_apis.each do |third_party_api| %>
-      <tr>
-        <td><%= third_party_api.platform_id %></td>
-        <td><%= third_party_api.api_key %></td>
-        <td><%= third_party_api.api_secret %></td>
-        <td><%= third_party_api.secondary_api_key %></td>
-        <td><%= third_party_api.secondary_api_secret %></td>
-        <td><%= link_to 'Show', third_party_api %></td>
-        <td><%= link_to 'Edit', edit_third_party_api_path(third_party_api) %></td>
-        <td><%= link_to 'Destroy', third_party_api, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Third Party Api', new_third_party_api_path %>
+        <tbody>
+          <% @third_party_apis.each do |third_party_api| %>
+            <tr>
+              <td><%= third_party_api.app_name %></td>
+              <td><%= third_party_api.platform_name %></td>
+              <td><%= third_party_api.api_key %></td>
+              <td><%= third_party_api.api_secret %></td>
+              <td><%= third_party_api.secondary_api_key %></td>
+              <td><%= third_party_api.secondary_api_secret %></td>
+              <td><% link_to 'Show', third_party_api %></td>
+              <td><%= link_to 'Edit', edit_third_party_api_path(third_party_api) %></td>
+              <td><%= link_to 'Destroy', third_party_api, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

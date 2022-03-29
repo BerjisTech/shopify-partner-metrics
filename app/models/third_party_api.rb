@@ -2,4 +2,5 @@
 
 class ThirdPartyApi < ApplicationRecord
   belongs_to :app
+  belongs_to :platform
 end
