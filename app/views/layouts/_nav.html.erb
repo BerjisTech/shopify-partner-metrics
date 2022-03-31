@@ -6,6 +6,42 @@
       <img src="https://images.squarespace-cdn.com/content/v1/575a6067b654f9b902f452f4/1552683653140-0UUVQSSUEWVC73AWAEQG/300Logo.png" class="whole-height">
     </div>
   </div>
-  <div class="nav-body"></div>
+  <div class="nav-body">
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+      <li>
+        <%= link_to dashboard_path, class: "nav-link px-0 d-flex align-items-center justify-content-start" do %>
+          <span class="material-icons px-4">dashboard</span> Dasboard
+        <% end %>
+      </li>
+      <li>
+        <%= link_to businesses_path, class: "nav-link px-0 d-flex align-items-center justify-content-start" do %>
+          <span class="material-icons px-4">business</span> Businesses
+        <% end %>
+      </li>
+      <li>
+        <%= link_to apps_path, class: "nav-link px-0 d-flex align-items-center justify-content-start" do %>
+          <span class="material-icons px-4">widgets</span> Apps
+        <% end %>
+      </li>
+      <li>
+        <%= link_to platforms_path, class: "nav-link px-0 d-flex align-items-center justify-content-start" do %>
+          <span class="material-icons px-4">api</span> Platforms
+        <% end %>
+      </li>
+      <li>
+        <a href="#submenu" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center justify-content-start">
+          <span class="material-icons px-4">insights</span> Metrics 
+        </a>
+        <ul class="collapse nav flex-column ms-1" id="submenu" data-bs-parent="#menu">
+          <li class="w-100">
+            <a href="#" class="nav-link px-5"> <span class="d-none d-sm-inline">Customers</span> 1</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-5"> <span class="d-none d-sm-inline">Revenue</span> 2</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
   <div class="nav-footer border-top"></div>
 </div>

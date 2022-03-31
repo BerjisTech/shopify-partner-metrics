@@ -12,7 +12,8 @@ class RunningMetric < ApplicationRecord
       if errors.size.positive?
         errors
       else
-        save_data(data, app_id)
+        save_metric_data(data[:metrics], app_id)
+        save_metric_data(data[:plans], app_id)
       end
     end
 
@@ -25,9 +26,24 @@ class RunningMetric < ApplicationRecord
       errors
     end
 
-    def save_data(data, app_id)
-      runningmetric = RunningMetric.create({ app_id: app_id })
-      runningmetric.update(data)
+    def save_metric_data(data, app_id)
+      running_metric = RunningMetric.create({ app_id: app_id })
+      running_metric.update(data)
     end
+
+    def save_plan_data(data, app_id)
+      app_plan = AppPlan.create_with(data, app_id)
+      RunningMetric.create({
+                             app_id: app_id,
+                             plan_id: app_plan.id,
+                             plan_paying_users: data['plan_paying_users'],
+                             plan_trial_users: data['plan_trial_users'],
+                             plan_total_users: data['plan_total_users']
+                           })
+    end
+
+    def calculate_user_churn(app_id); end
+    def calculate_mrr_churn(app_id); end
+    def calculate_arpu_churn(app_id); end
   end
 end
