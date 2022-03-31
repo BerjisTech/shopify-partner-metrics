@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateExternalMetrics < ActiveRecord::Migration[6.1]
   def change
     create_table :external_metrics, id: :uuid do |t|

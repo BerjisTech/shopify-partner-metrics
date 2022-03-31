@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRunningMetrics < ActiveRecord::Migration[6.1]
   def change
     create_table :running_metrics, id: :uuid do |t|

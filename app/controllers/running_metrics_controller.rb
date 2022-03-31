@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RunningMetricsController < ApplicationController
-  before_action :set_running_metric, only: %i[ show edit update destroy ]
+  before_action :set_running_metric, only: %i[show edit update destroy]
 
   # GET /running_metrics or /running_metrics.json
   def index
@@ -7,8 +9,7 @@ class RunningMetricsController < ApplicationController
   end
 
   # GET /running_metrics/1 or /running_metrics/1.json
-  def show
-  end
+  def show; end
 
   # GET /running_metrics/new
   def new
@@ -16,8 +17,7 @@ class RunningMetricsController < ApplicationController
   end
 
   # GET /running_metrics/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /running_metrics or /running_metrics.json
   def create
@@ -25,7 +25,9 @@ class RunningMetricsController < ApplicationController
 
     respond_to do |format|
       if @running_metric.save
-        format.html { redirect_to running_metric_url(@running_metric), notice: "Running metric was successfully created." }
+        format.html do
+          redirect_to running_metric_url(@running_metric), notice: 'Running metric was successfully created.'
+        end
         format.json { render :show, status: :created, location: @running_metric }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,9 @@ class RunningMetricsController < ApplicationController
   def update
     respond_to do |format|
       if @running_metric.update(running_metric_params)
-        format.html { redirect_to running_metric_url(@running_metric), notice: "Running metric was successfully updated." }
+        format.html do
+          redirect_to running_metric_url(@running_metric), notice: 'Running metric was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @running_metric }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,21 @@ class RunningMetricsController < ApplicationController
     @running_metric.destroy
 
     respond_to do |format|
-      format.html { redirect_to running_metrics_url, notice: "Running metric was successfully destroyed." }
+      format.html { redirect_to running_metrics_url, notice: 'Running metric was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_running_metric
-      @running_metric = RunningMetric.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def running_metric_params
-      params.require(:running_metric).permit(:app_id, :gross, :trial, :paying_users, :trial_users, :mrr_chrun, :user_churn, :arpu)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_running_metric
+    @running_metric = RunningMetric.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def running_metric_params
+    params.require(:running_metric).permit(:app_id, :gross, :trial, :paying_users, :trial_users, :mrr_chrun,
+                                           :user_churn, :arpu)
+  end
 end
