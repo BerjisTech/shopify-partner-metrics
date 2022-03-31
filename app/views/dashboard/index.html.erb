@@ -1,8 +1,25 @@
-<%= render 'dashboard/stats/general' %>
-<div class="mt-4"></div>
-<%- if App.mine(current_user.id).nil? %>
-  <%= render 'dashboard/stats/one_app' %>
-<% else %>
-  <%= render 'dashboard/stats/multiple_apps' %>
+<%- if App.mine(current_user.id).blank? %>
+  <%= render 'dashboard/messages/no_app' %>
+<%- else %>
+  <% # RUNNING METRICS %>
+  <%- if @running_metrics.blank? %>
+    <%= render 'dashboard/messages/no_running_metrics' %>
+  <%- else %>
+    <%= render 'dashboard/stats/general' %>
+    <div class="mt-4"></div>
+    <%- if App.mine(current_user.id).nil? %>
+      <%= render 'dashboard/stats/one_app' %>
+    <% else %>
+      <%= render 'dashboard/stats/multiple_apps' %>
+    <% end %>
+    <div class="mt-4"></div>
+  <% end %>
+
+  <% # EXTERNAL METRICS %>
+  <%- if @external_metrics.blank? %>
+    <%= render 'dashboard/messages/no_external_metrics' %>
+  <%- else %>
+    <%= render 'dashboard/stats/external' %>
+  <% end %>
+
 <% end %>
-<div class="mt-4"></div>

@@ -1,0 +1,2 @@
+class ExternalMetric < ApplicationRecord
+end

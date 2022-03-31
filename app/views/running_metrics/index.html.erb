@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Running Metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Gross</th>
+      <th>Trial</th>
+      <th>Paying users</th>
+      <th>Trial users</th>
+      <th>Mrr chrun</th>
+      <th>User churn</th>
+      <th>Arpu</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @running_metrics.each do |running_metric| %>
+      <tr>
+        <td><%= running_metric.app_id %></td>
+        <td><%= running_metric.gross %></td>
+        <td><%= running_metric.trial %></td>
+        <td><%= running_metric.paying_users %></td>
+        <td><%= running_metric.trial_users %></td>
+        <td><%= running_metric.mrr_chrun %></td>
+        <td><%= running_metric.user_churn %></td>
+        <td><%= running_metric.arpu %></td>
+        <td><%= link_to 'Show', running_metric %></td>
+        <td><%= link_to 'Edit', edit_running_metric_path(running_metric) %></td>
+        <td><%= link_to 'Destroy', running_metric, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Running Metric', new_running_metric_path %>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :running_metrics
+  resources :external_metrics
   authenticated :user do
     resources :platforms
     resources :industries

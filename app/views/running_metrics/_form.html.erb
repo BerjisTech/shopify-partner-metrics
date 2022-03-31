@@ -1,0 +1,57 @@
+<%= form_with(model: running_metric) do |form| %>
+  <% if running_metric.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(running_metric.errors.count, "error") %> prohibited this running_metric from being saved:</h2>
+
+      <ul>
+        <% running_metric.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :app_id %>
+    <%= form.text_field :app_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gross %>
+    <%= form.text_field :gross %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trial %>
+    <%= form.text_field :trial %>
+  </div>
+
+  <div class="field">
+    <%= form.label :paying_users %>
+    <%= form.number_field :paying_users %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trial_users %>
+    <%= form.number_field :trial_users %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mrr_chrun %>
+    <%= form.text_field :mrr_chrun %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_churn %>
+    <%= form.text_field :user_churn %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arpu %>
+    <%= form.text_field :arpu %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

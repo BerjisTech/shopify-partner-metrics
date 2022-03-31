@@ -5,7 +5,8 @@ class ThirdPartyApisController < ApplicationController
 
   # GET /third_party_apis or /third_party_apis.json
   def index
-    @third_party_apis = ThirdPartyApi.joins(:app).joins(:platform).where('apps.user_id' => current_user.id).select(:id, :app_name, 'platforms.name as platform_name', :api_key, :api_secret, :secondary_api_key, :secondary_api_secret)
+    @third_party_apis = ThirdPartyApi.joins(:app).joins(:platform).where('apps.user_id' => current_user.id).select(:id,
+                                                                                                                   :app_name, 'platforms.name as platform_name', :api_key, :api_secret, :secondary_api_key, :secondary_api_secret)
   end
 
   # GET /third_party_apis/1 or /third_party_apis/1.json

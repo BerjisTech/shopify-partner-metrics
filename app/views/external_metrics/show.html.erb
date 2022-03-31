@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @external_metric.app_id %>
+</p>
+
+<p>
+  <strong>Gross:</strong>
+  <%= @external_metric.gross %>
+</p>
+
+<p>
+  <strong>Net:</strong>
+  <%= @external_metric.net %>
+</p>
+
+<p>
+  <strong>Trial:</strong>
+  <%= @external_metric.trial %>
+</p>
+
+<p>
+  <strong>Paying users:</strong>
+  <%= @external_metric.paying_users %>
+</p>
+
+<p>
+  <strong>Trial users:</strong>
+  <%= @external_metric.trial_users %>
+</p>
+
+<p>
+  <strong>New users:</strong>
+  <%= @external_metric.new_users %>
+</p>
+
+<p>
+  <strong>Lost users:</strong>
+  <%= @external_metric.lost_users %>
+</p>
+
+<p>
+  <strong>Mrr chrun:</strong>
+  <%= @external_metric.mrr_chrun %>
+</p>
+
+<p>
+  <strong>User churn:</strong>
+  <%= @external_metric.user_churn %>
+</p>
+
+<p>
+  <strong>Arpu:</strong>
+  <%= @external_metric.arpu %>
+</p>
+
+<%= link_to 'Edit', edit_external_metric_path(@external_metric) %> |
+<%= link_to 'Back', external_metrics_path %>

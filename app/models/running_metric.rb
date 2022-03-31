@@ -1,0 +1,2 @@
+class RunningMetric < ApplicationRecord
+end

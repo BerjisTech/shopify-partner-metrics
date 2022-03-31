@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @running_metric.app_id %>
+</p>
+
+<p>
+  <strong>Gross:</strong>
+  <%= @running_metric.gross %>
+</p>
+
+<p>
+  <strong>Trial:</strong>
+  <%= @running_metric.trial %>
+</p>
+
+<p>
+  <strong>Paying users:</strong>
+  <%= @running_metric.paying_users %>
+</p>
+
+<p>
+  <strong>Trial users:</strong>
+  <%= @running_metric.trial_users %>
+</p>
+
+<p>
+  <strong>Mrr chrun:</strong>
+  <%= @running_metric.mrr_chrun %>
+</p>
+
+<p>
+  <strong>User churn:</strong>
+  <%= @running_metric.user_churn %>
+</p>
+
+<p>
+  <strong>Arpu:</strong>
+  <%= @running_metric.arpu %>
+</p>
+
+<%= link_to 'Edit', edit_running_metric_path(@running_metric) %> |
+<%= link_to 'Back', running_metrics_path %>

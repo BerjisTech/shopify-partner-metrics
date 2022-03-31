@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_id: 
+  gross: 1.5
+  trial: 1.5
+  paying_users: 1
+  trial_users: 1
+  mrr_chrun: 1.5
+  user_churn: 1.5
+  arpu: 1.5
+
+two:
+  app_id: 
+  gross: 1.5
+  trial: 1.5
+  paying_users: 1
+  trial_users: 1
+  mrr_chrun: 1.5
+  user_churn: 1.5
+  arpu: 1.5
