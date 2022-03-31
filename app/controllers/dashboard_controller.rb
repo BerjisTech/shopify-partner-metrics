@@ -6,24 +6,21 @@ class DashboardController < ApplicationController
   def index
     @running_metrics = running_metrics
     @external_metrics = external_metrics
+
+    render json: StripeImport.start_importer(App.first.id)
   end
 
   def running_metrics
-    @data_keys = %w[
-      January
-      February
-      March
-      April
-      May
-      June
-    ]
-    @data_values = [0, 10, 5, 2, 20, 30, 45]
+    data_keys = {}
+    data_values = {}
+    { keys: data_keys, values: data_values }
   end
 
   def external_metrics
-    data = ExternalMetrics.where
-    data_keys =
-      data_values = [0, 10, 5, 2, 20, 30, 45]
-    { keys: data_keys, values: values }
+    data = App.mine(current_user.id).joins(:external_metrics).where('external_metrics.created_at > ?',
+                                                                    7.days.ago).order('external_metrics.created_at DESC')
+    data_keys = {}
+    data_values = {}
+    { keys: data_keys, values: data_values }
   end
 end

@@ -5,6 +5,8 @@ class App < ApplicationRecord
   has_many :third_party_apis
   has_many :plan_data
   has_many :running_data
+  has_many :external_metrics
+  has_many :running_metrics
 
   belongs_to :business
   belongs_to :platform

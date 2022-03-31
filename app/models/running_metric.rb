@@ -26,8 +26,8 @@ class RunningMetric < ApplicationRecord
     end
 
     def save_data(data, app_id)
-        runningmetric = RunningMetric.create({app_id: app_id})
-        runningmetric.update(data)
+      runningmetric = RunningMetric.create({ app_id: app_id })
+      runningmetric.update(data)
     end
   end
 end
