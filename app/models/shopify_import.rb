@@ -8,6 +8,9 @@ class ShopifyImport < ApplicationRecord
       data = pick_importer(api, data_set, time, '')
 
       # process_data(data, app_id, time)
+      edges = data.data['app']['events']['edges']
+      edges.select{|i,v| i['node']['type'] == 'RELATIONSHIP_UNINSTALLED'}
+      
     end
 
     def pick_importer(api, data_set, time, cursor)
@@ -24,7 +27,7 @@ class ShopifyImport < ApplicationRecord
         'Content-Type': 'application/graphql',
         'X-Shopify-Access-Token': api.api_key
       }
-      Faraday.post(path, body, header).body
+      OpenStruct.new JSON.parse(Faraday.post(path, body, header).body)
     end
   end
 end
