@@ -3,7 +3,7 @@
 class StripeImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Stripe').id
   class << self
-    def start_importer(app_id)
+    def start_importer(app_id, time)
       api = ThirdPartyApi.find_by(app_id: app_id, platform_id: PLATFORM)
       secret = api.api_secret
       format_data(secret, time, '', [])

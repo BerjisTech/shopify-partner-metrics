@@ -33,7 +33,7 @@ class AppsController < ApplicationController
     respond_to do |format|
       if @app.save
         ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
-                                        api_secret: params[:app][:api_secret], platform_id: @app.platform_id)
+                                        api_secret: params[:app][:api_secret], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
 
         format.html { redirect_to app_url(@app), notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
@@ -48,6 +48,22 @@ class AppsController < ApplicationController
   def update
     respond_to do |format|
       if @app.update(app_params)
+        if params[:app][:api_key].present?
+          ThirdPartyApi.where(app_id: @app.id,
+                              platform_id: app_params[:platform_id]).update_all(api_key: params[:app][:api_key])
+        end
+        if params[:app][:apisecrety].present?
+          ThirdPartyApi.where(app_id: @app.id,
+                              platform_id: app_params[:platform_id]).update_all(api_secret: params[:app][:api_secret])
+        end
+        if params[:app][:app_code].present?
+          ThirdPartyApi.where(app_id: @app.id,
+                              platform_id: app_params[:platform_id]).update_all(app_code: params[:app][:app_code])
+        end
+        if params[:app][:partner_id].present?
+          ThirdPartyApi.where(app_id: @app.id,
+                              platform_id: app_params[:platform_id]).update_all(partner_id: params[:app][:partner_id])
+        end
         format.html { redirect_to app_url(@app), notice: 'App was successfully updated.' }
         format.json { render :show, status: :ok, location: @app }
       else

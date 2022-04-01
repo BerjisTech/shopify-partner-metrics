@@ -87,5 +87,6 @@ Rails.application.configure do
   }
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000, https://lordsombo.ngrok.io' }
+  config.hosts = 'localhost:3000', 'lordsombo.ngrok.io', '127.0.0.1'
 end

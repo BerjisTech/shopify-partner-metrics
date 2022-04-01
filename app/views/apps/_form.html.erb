@@ -11,17 +11,6 @@
     </div>
   <% end %>
 
-  <%- if @app.present? && ThirdPartyApi.find_by(app_id: @app.id).present?
-    api = ThirdPartyApi.find_by(app_id: @app.id)
-    api_key = api.api_key
-    api_secret = api.api_secret
-    business = @app.business_id
-  else
-    api_key = ''
-    api_secret = ''
-    business = ''
-  end %>
-
   <div class="spacer clearfix mt-5"></div>
   <div class="row">
     <div class="col-sm-4">
@@ -44,7 +33,7 @@
 
         <div class="field m-3">
           <%= form.label :business_id %>
-          <%= form.select :business_id, options_from_collection_for_select(Business.all, :id, :business_name), {}, class: "form-control my-2", required: "required", value: business  %>
+          <%= form.select :business_id, options_from_collection_for_select(Business.all, :id, :business_name), {}, class: "form-control my-2", required: "required" %>
         </div>
 
       </div>
@@ -76,11 +65,19 @@
         </div>
         <div class="field m-3">
           <%= form.label :api_key %>
-          <%= form.text_field "api_key", class: "form-control my-2", required: "required", value: api_key %>
+          <%= form.text_field "api_key", class: "form-control my-2", required: "required" %>
         </div>
         <div class="field m-3">
           <%= form.label :api_secret %>
-          <%= form.text_field "api_secret", class: "form-control my-2", required: "required", value: api_secret  %>
+          <%= form.text_field "api_secret", class: "form-control my-2", required: "required" %>
+        </div>
+        <div class="field m-3 shopify_extras">
+          <%= form.label :app_code %>
+          <%= form.text_field "app_code", class: "form-control my-2", required: "required" %>
+        </div>
+        <div class="field m-3 shopify_extras">
+          <%= form.label :partner_id %>
+          <%= form.text_field "partner_id", class: "form-control my-2", required: "required" %>
         </div>
       </div>
     </div>
