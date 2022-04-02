@@ -38,5 +38,30 @@ class ShopifyUser < ApplicationRecord
             }
         }"
     end
+
+    def process_data(data)
+      {
+        new_subscriptions: total_installs(data),
+        closed_subscription: total_uninstalls(data),
+        deactivations: total_deactivations(data),
+        reactivations: total_reactivations(data)
+      }
+    end
+
+    def total_installs(processed_data)
+      installs = processed_data.select { |i| i['node']['type'] == 'RELATIONSHIP_INSTALLED' }.size
+    end
+
+    def total_uninstalls(processed_data)
+      uninstalls = processed_data.select { |i| i['node']['type'] == 'RELATIONSHIP_UNINSTALLED' }.size
+    end
+
+    def total_deactivations(processed_data)
+      deactivations = processed_data.select { |i| i['node']['type']  == 'RELATIONSHIP_DEACTIVATED' }.size
+    end
+
+    def total_reactivations(processed_data)
+      reactivations = processed_data.select { |i| i['node']['type']  == 'RELATIONSHIP_REACTIVATED' }.size
+    end
   end
 end

@@ -6,9 +6,6 @@ class DashboardController < ApplicationController
   def index
     @running_metrics = running_metrics
     @external_metrics = external_metrics
-
-    render json: ShopifyImport.start_importer(App.first.id,
-                                              { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'user')
   end
 
   def running_metrics

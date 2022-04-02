@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class PrintShitJobTest < ActiveJob::TestCase
+class DataImporterJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

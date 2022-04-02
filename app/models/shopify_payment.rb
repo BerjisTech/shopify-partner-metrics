@@ -70,5 +70,42 @@ class ShopifyPayment < ApplicationRecord
             }
         }"
     end
+
+    def process_data(data)
+      {
+        dailies: calculate_daily_financials(data),
+        totals: calculate_net_mrr(data)
+      }
+    end
+
+    def calculate_daily_financials(processed_data)
+      recurring = processed_data.filter do |i|
+                    i['node']['id'].include?('gid://partners/AppUsageSale/')
+                  end.sum { |i| i['node']['netAmount']['amount'].to_f }
+      one_time = processed_data.filter do |i|
+                   i['node']['id'].include?('gid://partners/AppSubscriptionSale/')
+                 end.sum { |i| i['node']['netAmount']['amount'].to_f }
+      refund = processed_data.filter do |i|
+                 i['node']['id'].include?('gid://partners/AppSaleAdjustment/')
+               end.sum { |i| i['node']['netAmount']['amount'].to_f }
+
+      {
+        recurring_revenue: recurring,
+        one_time_charge: one_time,
+        refunds: refund
+      }
+    end
+
+    def calculate_net_mrr(processed_data)
+      total = processed_data.sum { |i| i['node']['netAmount']['amount'].to_f }
+
+      refund = processed_data.filter do |i|
+                 i['node']['id'].include?('gid://partners/AppSaleAdjustment/')
+               end.sum { |i| i['node']['netAmount']['amount'].to_f }
+      {
+        mrr: total,
+        net_revenue: (total - refund)
+      }
+    end
   end
 end

@@ -8,9 +8,9 @@ class ShopifyImport < ApplicationRecord
       data = pick_importer(api, data_set, time, '')
 
       # process_data(data, app_id, time)
-      edges = data.data['app']['events']['edges']
-      edges.select{|i,v| i['node']['type'] == 'RELATIONSHIP_UNINSTALLED'}
-      
+      records = OpenStruct.new data.data
+
+      process(records, data_set)
     end
 
     def pick_importer(api, data_set, time, cursor)
@@ -27,7 +27,17 @@ class ShopifyImport < ApplicationRecord
         'Content-Type': 'application/graphql',
         'X-Shopify-Access-Token': api.api_key
       }
-      OpenStruct.new JSON.parse(Faraday.post(path, body, header).body)
+      data = OpenStruct.new JSON.parse(Faraday.post(path, body, header).body)
+    end
+
+    def process(records, data_set)
+      results = if data_set == 'user'
+                  ShopifyUser.process_data(records.events['edges'])
+                else
+                  ShopifyPayment.process_data(records.transactions['edges'])
+                end
+
+      # append_extras(results['edges']) if results['pageInfo']['hasNextPage']
     end
   end
 end

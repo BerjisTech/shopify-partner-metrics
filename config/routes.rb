@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :businesses
     get 'dashboard', controller: :dashboard, action: :index
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data
+    get 'import/shopify/:data_set', controller: :importer, action: :shopify
   end
 
   get 'home/index'
