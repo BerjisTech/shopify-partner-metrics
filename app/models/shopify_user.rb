@@ -3,7 +3,7 @@
 class ShopifyUser < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
   class << self
-    def data(api, time, cursor)
+    def gql_data(api, time, cursor)
       "
         {
             app(id: \"gid://partners/App/#{api.app_code}\") {

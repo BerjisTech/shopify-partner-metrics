@@ -5,7 +5,6 @@ class ShopifyImport < ApplicationRecord
 
   class << self
     def start_importer(app_id, time, data_set, cursor)
-      p "\n\n\n\n\nCursor is #{cursor}\n\n\n\n\n\n"
       api = ThirdPartyApi.find_by(app_id: app_id, platform_id: PLATFORM)
       data = pick_importer(api, data_set, time, cursor)
 
@@ -17,9 +16,9 @@ class ShopifyImport < ApplicationRecord
 
     def pick_importer(api, data_set, time, cursor)
       if data_set == 'user'
-        data_importer(api, ShopifyUser.data(api, time, cursor))
+        data_importer(api, ShopifyUser.gql_data(api, time, cursor))
       else
-        data_importer(api, ShopifyPayment.data(time, cursor))
+        data_importer(api, ShopifyPayment.gql_data(time, cursor))
       end
     end
 
@@ -43,7 +42,7 @@ class ShopifyImport < ApplicationRecord
       final_data_set = if data_set == 'user'
                          ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
                        else
-                         ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor)
+                         ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor, data_set)
                        end
 
       start_importer(app_id, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']

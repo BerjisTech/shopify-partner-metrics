@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_402_014_939) do
+ActiveRecord::Schema.define(version: 20_220_402_022_450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -65,6 +65,10 @@ ActiveRecord::Schema.define(version: 20_220_402_014_939) do
     t.integer 'deactivations'
     t.integer 'reactivations'
     t.datetime 'date'
+    t.float 'recurring_revenue'
+    t.float 'one_time_charge'
+    t.float 'refunds'
+    t.float 'arr'
   end
 
   create_table 'industries', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
