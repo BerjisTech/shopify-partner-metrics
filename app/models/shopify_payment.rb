@@ -71,11 +71,12 @@ class ShopifyPayment < ApplicationRecord
         }"
     end
 
-    def process_data(data)
+    def process_data(data, app_id, date)
       {
         dailies: calculate_daily_financials(data),
         totals: calculate_net_mrr(data)
       }
+      external_metric = ExternalMetric.find_or_create_by(app_id: app_id, date: date.to_date.strftime('%d-%m-%Y'))
     end
 
     def calculate_daily_financials(processed_data)

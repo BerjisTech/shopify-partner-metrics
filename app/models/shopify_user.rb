@@ -39,13 +39,17 @@ class ShopifyUser < ApplicationRecord
         }"
     end
 
-    def process_data(data)
-      {
-        new_subscriptions: total_installs(data),
-        closed_subscription: total_uninstalls(data),
-        deactivations: total_deactivations(data),
-        reactivations: total_reactivations(data)
-      }
+    def process_data(data, app_id, date, platform, cursor)
+      external_metric = ExternalMetric.find_or_create_by(app_id: app_id, platform_id: platform,
+                                                         date: date.to_date.strftime('%d-%m-%Y'))
+
+      clear(external_metric) if cursor == ''
+
+      updates = update_data(external_metric, data)
+
+      external_metric.update(
+        updates
+      )
     end
 
     def total_installs(processed_data)
@@ -62,6 +66,24 @@ class ShopifyUser < ApplicationRecord
 
     def total_reactivations(processed_data)
       reactivations = processed_data.select { |i| i['node']['type']  == 'RELATIONSHIP_REACTIVATED' }.size
+    end
+
+    def update_data(external_metric, data)
+      {
+        new_users: (external_metric.new_users || 0) + total_installs(data),
+        lost_users: (external_metric.lost_users || 0) + total_uninstalls(data),
+        deactivations: (external_metric.deactivations || 0) + total_deactivations(data),
+        reactivations: (external_metric.reactivations || 0) + total_reactivations(data)
+      }
+    end
+
+    def clear(external_metric)
+      external_metric.update({
+                               new_users: 0,
+                               lost_users: 0,
+                               deactivations: 0,
+                               reactivations: 0
+                             })
     end
   end
 end

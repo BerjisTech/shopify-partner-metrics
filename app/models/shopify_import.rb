@@ -2,15 +2,17 @@
 
 class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
+
   class << self
-    def start_importer(app_id, time, data_set)
+    def start_importer(app_id, time, data_set, cursor)
+      p "\n\n\n\n\nCursor is #{cursor}\n\n\n\n\n\n"
       api = ThirdPartyApi.find_by(app_id: app_id, platform_id: PLATFORM)
-      data = pick_importer(api, data_set, time, '')
+      data = pick_importer(api, data_set, time, cursor)
 
       # process_data(data, app_id, time)
       records = OpenStruct.new data.data
 
-      process(records, data_set)
+      process(app_id, time, records, data_set, cursor)
     end
 
     def pick_importer(api, data_set, time, cursor)
@@ -30,14 +32,23 @@ class ShopifyImport < ApplicationRecord
       data = OpenStruct.new JSON.parse(Faraday.post(path, body, header).body)
     end
 
-    def process(records, data_set)
+    def process(app_id, time, records, data_set, cursor)
       results = if data_set == 'user'
-                  ShopifyUser.process_data(records.events['edges'])
+                  records.app['events']
                 else
-                  ShopifyPayment.process_data(records.transactions['edges'])
+                  records.transactions
                 end
+      edges = results['edges']
 
-      # append_extras(results['edges']) if results['pageInfo']['hasNextPage']
+      final_data_set = if data_set == 'user'
+                         ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
+                       else
+                         ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor)
+                       end
+
+      start_importer(app_id, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']
+
+      ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))
     end
   end
 end

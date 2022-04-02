@@ -70,7 +70,7 @@ class ExternalMetricsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def external_metric_params
-    params.require(:external_metric).permit(:app_id, :gross, :net, :trial, :paying_users, :trial_users, :new_users,
-                                            :lost_users, :mrr_chrun, :user_churn, :arpu)
+    params.require(:external_metric).permit(:app_id, :gross, :net, :trial, :paying_users, :trial_users, :new_users, :deactivations, :date,
+                                            :reactivations, :lost_users, :mrr_chrun, :user_churn, :arpu)
   end
 end
