@@ -164,3 +164,13 @@ pre {
         border-color    : #CA1717 !important;
     }
 }
+
+.override-info {
+    background-color: #93CAED !important;
+    border-color    : #93CAED !important;
+
+    &:hover {
+        background-color: #5AB4E1 !important;
+        border-color    : #5AB4E1 !important;
+    }
+}

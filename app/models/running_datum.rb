@@ -8,25 +8,33 @@ class RunningDatum < ApplicationRecord
       endpoint = App.find(app_id).running_data_endpoint
 
       running_data = get_data(endpoint)
+      
+      response = { status: true, data: [] }
 
       case running_data.status
       when 200
         data = JSON.parse(running_data.body)
-        check_dataset(data)
-        # [data['metrics'], data['plans']]
+        check_dataset(data, response)
       when 404
-        ['The link provided points to nowhere. Kindly double check to confirm that it is the correct link']
+        response[:data] << 'The link provided points to nowhere. Kindly double check to confirm that it is the correct link'
+        response[:status] = false
+        response
       when 500
-        ['Something\'s wrong with the data returned. Kindly check that there are no internal errors']
+        response[:data] << 'Something\'s wrong with the data returned. Kindly check that there are no internal errors'
+        response[:status] = false
+        response
       when 302
-        ['Something\'s wrong. Kindly check that the link returns a JSON dataset']
+        response[:data] << 'Something\'s wrong. Kindly check that the link returns a JSON dataset'
+        response[:status] = false
+        response
       else
-        [running_data.status]
+        response[:data] << response[running_data.status]
+        response[:status] = false
+        
       end
     end
 
-    def check_dataset(data)
-      response = { status: true, data: [] }
+    def check_dataset(data, response)
       message = response[:data]
 
       if data['metrics'].present?

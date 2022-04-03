@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 url: path,
                 method: 'GET',
                 success: (response) => {
+                    console.log(response)
                     $(`.active_${$(e.target).attr('data-target')}_loader`).hide()
                     $(`<div class="my-2 py-2 active_${$(e.target).attr('data-target')}_block" style="font-size: 12px !important;"></div>`).insertBefore(e.target)
 

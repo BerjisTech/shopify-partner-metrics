@@ -33,7 +33,7 @@
 
         <div class="field m-3">
           <%= form.label :business_id %>
-          <%= form.select :business_id, options_from_collection_for_select(Business.all, :id, :business_name), {}, class: "form-control my-2", required: "required" %>
+          <%= form.select :business_id, options_from_collection_for_select(Business.mine(current_user.id), :id, :business_name, Business.mine(current_user.id).first.id), {}, class: "form-control my-2", required: "required" %>
         </div>
 
       </div>
@@ -61,23 +61,23 @@
         </div>
         <div class="field m-3">
           <%= form.label :platform_id %>
-          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {}, class: "form-control my-2", required: "required"  %>
+          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control my-2"  %>
         </div>
         <div class="field m-3">
           <%= form.label :api_key %>
-          <%= form.text_field "api_key", class: "form-control my-2", required: "required" %>
+          <%= form.text_field "api_key", class: "form-control my-2" %>
         </div>
         <div class="field m-3">
           <%= form.label :api_secret %>
-          <%= form.text_field "api_secret", class: "form-control my-2", required: "required" %>
+          <%= form.text_field "api_secret", class: "form-control my-2" %>
         </div>
         <div class="field m-3 shopify_extras">
           <%= form.label :app_code %>
-          <%= form.text_field "app_code", class: "form-control my-2", required: "required" %>
+          <%= form.text_field "app_code", class: "form-control my-2" %>
         </div>
         <div class="field m-3 shopify_extras">
           <%= form.label :partner_id %>
-          <%= form.text_field "partner_id", class: "form-control my-2", required: "required" %>
+          <%= form.text_field "partner_id", class: "form-control my-2" %>
         </div>
       </div>
     </div>

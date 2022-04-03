@@ -37,7 +37,7 @@
               <td><%= Industry.find(business.industry_id).name %></td>
               <td><%= App.where(business_id: business.id).count %></td>
               <td><%= "$ 0"  %></td>
-              <td><%= link_to 'login', business %></td>
+              <td><%= link_to 'Command Center', business %></td>
             </tr>
           <% end %>
         </tbody>

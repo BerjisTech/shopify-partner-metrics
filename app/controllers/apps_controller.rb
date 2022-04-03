@@ -5,7 +5,7 @@ class AppsController < ApplicationController
 
   # GET /apps or /apps.json
   def index
-    @apps = App.where(user_id: current_user.id).joins(:platform).select('apps.id', :platform_id, :app_name, :name)
+    @apps = App.where(user_id: current_user.id).joins(:platform).select('apps.id', :platform_id, :app_name, :name, :user_id, :app_url, 'apps.created_at', 'apps.updated_at')
   end
 
   # GET /apps/1 or /apps/1.json
@@ -92,6 +92,6 @@ class AppsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def app_params
-    params.require(:app).permit(:app_name, :user_id, :platform_id, :business_id, :running_data_endpoint)
+    params.require(:app).permit(:app_name, :user_id, :platform_id, :business_id, :app_url, :running_data_endpoint)
   end
 end
