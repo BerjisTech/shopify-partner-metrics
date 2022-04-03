@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_402_022_450) do
+ActiveRecord::Schema.define(version: 20_220_402_190_405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20_220_402_022_450) do
     t.integer 'plan_total_users'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.datetime 'date'
   end
 
   create_table 'platforms', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(version: 20_220_402_022_450) do
     t.float 'arpu'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.datetime 'date'
   end
 
   create_table 'shopify_imports', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|

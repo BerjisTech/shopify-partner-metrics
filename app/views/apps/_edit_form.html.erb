@@ -1,0 +1,74 @@
+<%= form_with(model: app) do |form| %>
+  <% if app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app.errors.count, "error") %> prohibited this app from being saved:</h2>
+
+      <ul>
+        <% app.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="spacer clearfix mt-5"></div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
+        <span class="fs-2">Add Details</span>
+        <span class="fs-6">This information is used to identify your app in the KPI tool</span>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="border rounded bg-white p-4 shadow">
+        <div class="field m-3">
+          <%= form.label :app_name %>
+          <%= form.text_field :app_name, class: "form-control my-2", required: "required" %>
+        </div>
+
+        <div class="field m-3">
+          <%= form.label :app_url %>
+          <%= form.text_field :app_url, class: "form-control my-2" %>
+        </div>
+
+        <div class="field m-3">
+          <%= form.label :business_id %>
+          <%= form.select :business_id, options_from_collection_for_select(Business.all, :id, :business_name), {}, class: "form-control my-2", required: "required" %>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-12 my-5 border-bottom"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
+        <span class="fs-2">API Keys and Endpoints</span>
+        <span class="fs-6">
+          This information will be used top pull data from your app, Shopify, Stripe and any thrid party platform. 
+          It's important to double check as a typo in any of the details <b>WILL</b> result in inaccurate data.
+          <%= link_to docs_path, target: "_BLANK" do %>
+            Learn more about data import<span class="material-icons tiny-icons">open_in_new</span>
+          <% end %>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="border rounded bg-white p-4 shadow">
+        <div class="field m-3">
+          <%= form.label :running_data_endpoint %>
+          <%= form.text_field :running_data_endpoint, class: "form-control my-2", required: "required"  %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 my-5 border-bottom"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 mb-5">
+      <div class="actions whole-width text-end">
+        <%= form.submit class: "shopify-button btn-lg" %>
+      </div>
+    </div>
+  </div>
+<% end %>

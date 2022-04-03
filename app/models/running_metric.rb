@@ -4,7 +4,7 @@ class RunningMetric < ApplicationRecord
   belongs_to :app
 
   class << self
-    def start_importer(_app_id, endpoint)
+    def start_importer(app_id, endpoint)
       data = Faraday.get(endpoint)
 
       errors = verify_data(data)
@@ -13,7 +13,7 @@ class RunningMetric < ApplicationRecord
         errors
       else
         save_metric_data(data[:metrics], app_id)
-        save_metric_data(data[:plans], app_id)
+        save_plan(data[:plans], app_id)
       end
     end
 
@@ -26,20 +26,31 @@ class RunningMetric < ApplicationRecord
       errors
     end
 
-    def save_metric_data(data, app_id)
-      running_metric = RunningMetric.create({ app_id: app_id })
-      running_metric.update(data)
+    def save_metric_data(data, app_id, _running_metric)
+      RunningMetric.where(app_id: app_id, date: Date.today.strftime('%d-%m-%Y')).destroy
+      RunningMetric.create({ app_id: app_id, date: Date.today.strftime('%d-%m-%Y') }).update(data)
     end
 
-    def save_plan_data(data, app_id)
-      app_plan = AppPlan.create_with(data, app_id)
-      RunningMetric.create({
-                             app_id: app_id,
-                             plan_id: app_plan.id,
-                             plan_paying_users: data['plan_paying_users'],
-                             plan_trial_users: data['plan_trial_users'],
-                             plan_total_users: data['plan_total_users']
-                           })
+    def save_plan(data, app_id)
+      app_plan = AppPlan.find_or_create_by({
+                                             app_id: app_id,
+                                             plan_name: data['plan_name'],
+                                             plan_price: data['plan_price'],
+                                             trial_days: data['trial_days']
+                                           })
+      save_plan_data(data, app_id, app_plan)
+    end
+
+    def save_plan_data(data, app_id, app_plan)
+      PlanDatum.where(app_id: app_id, plan_id: app_plan.id, date: Date.today.strftime('%d-%m-%Y')).destroy
+      PlanDatum.create({
+                         app_id: app_id,
+                         plan_id: app_plan.id,
+                         plan_paying_users: data['plan_paying_users'],
+                         plan_trial_users: data['plan_trial_users'],
+                         plan_total_users: data['plan_total_users'],
+                         date: Date.today.strftime('%d-%m-%Y')
+                       })
     end
 
     def calculate_user_churn(app_id); end

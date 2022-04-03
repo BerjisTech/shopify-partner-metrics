@@ -154,3 +154,13 @@ pre {
     color      : #ffffff;
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
 }
+
+.override-danger {
+    background-color: #f47174 !important;
+    border-color    : #f47174 !important;
+
+    &:hover {
+        background-color: #CA1717 !important;
+        border-color    : #CA1717 !important;
+    }
+}
