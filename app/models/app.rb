@@ -14,7 +14,7 @@ class App < ApplicationRecord
 
   class << self
     def mine(user_id)
-      App.where(user_id: user_id)
+      AppTeam.where(user_id: user_id).joins(:app).joins(:business).select_all
     end
 
     def latest_gross_paying_mrr(app_id)
