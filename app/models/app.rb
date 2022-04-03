@@ -2,6 +2,7 @@
 
 class App < ApplicationRecord
   has_many :app_plans
+  has_many :app_teams
   has_many :third_party_apis
   has_many :plan_data
   has_many :running_data
@@ -10,6 +11,7 @@ class App < ApplicationRecord
 
   belongs_to :business
   belongs_to :platform
+
   class << self
     def mine(user_id)
       App.where(user_id: user_id)

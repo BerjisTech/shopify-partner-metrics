@@ -6,6 +6,8 @@ class RunningMetricsController < ApplicationController
   # GET /running_metrics or /running_metrics.json
   def index
     @running_metrics = RunningMetric.all
+    app = App.first
+    render json: RunningMetric.start_importer(app.id, app.running_data_endpoint)
   end
 
   # GET /running_metrics/1 or /running_metrics/1.json

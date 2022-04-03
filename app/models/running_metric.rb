@@ -5,15 +5,15 @@ class RunningMetric < ApplicationRecord
 
   class << self
     def start_importer(app_id, endpoint)
-      data = Faraday.get(endpoint)
+      data = JSON.parse(Faraday.get(endpoint).body)
 
-      errors = verify_data(data)
+      errors = verify_data(OpenStruct.new data)
 
       if errors.size.positive?
         errors
       else
-        save_metric_data(data[:metrics], app_id)
-        save_plan(data[:plans], app_id)
+        save_metric_data(data['metrics'], app_id)
+        data['plans'].each{ |plan| save_plan(plan, app_id) }
       end
     end
 
@@ -26,8 +26,8 @@ class RunningMetric < ApplicationRecord
       errors
     end
 
-    def save_metric_data(data, app_id, _running_metric)
-      RunningMetric.where(app_id: app_id, date: Date.today.strftime('%d-%m-%Y')).destroy
+    def save_metric_data(data, app_id)
+      RunningMetric.where(app_id: app_id, date: Date.today.strftime('%d-%m-%Y')).destroy_all
       RunningMetric.create({ app_id: app_id, date: Date.today.strftime('%d-%m-%Y') }).update(data)
     end
 
@@ -42,7 +42,7 @@ class RunningMetric < ApplicationRecord
     end
 
     def save_plan_data(data, app_id, app_plan)
-      PlanDatum.where(app_id: app_id, plan_id: app_plan.id, date: Date.today.strftime('%d-%m-%Y')).destroy
+      PlanDatum.where(app_id: app_id, plan_id: app_plan.id, date: Date.today.strftime('%d-%m-%Y')).destroy_all
       PlanDatum.create({
                          app_id: app_id,
                          plan_id: app_plan.id,
@@ -58,7 +58,7 @@ class RunningMetric < ApplicationRecord
     def calculate_arpu_churn(app_id); end
 
     def recent_metrics(user_id)
-      Business.mine(user_id)
+      joins(app: :app_teams).where('app_teams.user_id': user_id).select_all
     end
   end
 end

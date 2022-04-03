@@ -8,5 +8,9 @@ class ExternalMetric < ApplicationRecord
     def start_shopify(app_id); end
 
     def start_stripe(app_id); end
+
+    def recent_metrics(user_id)
+      joins(app: :app_teams).where('app_teams.user_id': user_id).select_all
+    end
   end
 end

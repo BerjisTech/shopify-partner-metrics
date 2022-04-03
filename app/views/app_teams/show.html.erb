@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business:</strong>
+  <%= @app_team.business_id %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @app_team.app_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @app_team.user_id %>
+</p>
+
+<p>
+  <strong>Added by:</strong>
+  <%= @app_team.added_by %>
+</p>
+
+<%= link_to 'Edit', edit_app_team_path(@app_team) %> |
+<%= link_to 'Back', app_teams_path %>

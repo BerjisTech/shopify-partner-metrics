@@ -6,19 +6,14 @@ class DashboardController < ApplicationController
   def index
     @running_metrics = running_metrics
     @external_metrics = external_metrics
+    # render json: running_metrics
   end
 
   def running_metrics
-    data_keys = {}
-    data_values = {}
-    { keys: data_keys, values: data_values }
+    RunningMetric.recent_metrics(current_user.id)
   end
 
   def external_metrics
-    data = App.mine(current_user.id).joins(:external_metrics).where('external_metrics.created_at > ?',
-                                                                    7.days.ago).order('external_metrics.created_at DESC')
-    data_keys = {}
-    data_values = {}
-    { keys: data_keys, values: data_values }
+    ExternalMetric.recent_metrics(current_user.id)
   end
 end
