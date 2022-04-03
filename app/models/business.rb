@@ -2,6 +2,10 @@
 
 class Business < ApplicationRecord
   has_many :apps
+  has_many :staffs
+  has_many :invites
+  has_many :invite_accepts
+
   belongs_to :industry
   belongs_to :user
 

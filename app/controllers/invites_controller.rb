@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InvitesController < ApplicationController
-  before_action :set_invite, only: %i[ show edit update destroy ]
+  before_action :set_invite, only: %i[show edit update destroy]
 
   # GET /invites or /invites.json
   def index
@@ -7,8 +9,7 @@ class InvitesController < ApplicationController
   end
 
   # GET /invites/1 or /invites/1.json
-  def show
-  end
+  def show; end
 
   # GET /invites/new
   def new
@@ -16,8 +17,7 @@ class InvitesController < ApplicationController
   end
 
   # GET /invites/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /invites or /invites.json
   def create
@@ -25,7 +25,7 @@ class InvitesController < ApplicationController
 
     respond_to do |format|
       if @invite.save
-        format.html { redirect_to invite_url(@invite), notice: "Invite was successfully created." }
+        format.html { redirect_to invite_url(@invite), notice: 'Invite was successfully created.' }
         format.json { render :show, status: :created, location: @invite }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class InvitesController < ApplicationController
   def update
     respond_to do |format|
       if @invite.update(invite_params)
-        format.html { redirect_to invite_url(@invite), notice: "Invite was successfully updated." }
+        format.html { redirect_to invite_url(@invite), notice: 'Invite was successfully updated.' }
         format.json { render :show, status: :ok, location: @invite }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class InvitesController < ApplicationController
     @invite.destroy
 
     respond_to do |format|
-      format.html { redirect_to invites_url, notice: "Invite was successfully destroyed." }
+      format.html { redirect_to invites_url, notice: 'Invite was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invite
-      @invite = Invite.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def invite_params
-      params.require(:invite).permit(:business_id, :recepient, :sender, :limit, :accepts, :status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invite
+    @invite = Invite.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def invite_params
+    params.require(:invite).permit(:business_id, :recepient, :sender, :limit, :accepts, :status)
+  end
 end

@@ -5,7 +5,8 @@ class AppsController < ApplicationController
 
   # GET /apps or /apps.json
   def index
-    @apps = App.where(user_id: current_user.id).joins(:platform).select('apps.id', :platform_id, :app_name, :name, :user_id, :app_url, 'apps.created_at', 'apps.updated_at')
+    @apps = App.where(user_id: current_user.id).joins(:platform).select('apps.id', :platform_id, :app_name, :name,
+                                                                        :user_id, :app_url, 'apps.created_at', 'apps.updated_at')
   end
 
   # GET /apps/1 or /apps/1.json
@@ -16,8 +17,9 @@ class AppsController < ApplicationController
     @app = App.new
 
     if Business.mine(current_user.id).blank?
-      Business.find_or_create_by(user_id: current_user.id, business_name: 'Default',
+      business = Business.find_or_create_by(user_id: current_user.id, business_name: 'Default',
                                  industry_id: Industry.find_or_create_by(name: 'Other').id)
+      Staff.create({business_id: business.id, user_id: current_user.id, status: 1, designation: 1})
     end
   end
 
@@ -48,22 +50,8 @@ class AppsController < ApplicationController
   def update
     respond_to do |format|
       if @app.update(app_params)
-        if params[:app][:api_key].present?
-          ThirdPartyApi.where(app_id: @app.id,
-                              platform_id: app_params[:platform_id]).update_all(api_key: params[:app][:api_key])
-        end
-        if params[:app][:apisecrety].present?
-          ThirdPartyApi.where(app_id: @app.id,
-                              platform_id: app_params[:platform_id]).update_all(api_secret: params[:app][:api_secret])
-        end
-        if params[:app][:app_code].present?
-          ThirdPartyApi.where(app_id: @app.id,
-                              platform_id: app_params[:platform_id]).update_all(app_code: params[:app][:app_code])
-        end
-        if params[:app][:partner_id].present?
-          ThirdPartyApi.where(app_id: @app.id,
-                              platform_id: app_params[:platform_id]).update_all(partner_id: params[:app][:partner_id])
-        end
+        ThirdPartyApi.update_from_app(params[:app], @app, app_params[:platform_id])
+
         format.html { redirect_to app_url(@app), notice: 'App was successfully updated.' }
         format.json { render :show, status: :ok, location: @app }
       else

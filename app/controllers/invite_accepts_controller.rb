@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InviteAcceptsController < ApplicationController
-  before_action :set_invite_accept, only: %i[ show edit update destroy ]
+  before_action :set_invite_accept, only: %i[show edit update destroy]
 
   # GET /invite_accepts or /invite_accepts.json
   def index
@@ -7,8 +9,7 @@ class InviteAcceptsController < ApplicationController
   end
 
   # GET /invite_accepts/1 or /invite_accepts/1.json
-  def show
-  end
+  def show; end
 
   # GET /invite_accepts/new
   def new
@@ -16,8 +17,7 @@ class InviteAcceptsController < ApplicationController
   end
 
   # GET /invite_accepts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /invite_accepts or /invite_accepts.json
   def create
@@ -25,7 +25,7 @@ class InviteAcceptsController < ApplicationController
 
     respond_to do |format|
       if @invite_accept.save
-        format.html { redirect_to invite_accept_url(@invite_accept), notice: "Invite accept was successfully created." }
+        format.html { redirect_to invite_accept_url(@invite_accept), notice: 'Invite accept was successfully created.' }
         format.json { render :show, status: :created, location: @invite_accept }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class InviteAcceptsController < ApplicationController
   def update
     respond_to do |format|
       if @invite_accept.update(invite_accept_params)
-        format.html { redirect_to invite_accept_url(@invite_accept), notice: "Invite accept was successfully updated." }
+        format.html { redirect_to invite_accept_url(@invite_accept), notice: 'Invite accept was successfully updated.' }
         format.json { render :show, status: :ok, location: @invite_accept }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class InviteAcceptsController < ApplicationController
     @invite_accept.destroy
 
     respond_to do |format|
-      format.html { redirect_to invite_accepts_url, notice: "Invite accept was successfully destroyed." }
+      format.html { redirect_to invite_accepts_url, notice: 'Invite accept was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invite_accept
-      @invite_accept = InviteAccept.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def invite_accept_params
-      params.require(:invite_accept).permit(:user_id, :invite_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invite_accept
+    @invite_accept = InviteAccept.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def invite_accept_params
+    params.require(:invite_accept).permit(:user_id, :invite_id)
+  end
 end

@@ -8,7 +8,7 @@ class RunningDatum < ApplicationRecord
       endpoint = App.find(app_id).running_data_endpoint
 
       running_data = get_data(endpoint)
-      
+
       response = { status: true, data: [] }
 
       case running_data.status
@@ -30,7 +30,7 @@ class RunningDatum < ApplicationRecord
       else
         response[:data] << response[running_data.status]
         response[:status] = false
-        
+
       end
     end
 

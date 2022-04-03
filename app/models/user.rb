@@ -12,4 +12,6 @@ class User < ApplicationRecord
 
   has_many :apps
   has_many :businesses
+  has_many :staffs
+  has_many :invite_accepts
 end
