@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business:</strong>
+  <%= @staff.business_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @staff.user_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @staff.status %>
+</p>
+
+<p>
+  <strong>Designation:</strong>
+  <%= @staff.designation %>
+</p>
+
+<%= link_to 'Edit', edit_staff_path(@staff) %> |
+<%= link_to 'Back', staffs_path %>

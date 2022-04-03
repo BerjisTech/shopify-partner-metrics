@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Invite Accepts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Invite</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invite_accepts.each do |invite_accept| %>
+      <tr>
+        <td><%= invite_accept.user_id %></td>
+        <td><%= invite_accept.invite_id %></td>
+        <td><%= link_to 'Show', invite_accept %></td>
+        <td><%= link_to 'Edit', edit_invite_accept_path(invite_accept) %></td>
+        <td><%= link_to 'Destroy', invite_accept, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invite Accept', new_invite_accept_path %>

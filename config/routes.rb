@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :invite_accepts
+  resources :invites
+  resources :staffs
   resources :running_metrics
   resources :external_metrics
   authenticated :user do

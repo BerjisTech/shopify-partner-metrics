@@ -56,5 +56,9 @@ class RunningMetric < ApplicationRecord
     def calculate_user_churn(app_id); end
     def calculate_mrr_churn(app_id); end
     def calculate_arpu_churn(app_id); end
+
+    def recent_metrics(user_id)
+      Business.mine(user_id)
+    end
   end
 end
