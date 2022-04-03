@@ -1,1 +1,17 @@
-no running metrics found
+<div class="container-fluid whole-width bg-white border shadow rounded-3 my-5 d-flex flex-column align-items-start justify-content-center">
+  <div class="row m-4">
+    <div class="col-sm-7 p-5">
+      <div class="fs-1 py-5">Oops!</div>
+      <div class="fs-3 fw-light">
+        We couldn't find any running metrics endpoint. This is a link to your app that sends metrics data to your InFlow dashboard.
+        If you need help setting it up you can check <%= link_to "our docs", docs_path, target: "_BLANK" %> or contact support.
+      </div>
+      <div class="py-5">
+        <%= link_to "Set Up Running Metrics", app_path(App.mine(current_user.id).first.id), class: "btn btn-lg shopify-button"%>
+      </div>
+    </div>
+    <div class="col-sm-5 d-flex align-items-center justify-content-center">
+      <%= image_tag 'no_running_metrics', style: "max-width: 100%;" %>
+    </div>
+  </div>
+</div>

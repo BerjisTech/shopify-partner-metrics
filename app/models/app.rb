@@ -14,7 +14,11 @@ class App < ApplicationRecord
 
   class << self
     def mine(user_id)
-      AppTeam.where(user_id: user_id).joins(:app).joins(:business).select_all
+      joins(:platform).joins(:business).joins(:app_teams).where(user_id: user_id).select('apps.id as id, app_teams.id as team_id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at')
+    end
+
+    def per_business(business_id)
+      joins(:platform).joins(:business).where(business_id: business_id).select('apps.id as id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at')
     end
 
     def latest_gross_paying_mrr(app_id)

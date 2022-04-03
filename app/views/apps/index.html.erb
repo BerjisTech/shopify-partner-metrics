@@ -19,41 +19,7 @@
   <div class="mt-4"></div>
   <div class="col-sm-12">
     <div class="border rounded bg-white">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>App name</th>
-            <th>Platform</th>
-            <th>Revenue</th>
-            <th>Running Data Import</th>
-            <th>Platform Data Import</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @apps.each do |app| %>
-            <tr>
-              <td><%= app.app_name %></td>
-              <td><%= link_to app.name, platform_path(app.platform_id) %></td>
-              <td>$<%= RunningDatum.where(app_id: app.id).last || 0 %></td>
-              <td>
-                <span class="text-success d-flex align-items-center justify-content-start">
-                  <span class="material-icons small-icons">adjust</span>
-                  <span class="ps-1">Ok</span>
-                </span>
-              </td>
-              <td>
-                <span class="text-danger d-flex align-items-center justify-content-start">
-                  <span class="material-icons small-icons">error</span>
-                  <span class="ps-1">Failing</span>
-                </span>
-              </td>
-              <td><%= link_to 'Show', app %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render "apps/data/all"%>
     </div>
   </div>
 </div>

@@ -5,8 +5,7 @@ class AppsController < ApplicationController
 
   # GET /apps or /apps.json
   def index
-    @apps = App.where(user_id: current_user.id).joins(:platform).select('apps.id', :platform_id, :app_name, :name,
-                                                                        :user_id, :app_url, 'apps.created_at', 'apps.updated_at')
+    @apps = App.mine(current_user.id)
   end
 
   # GET /apps/1 or /apps/1.json

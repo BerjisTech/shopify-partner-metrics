@@ -1,1 +1,30 @@
-no external metrics found
+<div class="container-fluid whole-width bg-white border shadow rounded-3 my-5">
+  <div class="row m-4">
+    <div class="col-sm-7 p-5 d-flex flex-column align-items-start justify-content-center">
+      <div class="fs-3 fw-light">
+        <% apis = ThirdPartyApi.mine(current_user.id) %>
+        <%- if apis.present? %>
+          We have found the following APIs connected but not yet tested or fully configured. Finish the process by configuring them to start receiving data from the platforms.
+          <table class="table">
+            <% apis.map do |a| %>
+              <tr>
+                <td><%= a.platform_name %></td>
+                <td><%= link_to "Set Up #{a.platform_name}", third_party_api_path(a.id) %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          Connect an external platform like Shopify, Stripe, Paypal or Wordpress to start analyzing your business metrics.
+        <% end %>
+      </div>
+      <%- if apis.blank? %>
+        <div class="py-5">
+          <%= link_to "Connect To A Platform", new_third_party_api_path, class: "btn btn-lg shopify-button"%>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-sm-5 d-flex align-items-center justify-content-center">
+      <%= image_tag 'no_external_metrics', style: "max-width: 100%;" %>
+    </div>
+  </div>
+</div>

@@ -61,7 +61,7 @@
         </div>
         <div class="field m-3">
           <%= form.label :platform_id %>
-          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control my-2"  %>
+          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control display_shopify_extras my-2"  %>
         </div>
         <div class="field m-3">
           <%= form.label :api_key %>

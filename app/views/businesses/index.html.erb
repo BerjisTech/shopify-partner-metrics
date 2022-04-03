@@ -34,8 +34,8 @@
           <% @businesses.each do |business| %>
             <tr>
               <td><%= business.business_name %></td>
-              <td><%= Industry.find(business.industry_id).name %></td>
-              <td><%= App.where(business_id: business.id).count %></td>
+              <td><%= business.name %></td>
+              <td><%= business.business_apps %></td>
               <td><%= "$ 0"  %></td>
               <td><%= link_to 'Command Center', business %></td>
             </tr>

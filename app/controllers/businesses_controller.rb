@@ -5,11 +5,14 @@ class BusinessesController < ApplicationController
 
   # GET /businesses or /businesses.json
   def index
-    @businesses = Business.all
+    @businesses = Business.mine(current_user.id)
   end
 
   # GET /businesses/1 or /businesses/1.json
-  def show; end
+  def show
+    @apps = App.per_business(@business.id)
+    @staff = Staff.where(business_id: @business.id).joins(:user).select_all
+  end
 
   # GET /businesses/new
   def new
@@ -25,6 +28,7 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.save
+        Staff.create({business_id: @business.id, user_id: @busines.user_id, status: 1, designation: 1})
         format.html { redirect_to business_url(@business), notice: 'Business was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else
@@ -61,7 +65,7 @@ class BusinessesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_business
-    @business = Business.find(params[:id])
+    @business = Business.where(id: params[:id]).joins(:industry).select('businesses.id as id', 'industries.id as industry_id', :name, :business_name).first
   end
 
   # Only allow a list of trusted parameters through.
