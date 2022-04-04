@@ -35,6 +35,8 @@ gem 'sendgrid-ruby'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'stripe'
+gem 'rubyzip'
+gem 'smarter_csv'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

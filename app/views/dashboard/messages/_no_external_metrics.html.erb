@@ -5,11 +5,11 @@
         <% apis = ThirdPartyApi.mine(current_user.id) %>
         <%- if apis.present? %>
           We have found the following APIs connected but not yet tested or fully configured. Finish the process by configuring them to start receiving data from the platforms.
-          <table class="table">
+          <table class="table mt-4">
             <% apis.map do |a| %>
               <tr>
-                <td><%= a.platform_name %></td>
-                <td><%= link_to "Set Up #{a.platform_name}", third_party_api_path(a.id) %></td>
+                <td class="fs-5 fw-light"><%= a.platform_name %></td>
+                <td class="fs-5 fw-light"><%= link_to "Set Up #{a.platform_name}", third_party_api_path(a.id) %></td>
               </tr>
             <% end %>
           </table>

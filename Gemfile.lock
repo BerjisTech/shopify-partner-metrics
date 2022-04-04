@@ -206,6 +206,7 @@ GEM
       sentry-ruby-core (= 5.2.1)
     sentry-ruby-core (5.2.1)
       concurrent-ruby
+    smarter_csv (1.4.2)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -263,12 +264,14 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.6)
   rubocop
+  rubyzip
   rufo
   sass-rails (>= 6)
   selenium-webdriver
   sendgrid-ruby
   sentry-rails
   sentry-ruby
+  smarter_csv
   stripe
   turbolinks (~> 5)
   tzinfo-data
