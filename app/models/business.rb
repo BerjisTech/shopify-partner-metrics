@@ -12,7 +12,9 @@ class Business < ApplicationRecord
 
   class << self
     def mine(user_id)
-      joins(:staffs).where(user_id: user_id).joins(:industry).joins(:apps).group(:id, :name, 'industries.id').select(:id, :business_name, :name, 'industries.id as industry_id', 'count(apps.id) as business_apps')
+      joins(:staffs).where(user_id: user_id).joins(:industry).joins(:apps).group(:id, :name, 'industries.id').select(
+        :id, :business_name, :name, 'industries.id as industry_id', 'count(apps.id) as business_apps'
+      )
     end
   end
 end

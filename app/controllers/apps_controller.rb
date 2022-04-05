@@ -17,8 +17,8 @@ class AppsController < ApplicationController
 
     if Business.mine(current_user.id).blank?
       business = Business.find_or_create_by(user_id: current_user.id, business_name: 'Default',
-                                 industry_id: Industry.find_or_create_by(name: 'Other').id)
-      Staff.create({business_id: business.id, user_id: current_user.id, status: 1, designation: 1})
+                                            industry_id: Industry.find_or_create_by(name: 'Other').id)
+      Staff.create({ business_id: business.id, user_id: current_user.id, status: 1, designation: 1 })
     end
   end
 
@@ -33,7 +33,8 @@ class AppsController < ApplicationController
 
     respond_to do |format|
       if @app.save
-        AppTeam.create({user_id: current_user.id, added_by: current_user.id, app_id: @app.id, business_id: @app.business_id})
+        AppTeam.create({ user_id: current_user.id, added_by: current_user.id, app_id: @app.id,
+                         business_id: @app.business_id })
         ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
                                         api_secret: params[:app][:api_secret], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
 

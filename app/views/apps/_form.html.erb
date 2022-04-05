@@ -51,6 +51,11 @@
             Learn more about data import<span class="material-icons tiny-icons">open_in_new</span>
           <% end %>
         </span>
+
+        <span class="shopify_extras fs-6 border-top py-5 mt-5" style="display: none;">
+          <b>IMPORTANT</b> To connect your account, go to your Shopify Partners Dashboard, <a href="https://shopify.dev/docs/partner-api/getting-started#create-an-api-client" target="_BLANK">create an API client</a>, with View <b>financials</b> and <b>Manage apps</b> permissions.
+          Also add <b>"Manage themes"</b> and <b>"Manage Jobs"</b> permission, if you have any revenue from those. Then enter the details here:
+        </span>
       </div>
     </div>
     <div class="col-sm-8">
@@ -71,11 +76,11 @@
           <%= form.label :api_secret %>
           <%= form.text_field "api_secret", class: "form-control my-2" %>
         </div>
-        <div class="field m-3 shopify_extras">
+        <div class="field m-3 shopify_extras" style="display: none;">
           <%= form.label :app_code %>
           <%= form.text_field "app_code", class: "form-control my-2" %>
         </div>
-        <div class="field m-3 shopify_extras">
+        <div class="field m-3 shopify_extras" style="display: none;">
           <%= form.label :partner_id %>
           <%= form.text_field "partner_id", class: "form-control my-2" %>
         </div>

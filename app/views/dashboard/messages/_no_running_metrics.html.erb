@@ -7,7 +7,14 @@
         If you need help setting it up you can check <%= link_to "our docs", docs_path, target: "_BLANK" %> or contact support.
       </div>
       <div class="py-5">
-        <%= link_to "Set Up Running Metrics", app_path(App.mine(current_user.id).first.id), class: "btn btn-lg shopify-button"%>
+          <table class="table mt-4">
+        <% App.mine(current_user.id).map do |app| %>
+              <tr>
+                <td class="fs-5 fw-light"><%= app.app_name %></td>
+                <td class="fs-5 fw-light"><%= link_to "Set Up Running Metrics", app_path(app.id) %></td>
+              </tr>
+            <% end %>
+          </table>
       </div>
     </div>
     <div class="col-sm-5 d-flex align-items-center justify-content-center">

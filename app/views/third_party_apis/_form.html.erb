@@ -16,6 +16,11 @@
       <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
         <span class="fs-2">API Details</span>
         <span class="fs-6">You can get these details from your platform's settings page or developer settings page.</span>
+
+        <span class="shopify_extras fs-6 border-top py-5 mt-5">
+          <b>IMPORTANT</b> To connect your account, go to your Shopify Partners Dashboard, <a href="https://shopify.dev/docs/partner-api/getting-started#create-an-api-client" target="_BLANK">create an API client</a>, with View <b>financials</b> and <b>Manage apps</b> permissions.
+          Also add <b>"Manage themes"</b> and <b>"Manage Jobs"</b> permission, if you have any revenue from those. Then enter the details here:
+        </span>
       </div>
     </div>
     <div class="col-sm-8">
@@ -72,4 +77,12 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<%- if third_party_api.name != 'Shopify' %>
+  <style>
+    .shopify_extras{
+        display: none;
+        }
+  </style>
 <% end %>

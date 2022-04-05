@@ -4,8 +4,7 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def start_importer(app_id, time, data_set, cursor)
-      api = ThirdPartyApi.find_by(app_id: app_id, platform_id: PLATFORM)
+    def start_importer(app_id, api, time, data_set, cursor)
       data = pick_importer(api, data_set, time, cursor)
 
       # process_data(data, app_id, time)
@@ -39,15 +38,19 @@ class ShopifyImport < ApplicationRecord
                 end
       edges = results['edges']
 
-      final_data_set = if data_set == 'user'
-                         ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
-                       else
-                         ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor, data_set)
-                       end
+      if data_set.include? 'test'
+        edges.group_by { |e| e['node']['app']['name'] }
+      else
+        final_data_set = if data_set == 'user'
+                           ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
+                         else
+                           ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor, data_set)
+                         end
 
-      start_importer(app_id, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']
+        start_importer(app_id, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']
 
-      ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))
+        ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))
+      end
     end
   end
 end

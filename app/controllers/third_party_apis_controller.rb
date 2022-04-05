@@ -18,8 +18,7 @@ class ThirdPartyApisController < ApplicationController
     @third_party_api = ThirdPartyApi.new
   end
 
-  def shopify_importer_setup
-  end
+  def shopify_importer_setup; end
 
   # GET /third_party_apis/1/edit
   def edit; end
@@ -71,7 +70,7 @@ class ThirdPartyApisController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_third_party_api
     @third_party_api = ThirdPartyApi.where(id: params[:id]).joins(:platform).select('third_party_apis.id as id', :partner_id, :app_code, :platform_id, :app_id, :api_key, :api_secret, :secondary_api_key,
-      :secondary_api_secret, :name).first
+                                                                                    :secondary_api_secret, :name).first
   end
 
   # Only allow a list of trusted parameters through.

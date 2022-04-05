@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAppTeams < ActiveRecord::Migration[6.1]
   def change
     create_table :app_teams, id: :uuid do |t|

@@ -7,13 +7,13 @@ class RunningMetric < ApplicationRecord
     def start_importer(app_id, endpoint)
       data = JSON.parse(Faraday.get(endpoint).body)
 
-      errors = verify_data(OpenStruct.new data)
+      errors = verify_data(OpenStruct.new(data))
 
       if errors.size.positive?
         errors
       else
         save_metric_data(data['metrics'], app_id)
-        data['plans'].each{ |plan| save_plan(plan, app_id) }
+        data['plans'].each { |plan| save_plan(plan, app_id) }
       end
     end
 

@@ -30,13 +30,13 @@ gem 'devise'
 gem 'faraday'
 gem 'money'
 gem 'rubocop'
+gem 'rubyzip'
 gem 'rufo'
 gem 'sendgrid-ruby'
 gem 'sentry-rails'
 gem 'sentry-ruby'
-gem 'stripe'
-gem 'rubyzip'
 gem 'smarter_csv'
+gem 'stripe'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

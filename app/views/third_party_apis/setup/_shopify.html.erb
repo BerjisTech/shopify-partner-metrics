@@ -1,3 +1,30 @@
+<div class="shadow bg-white rounded-3 border p-4 mb-4">
+  <div class="fs-3 fw-normal mb-4">
+    API Testing
+  </div>
+  <div class="fs-3 fw-light">
+    To import all your historical data, the Payouts CSV file is required as it is much much faster.
+    In your Shopify Partners Dashboard, go to the Payouts page, and click the Export CSV button.
+    Then drop the received ZIP file here:
+  </div>
+  <div class="my-4 api_test_results" style="display: none;">
+    <div class="my-2 alert alert-info">
+      The following apps were found under the same partner account but not yet connected your account. 
+      You can choose to create each separately or ignore them. 
+      If you chose to ignore them, their data won't be imported.
+    </div>
+    <table class=" table shopify_test_results"></table>
+  </div>
+  <div class="my-4 d-flex align-items-center justify-content-between">
+    <span class="shopify-button btn btn-lg shopify_test_button d-flex align-items-center justify-content-between" data-path="<%= shopify_test_import_path(app_id: @third_party_api.app_id) %>">
+      Test API Connection
+      <div class="spinner-border" style="display: none;" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </span>
+  </div>
+</div>
+
 <div class="shadow bg-white rounded-3 border p-4">
   <div class="fs-3 fw-normal mb-4">
     Import Previous Data
@@ -9,6 +36,6 @@
   </div>
   <%= form_tag({:action => :shopify_importer_setup}, multipart: true, class: "my-4 form") do %>
     <%= file_field_tag :shopify, accept: ".csv" %>
-    <%= submit_tag( "Import", class: "shopify-button btn btn-md") %>
+    <%= submit_tag( "Import", class: "shopify-button btn btn-lg") %>
   <% end %>
 </div>

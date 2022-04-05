@@ -14,11 +14,14 @@ class App < ApplicationRecord
 
   class << self
     def mine(user_id)
-      joins(:platform).joins(:business).joins(:app_teams).where(user_id: user_id).select('apps.id as id, app_teams.id as team_id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at')
+      joins(:platform).joins(:business).joins(:app_teams).where(user_id: user_id).select(
+        'apps.id as id, app_teams.id as team_id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at'
+      )
     end
 
     def per_business(business_id)
-      joins(:platform).joins(:business).where(business_id: business_id).select('apps.id as id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at')
+      joins(:platform).joins(:business).where(business_id: business_id).select('apps.id as id', :platform_id, :user_id,
+                                                                               :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at')
     end
 
     def latest_gross_paying_mrr(app_id)
@@ -67,6 +70,24 @@ class App < ApplicationRecord
       else
         '$ 0'
       end
+    end
+
+    def clear_all
+      App.destroy_all
+      AppTeam.destroy_all
+      Business.destroy_all
+      ExternalMetric.destroy_all
+      Industry.destroy_all
+      PlanDatum.destroy_all
+      AppPlan.destroy_all
+      RunningDatum.destroy_all
+      RunningMetric.destroy_all
+      ShopifyImport.destroy_all
+      ShopifyUser.destroy_all
+      ShopifyPayment.destroy_all
+      Staff.destroy_all
+      StripeImport.destroy_all
+      ThirdPartyApi.destroy_all
     end
   end
 end

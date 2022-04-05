@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AppTeamsController < ApplicationController
-  before_action :set_app_team, only: %i[ show edit update destroy ]
+  before_action :set_app_team, only: %i[show edit update destroy]
 
   # GET /app_teams or /app_teams.json
   def index
@@ -7,8 +9,7 @@ class AppTeamsController < ApplicationController
   end
 
   # GET /app_teams/1 or /app_teams/1.json
-  def show
-  end
+  def show; end
 
   # GET /app_teams/new
   def new
@@ -16,8 +17,7 @@ class AppTeamsController < ApplicationController
   end
 
   # GET /app_teams/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /app_teams or /app_teams.json
   def create
@@ -25,7 +25,7 @@ class AppTeamsController < ApplicationController
 
     respond_to do |format|
       if @app_team.save
-        format.html { redirect_to app_team_url(@app_team), notice: "App team was successfully created." }
+        format.html { redirect_to app_team_url(@app_team), notice: 'App team was successfully created.' }
         format.json { render :show, status: :created, location: @app_team }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class AppTeamsController < ApplicationController
   def update
     respond_to do |format|
       if @app_team.update(app_team_params)
-        format.html { redirect_to app_team_url(@app_team), notice: "App team was successfully updated." }
+        format.html { redirect_to app_team_url(@app_team), notice: 'App team was successfully updated.' }
         format.json { render :show, status: :ok, location: @app_team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class AppTeamsController < ApplicationController
     @app_team.destroy
 
     respond_to do |format|
-      format.html { redirect_to app_teams_url, notice: "App team was successfully destroyed." }
+      format.html { redirect_to app_teams_url, notice: 'App team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_app_team
-      @app_team = AppTeam.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def app_team_params
-      params.require(:app_team).permit(:business_id, :app_id, :user_id, :added_by)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_app_team
+    @app_team = AppTeam.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def app_team_params
+    params.require(:app_team).permit(:business_id, :app_id, :user_id, :added_by)
+  end
 end

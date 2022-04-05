@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     resources :external_metrics
     get 'dashboard', controller: :dashboard, action: :index
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data
-    get 'import/shopify/:data_set', controller: :importer, action: :shopify
+    get 'import/shopify/:data_set/:start', controller: :importer, action: :shopify, as: :shopify_import
+    get 'import/shopify_test', controller: :importer, action: :shopify_test, as: :shopify_test_import
     post 'shopify_importer_setup', controller: :third_party_apis, action: :shopify_importer_setup
   end
 
