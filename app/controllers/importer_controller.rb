@@ -6,7 +6,6 @@ class ImporterController < ApplicationController
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   def shopify
-    api = api
     start = params[:start].to_i.nil? ? params[:data_set] : 1
     render json: ShopifyImport.start_importer(params[:app_id], api,
                                               { start: (DateTime.now - start.days).to_s, end: DateTime.now.to_s }, params[:data_set], '')
