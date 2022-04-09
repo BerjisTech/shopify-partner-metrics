@@ -8,7 +8,7 @@
           <table class="table mt-4">
             <% apis.map do |a| %>
               <tr>
-                <td class="fs-5 fw-light"><%= a.platform_name %></td>
+                <td class="fs-5 fw-light"><%= "#{a.platform_name} (#{a.app_name})" %></td>
                 <td class="fs-5 fw-light"><%= link_to "Set Up #{a.platform_name}", third_party_api_path(a.id) %></td>
               </tr>
             <% end %>

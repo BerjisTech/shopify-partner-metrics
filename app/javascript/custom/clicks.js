@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 error: (e) => { toastr.error('Something went wrong') }
                             })
                         })
-                    } else {
+                    } 
+                    if (response.ok.length > 0)  {
                         $('.api_test_results .alert').hide()
                         response.ok.forEach((r) => {
                             $('.shopify_test_results').append(
