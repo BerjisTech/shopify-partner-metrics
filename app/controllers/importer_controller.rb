@@ -17,8 +17,9 @@ class ImporterController < ApplicationController
   end
 
   def shopify_test
+    app = App.find(params[:app_id])
     not_found = {
-      current_app_path: edit_app_path(App.find(params[:app_id]).id),
+      current_app_path: edit_app_path(app.id),
       current_api_path: edit_third_party_api_path(api.id),
       status: true,
       data: [],
@@ -29,9 +30,8 @@ class ImporterController < ApplicationController
       not_found[:status] = false
     else
 
-      test_results = ShopifyImport.start_importer(params[:app_id], api,
+      test_results = ShopifyImport.start_importer(app.id, api,
                                                   { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'test', '')
-
       test_results.map do |t|
         if App.find_by(app_name: t.first).nil?
 
@@ -53,6 +53,7 @@ class ImporterController < ApplicationController
           not_found[:ok] << {
             path: apps_path,
             authenticity_token: form_authenticity_token,
+            app_id: App.find_by(app_name: t.first).id,
             app: {
               app_name: t.first,
               user_id: current_user.id,

@@ -15,6 +15,10 @@ class RunningDataController < ApplicationController
     render json: RunningDatum.test_endpoint(params[:app_id])
   end
 
+  def pull_first_data
+    RunningMetric.start_importer(params[:app_id], params[:endpoint])
+  end
+
   # GET /running_data/new
   def new
     @running_datum = RunningDatum.new

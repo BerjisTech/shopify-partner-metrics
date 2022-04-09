@@ -1,5 +1,20 @@
 const { formatSchema } = require("webpack/lib/WebpackOptionsValidationError")
 
+window.initial_shopify_import = (app_id) => {
+    alert(app_id)
+}
+
+window.create_app_from_test = (r) => {
+    console.log(r)
+    $.ajax({
+        url: r.path,
+        method: 'POST',
+        data: r,
+        success: (r) => { },
+        error: (e) => { toastr.error('Something went wrong') }
+    })
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     $(document).on('turbolinks:load', () => {
         $('[data-target="test_running_data"]').on('click', (e) => {
@@ -37,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         $('.shopify_test_button').on('click', (e) => {
             $('.shopify_test_button .spinner-border').show()
+            $('.initial_import').remove()
 
             $.ajax({
                 url: $('.shopify_test_button').data('path'),
@@ -78,17 +94,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                             e.preventDefault()
                             e.stopPropagation()
                             let r = JSON.parse($(e.target).attr('data_form'))
-                            console.log(r)
-                            $.ajax({
-                                url: r.path,
-                                method: 'POST',
-                                data: r,
-                                success: (r) => { },
-                                error: (e) => { toastr.error('Something went wrong') }
-                            })
+                            create_app_from_test(r)
                         })
-                    } 
-                    if (response.ok.length > 0)  {
+                    }
+                    else {
+                        $('.shopify_test_button').remove()
+                    }
+                    if (response.ok.length > 0) {
                         $('.api_test_results .alert').hide()
                         response.ok.forEach((r) => {
                             $('.shopify_test_results').append(
@@ -101,6 +113,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 </tr>
                             `
                             )
+
+                            $(`
+                                <span app_id="${r.app_id}" class="pointer initial_import d-flex my-3 border-bottom align-items-center justify-content-between">
+                                    Import Data For ${r.app['app_name']}
+                                    <div class="spinner-border" style="display: none; width: 20px; height: 20px;" role="status">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </span>
+                            `).insertAfter('.test_api_connection_block')
+
+                            $('.initial_import').on('click', (e) => {
+                                let app_id = $(e.target).attr('app_id')
+                                $(`[app_id="${app_id}"] .spinner-border`).show()
+
+                                initial_shopify_import(app_id)
+                            })
                         })
                     }
 
@@ -113,6 +141,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     $('.shopify_test_button .spinner-border').hide()
                 }
             })
+        })
+
+        $('[data-target="import_running_data"]').on('click', (e) => {
+            let path = $(e.target).attr('data-path')
         })
     })
 })
