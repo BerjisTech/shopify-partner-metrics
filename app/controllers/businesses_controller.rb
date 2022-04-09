@@ -26,9 +26,10 @@ class BusinessesController < ApplicationController
   def create
     @business = Business.new(business_params)
 
+    @business.user_id = current_user.id
     respond_to do |format|
       if @business.save
-        Staff.create({ business_id: @business.id, user_id: @busines.user_id, status: 1, designation: 1 })
+        Staff.create({ business_id: @business.id, user_id: @business.user_id, status: 1, designation: 1 })
         format.html { redirect_to business_url(@business), notice: 'Business was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else

@@ -12,15 +12,15 @@ class Business < ApplicationRecord
 
   class << self
     def mine(user_id)
-      if App.mine(user_id).nil?
-        joins(:staffs).where(user_id: user_id).joins(:industry).joins(:apps).group(:id, :name, 'industries.id').select(
+      where(user_id: user_id)
+        .joins(:staffs)
+        .joins(:industry)
+        .joins('LEFT JOIN apps ON businesses.id = apps.business_id')
+        .order('businesses.created_at DESC')
+        .group(:id, :name, 'industries.id')
+        .select(
           :id, :business_name, :name, 'industries.id as industry_id', 'count(apps.id) as business_apps', :user_id, 'businesses.created_at', 'businesses.updated_at'
         )
-      else
-        joins(:staffs).where(user_id: user_id).joins(:industry).group(:id, :name, 'industries.id').select(
-          :id, :business_name, :name, 'industries.id as industry_id', '0 as business_apps', :user_id, 'businesses.created_at', 'businesses.updated_at'
-        )
-      end
     end
   end
 end
