@@ -1,7 +1,7 @@
 const { formatSchema } = require("webpack/lib/WebpackOptionsValidationError")
 
 window.initial_shopify_import = (app_id) => {
-    alert(app_id)
+    console.log(`app_id : ${app_id}`)
 }
 
 window.create_app_from_test = (r) => {
@@ -114,21 +114,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                             `
                             )
 
-                            $(`
-                                <span app_id="${r.app_id}" class="pointer initial_import d-flex my-3 border-bottom align-items-center justify-content-between">
+                            $('.test_api_connection_block').append(`
+                                <span class="pointer d-flex my-3 border-bottom align-items-center justify-content-between" onclick="initial_shopify_import(${app_id})">
                                     Import Data For ${r.app['app_name']}
                                     <div class="spinner-border" style="display: none; width: 20px; height: 20px;" role="status">
                                         <span class="sr-only"></span>
                                     </div>
                                 </span>
-                            `).insertAfter('.test_api_connection_block')
-
-                            $('.initial_import').on('click', (e) => {
-                                let app_id = $(e.target).attr('app_id')
-                                $(`[app_id="${app_id}"] .spinner-border`).show()
-
-                                initial_shopify_import(app_id)
-                            })
+                            `)
                         })
                     }
 
@@ -145,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         $('[data-target="import_running_data"]').on('click', (e) => {
             let path = $(e.target).attr('data-path')
+            console.log(path)
         })
     })
 })

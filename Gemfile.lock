@@ -80,6 +80,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -160,6 +161,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
+    redis (4.6.0)
     regexp_parser (2.2.1)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -206,6 +208,10 @@ GEM
       sentry-ruby-core (= 5.2.1)
     sentry-ruby-core (5.2.1)
       concurrent-ruby
+    sidekiq (6.4.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     smarter_csv (1.4.2)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
@@ -271,6 +277,7 @@ DEPENDENCIES
   sendgrid-ruby
   sentry-rails
   sentry-ruby
+  sidekiq
   smarter_csv
   stripe
   turbolinks (~> 5)
