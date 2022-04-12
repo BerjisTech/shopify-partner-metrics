@@ -4,11 +4,7 @@ class RunningDataImporterJob < ApplicationJob
   queue_as :default
 
   def perform(app_id, endpoint)
-    # Do something later
-    p app_id
-    p endpoint
-    p 'done'
-
     RunningMetric.start_importer(app_id, endpoint)
+    RunningDataImporterJob.set(wait: 24.hours).perform_later(params[:app_id], params[:endpoint])
   end
 end

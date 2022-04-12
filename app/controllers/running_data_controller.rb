@@ -17,7 +17,7 @@ class RunningDataController < ApplicationController
 
   def pull_first_data
     RunningMetric.start_importer(params[:app_id], params[:endpoint])
-    RunningDataImporterJob.set(wait: 5.seconds).perform_later(params[:app_id], params[:endpoint])
+    RunningDataImporterJob.set(wait: 24.hours).perform_later(params[:app_id], params[:endpoint])
   end
 
   # GET /running_data/new

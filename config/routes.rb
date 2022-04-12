@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     get 'import/shopify_test', controller: :importer, action: :shopify_test, as: :shopify_test_import
     post 'shopify_importer_setup', controller: :third_party_apis, action: :shopify_importer_setup
     post 'pfd', controller: :running_data, action: :pull_first_data, as: :pfd
-    get 'pfd', controller: :running_data, action: :pull_first_data
   end
 
   get 'home/index'
