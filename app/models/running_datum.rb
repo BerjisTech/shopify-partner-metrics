@@ -102,5 +102,10 @@ class RunningDatum < ApplicationRecord
     def get_data(endpoint)
       Faraday.get(endpoint)
     end
+
+    def importer_job(app_id, endpoint)
+      p 'Shit'
+      RunningDataImporterJob.set(wait: 5.seconds).perform_later(app_id, endpoint)
+    end
   end
 end

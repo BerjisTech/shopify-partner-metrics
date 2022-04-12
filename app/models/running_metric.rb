@@ -43,7 +43,7 @@ class RunningMetric < ApplicationRecord
 
     def save_plan_data(data, app_id, app_plan)
       PlanDatum.where(app_id: app_id, plan_id: app_plan.id, date: Date.today.strftime('%d-%m-%Y')).destroy_all
-      PlanDatum.create({
+      PlanDatum.create!({
                          app_id: app_id,
                          plan_id: app_plan.id,
                          plan_paying_users: data['plan_paying_users'],

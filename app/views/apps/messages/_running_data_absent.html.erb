@@ -12,7 +12,7 @@
           </p>
           <div><img src='https://miro.medium.com/max/1076/1*Kr0i6XlnHE1-oAx_sNp-hQ.gif' class="active_test_running_data_loader" style="display: none;" /></div>
           <span class="shopify-button override-danger px-3 py-2 point_me" data-target="test_running_data" data-path="<%= test_running_data_url(@app.id) %>">Test Running Data Import</span>
-          <span class="shopify-button px-3 py-2 point_me" style="display: none;" data-target="import_running_data" data-path="<%= test_running_data_url(@app.id) %>">Import Running Data Import</span>
+          <span class="shopify-button px-3 py-2 point_me" style="display: none;" data-target="import_running_data" data-path="<%= pfd_url(app_id: @app.id, endpoint: @app.running_data_endpoint) %>" form_authenticity_token="<%= form_authenticity_token %>">Import Running Data Import</span>
           <%= link_to "Edit App Details", edit_app_path, class: "shopify-button override-info px-3 py-2 point_me" %>
           <div></div>
         </div>

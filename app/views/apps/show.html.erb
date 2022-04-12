@@ -1,4 +1,4 @@
-<%- if RunningDatum.where(app_id: @app.id).present? %>
+<%- if RunningMetric.where(app_id: @app.id).present? %>
   <div class="row">
     <div class="col-sm-12">
       <div class="border-bottom pb-4">
@@ -14,7 +14,7 @@
   <%= render '/apps/messages/running_data_absent' %>
 <% end %>
 
-<%- if RunningDatum.where(app_id: @app.id).present? %>
+<%- if ExternalMetric.where(app_id: @app.id).present? %>
   <%= render '/apps/stats/third_party_data' %>
 <% end %>
 

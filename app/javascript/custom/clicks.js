@@ -139,6 +139,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         $('[data-target="import_running_data"]').on('click', (e) => {
             let path = $(e.target).attr('data-path')
             console.log(path)
+            $.ajax({
+                url: path,
+                method: 'POST',
+                data: {
+                    authenticity_token: $(e.target).attr('form_authenticity_token')
+                },
+                success: (r) => {
+                    toastr.info('Hooray! Your first data has been imported')
+                    setTimeout(() => { window.location.reload() }, 500)
+                },
+                error: (e) => { 
+                    console.log(e)
+                    console.error(e)
+                    toastr.error('Something went wrong. Kindly check that the endpoint is online') }
+            })
         })
     })
 })
