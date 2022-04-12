@@ -28,7 +28,7 @@ class RunningMetric < ApplicationRecord
 
     def save_metric_data(data, app_id)
       RunningMetric.where(app_id: app_id, date: Date.today.strftime('%d-%m-%Y')).destroy_all
-      RunningMetric.create({ app_id: app_id, date: Date.today.strftime('%d-%m-%Y') }).update(data)
+      RunningMetric.create!({ app_id: app_id, date: Date.today.strftime('%d-%m-%Y') }).update(data)
     end
 
     def save_plan(data, app_id)
