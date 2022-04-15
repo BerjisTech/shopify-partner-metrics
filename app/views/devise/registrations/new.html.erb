@@ -4,46 +4,42 @@
       <div class="d-flex flex-column align-items-center justify-content-center full-height">
         <div class="row">
           <%= render "devise/shared/error_messages", resource: resource %>
-          <div class="col-sm-10 align-self-center alerts mb-4"></div>
-          <div class="col-sm-10 align-self-center user-set">
-            <div class="input-group form-floating my-2">
-              <%= f.text_field :username, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Placeholder" %>
-              <%= f.label :username %>
-              <div class="input-group-addon validity d-flex align-items-center justify-content-center"></div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+
+            <div class="align-self-center email-set">
+              <div class="form-floating my-2">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Placeholder" %>
+                <%= f.label :email %>
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-10 align-self-center email-set">
-            <div class="form-floating my-2">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Placeholder" %>
-              <%= f.label :email %>
+            <div class="align-self-center ps-set">
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <div class="form-floating my-2">
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
+                <%= f.label :password %>
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-10 align-self-center ps-set">
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %>
-            <div class="form-floating my-2">
-              <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
-              <%= f.label :password %>
+            <div class="align-self-center ps-confirm">
+              <div class="form-floating my-2">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
+                <%= f.label :password_confirmation %>
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-10 align-self-center ps-confirm">
-            <div class="form-floating my-2">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Placeholder" %>
-              <%= f.label :password_confirmation %>
+            <div class="align-self-center actions d-flex algin-items-center justify-content-end next_button"></div>
+
+            <div class="align-self-center actions submit_button">
+              <%= f.submit "Sign up", class: "btn btn-primary btn-lg form-control" %>
             </div>
+            <%= render "devise/shared/links" %>
           </div>
-
-          <div class="col-sm-10 align-self-center actions d-flex algin-items-center justify-content-end next_button"></div>
-
-          <div class="col-sm-10 align-self-center actions submit_button">
-            <%= f.submit "Sign up", class: "btn btn-primary btn-lg form-control" %>
-          </div>
+          <div class="col-sm-3"></div>
         </div>
-        <%= render "devise/shared/links" %>
       </div>
     <% end %>
   </div>

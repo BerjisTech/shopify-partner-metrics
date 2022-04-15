@@ -17,8 +17,4 @@ ActiveStorage.start()
 const jQuery = $
 global.toastr = require("toastr")
 
-if (window.location.href.includes('/register')) {
-    require("packs/registrations")
-} else {
-    require("custom")
-}
+require("custom")
