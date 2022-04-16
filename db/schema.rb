@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_04_233437) do
+ActiveRecord::Schema.define(version: 2022_04_16_135709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -103,6 +103,29 @@ ActiveRecord::Schema.define(version: 2022_04_04_233437) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payment_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "payout_period"
+    t.datetime "payment_date"
+    t.string "shop"
+    t.string "shop_country"
+    t.datetime "charge_creation_time"
+    t.text "charge_type"
+    t.string "category"
+    t.float "partner_sale"
+    t.float "shopify_fee"
+    t.float "processing_fee"
+    t.float "regulatory_operating_fee"
+    t.float "partner_share"
+    t.text "app_title"
+    t.string "theme_name"
+    t.string "tax_description"
+    t.string "charge_id"
+    t.uuid "app_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_date"], name: "index_payment_histories_on_payment_date"
   end
 
   create_table "plan_data", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

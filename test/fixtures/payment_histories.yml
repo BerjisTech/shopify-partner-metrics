@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payout_period: MyText
+  payout_date: 2022-04-16 16:57:14
+  shop: MyString
+  shop_country: MyString
+  charge_creation_time: 2022-04-16 16:57:14
+  charge_type: MyText
+  category: MyString
+  partner_sale: 1.5
+  shopify_fee: 1.5
+  processing_fee: 1.5
+  regulatory_operating_fee: 1.5
+  partner_share: 1.5
+  app_title: MyText
+  theme_name: MyString
+  tax_description: MyString
+  charge_id: MyString
+  app_id: 
+
+two:
+  payout_period: MyText
+  payout_date: 2022-04-16 16:57:14
+  shop: MyString
+  shop_country: MyString
+  charge_creation_time: 2022-04-16 16:57:14
+  charge_type: MyText
+  category: MyString
+  partner_sale: 1.5
+  shopify_fee: 1.5
+  processing_fee: 1.5
+  regulatory_operating_fee: 1.5
+  partner_share: 1.5
+  app_title: MyText
+  theme_name: MyString
+  tax_description: MyString
+  charge_id: MyString
+  app_id: 

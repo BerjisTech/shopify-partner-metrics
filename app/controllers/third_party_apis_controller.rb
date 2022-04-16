@@ -18,7 +18,22 @@ class ThirdPartyApisController < ApplicationController
     @third_party_api = ThirdPartyApi.new
   end
 
-  def shopify_importer_setup; end
+  def shopify_importer_setup
+    file = params[:shopify]
+    csv_file = format_file(file)
+    render json: FileFormat.extract_data(csv_file)
+  end
+
+  def format_file(file)
+    case file.content_type
+    when 'text/csv'
+      file
+    when 'application/x-zip-compressed'
+      FileFormat.unzip_file(file)
+    else
+      { status: 'error', message: 'Please provide a zip or csv file' }
+    end
+  end
 
   # GET /third_party_apis/1/edit
   def edit; end

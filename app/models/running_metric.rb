@@ -44,13 +44,13 @@ class RunningMetric < ApplicationRecord
     def save_plan_data(data, app_id, app_plan)
       PlanDatum.where(app_id: app_id, plan_id: app_plan.id, date: Date.today.strftime('%d-%m-%Y')).destroy_all
       PlanDatum.create!({
-                         app_id: app_id,
-                         plan_id: app_plan.id,
-                         plan_paying_users: data['plan_paying_users'],
-                         plan_trial_users: data['plan_trial_users'],
-                         plan_total_users: data['plan_total_users'],
-                         date: Date.today.strftime('%d-%m-%Y')
-                       })
+                          app_id: app_id,
+                          plan_id: app_plan.id,
+                          plan_paying_users: data['plan_paying_users'],
+                          plan_trial_users: data['plan_trial_users'],
+                          plan_total_users: data['plan_total_users'],
+                          date: Date.today.strftime('%d-%m-%Y')
+                        })
     end
 
     def calculate_user_churn(app_id); end

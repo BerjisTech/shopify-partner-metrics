@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+class CreatePaymentHistories < ActiveRecord::Migration[6.1]
+  def change
+    create_table :payment_histories, id: :uuid do |t|
+      t.datetime :payment_date, index: true
+      t.text :charge_type
+      t.text :app_title
+      t.uuid :app_id
+      t.text :shop
+      t.decimal :revenue, precision: 8, scale: 2
+      t.timestamps
+    end
+  end
+end
