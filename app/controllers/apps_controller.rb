@@ -9,7 +9,14 @@ class AppsController < ApplicationController
   end
 
   # GET /apps/1 or /apps/1.json
-  def show; end
+  def show
+    last_data = PlanDatum.where(app_id: @app.id, date: Date.today)
+    if last_data.nil?
+      RunningMetric.start_importer(@app.id, @app.endpoint)
+    end
+    app_data = PlanDatum.where(app_id: @app.id, date: Date.today).joins(:app_plan).select('sum(plan_data.plan_paying_users * app_plans.plan_price) as mrr, sum(plan_data.plan_trial_users * app_plans.plan_price) as trial, sum(plan_data.plan_total_users) as users')
+    @app_data = app_data[0]
+  end
 
   # GET /apps/new
   def new

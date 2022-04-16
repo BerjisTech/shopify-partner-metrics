@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             )
 
                             $('.test_api_connection_block').append(`
-                                <span class="pointer d-flex my-3 border-bottom align-items-center justify-content-between" onclick="initial_shopify_import(${app_id})">
+                                <span class="pointer d-flex my-3 border-bottom align-items-center justify-content-between" onclick="initial_shopify_import('${r.app_id}')">
                                     Import Data For ${r.app['app_name']}
                                     <div class="spinner-border" style="display: none; width: 20px; height: 20px;" role="status">
                                         <span class="sr-only"></span>
