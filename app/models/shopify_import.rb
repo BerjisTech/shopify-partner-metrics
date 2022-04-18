@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShopifyImport < ApplicationRecord
-  # PLATFORM = Platform.find_by(name: 'Shopify').id
+  PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
     def start_importer(app_id, api, time, data_set, cursor)

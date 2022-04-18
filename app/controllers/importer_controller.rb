@@ -3,7 +3,7 @@
 class ImporterController < ApplicationController
   respond_to :json, only: :shopify_test
 
-  # PLATFORM = Platform.find_by(name: 'Shopify').id
+  PLATFORM = Platform.find_by(name: 'Shopify').id
 
   def shopify
     start = params[:start].to_i.nil? ? params[:data_set] : 1
