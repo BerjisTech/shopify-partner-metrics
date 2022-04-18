@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             ps_set.remove()
             ps_confirm.remove()
             $('.user-good').hide()
-            $('.alerts').html(`<span class="alert alert-danger user_alert">You need a username to proceed <span class="material-icons point_me" onclick="document.querySelector('.alerts').innerHTML = ''">cancel</span></psan>`)
+            $('.alerts').html(`<span class="alert alert-danger user_alert">You need a username to proceed <span class="material-icons point_me" onclick="document.querySelector('.alerts').textContent = ''">cancel</span></psan>`)
             return;
         }
         $.ajax({

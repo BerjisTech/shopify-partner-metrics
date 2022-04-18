@@ -29,13 +29,14 @@
   <div class="fs-3 fw-normal mb-4">
     Import Previous Data
   </div>
-  <div class="fs-3 fw-light">
+  <div class="fs-3 fw-light shopify_csv_apps_not_found">
     To import all your historical data, the Payouts CSV file is required as it is much much faster.
     In your Shopify Partners Dashboard, go to the Payouts page, and click the Export CSV button.
     Then drop the received ZIP file here:
   </div>
-  <%= form_tag({:action => :shopify_importer_setup}, multipart: true, class: "my-4 form") do %>
-    <%= file_field_tag :shopify, accept: ".csv, .zip" %>
+  <%= form_tag({:action => :shopify_importer_setup}, multipart: true, class: "my-4 form shopify_csv_import_data") do %>
+    <%= file_field_tag :shopify, accept: ".csv, .zip", required: "required" %>
+    <progress style="display:none;"></progress>
     <%= submit_tag( "Import", class: "shopify-button btn btn-lg") %>
   <% end %>
 </div>

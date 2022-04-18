@@ -1,3 +1,5 @@
+// ES6
+
 const { formatSchema } = require("webpack/lib/WebpackOptionsValidationError")
 
 window.initial_shopify_import = (app_id) => {
@@ -149,10 +151,57 @@ document.addEventListener('DOMContentLoaded', async () => {
                     toastr.info('Hooray! Your first data has been imported')
                     setTimeout(() => { window.location.reload() }, 500)
                 },
-                error: (e) => { 
+                error: (e) => {
                     console.log(e)
                     console.error(e)
-                    toastr.error('Something went wrong. Kindly check that the endpoint is online') }
+                    toastr.error('Something went wrong. Kindly check that the endpoint is online')
+                }
+            })
+        })
+
+        $('.shopify_csv_import_data').on('submit', (e) => {
+            e.preventDefault()
+            $('.shopify_csv_import_data [type="file"]').hide()
+            $('.shopify_csv_import_data progress').show()
+
+            let file = $('.shopify_csv_import_data [type="file"]').val()
+            let path = $('.shopify_csv_import_data').attr('action')
+
+            console.log(`${path} <-> ${file}`)
+
+            $.ajax({
+                url: path,
+                data: new FormData($('.shopify_csv_import_data')[0]),
+                method: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (response) => {
+                    $('.shopify_csv_import_data').hide()
+                    console.log(response)
+                    toastr.info('Data fully imported. You can now go back to you apps page')
+                    if (response.status === 'no_apps') {
+                        $('.shopify_csv_apps_not_found').html(`
+                            <div class="fs-4 fw-light my-3">You data will start importing in a few seconds. Feel free to poke around and get used to the platform as we do this for you.<br />
+                            NOTE: ${response.data.not_found.length} apps on this list were not found in your InFlowMetrics Apps list. They have all been automatically created. You can edit them or delete the ones you don't want below</div>
+                        `)
+
+                        for (let app = 0; app < response.data.not_found.length; app++) {
+                            $('.shopify_csv_apps_not_found').append(`
+                                <div><a href="${response.data.not_found[app][1]}">${response.data.not_found[app][0]}</a></div>
+                            `)
+                        }
+
+                        $('.shopify_csv_apps_not_found').append(`<div class="mt-3"><a class="shopify-button btn btn-md" href="${base_url}apps">Go to apps page</a></div>`)
+                    }
+                },
+                error: (e) => {
+                    $('.shopify_csv_import_data progress').hide()
+                    $('.shopify_csv_import_data [type="file"]').show()
+                    toastr.error('Something went wrong')
+                    console.log(e)
+                    console.log(e.responseText)
+                }
             })
         })
     })
