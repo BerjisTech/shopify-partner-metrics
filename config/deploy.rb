@@ -1,13 +1,16 @@
-# config valid for current version and patch releases of Capistrano
-lock "~> 3.17.0"
+# frozen_string_literal: true
 
-set :application, "inflowmetrics"
-set :repo_url, "git@github.com:BerjisTech/metrics.git"
+# config valid for current version and patch releases of Capistrano
+lock '~> 3.17.0'
+
+set :application, 'inflowmetrics'
+set :repo_url, 'git@github.com:BerjisTech/metrics.git'
 
 # Deploy to the user's home directory
 set :deploy_to, "/home/prometheus/#{fetch :application}"
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system',
+       'public/uploads'
 
 # Only keep the last 5 releases to save disk space
 set :keep_releases, 5

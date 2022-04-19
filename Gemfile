@@ -39,11 +39,11 @@ gem 'sidekiq'
 gem 'stripe'
 
 ################ CAPISTRANO #################
-gem 'capistrano-passenger', require: false
-gem 'capistrano-rbenv',     require: false
-gem 'capistrano',           require: false
-gem 'capistrano-rails',     require: false
-gem 'capistrano-bundler',   require: false
+gem 'capistrano', '~> 3.11'
+gem 'capistrano-rails', '~> 1.4'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4' 
+gem 'capistrano-bundler'  
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
