@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 set :rbenv_type, :user
-set :rbenv_ruby, '3.1.1'
+set :rbenv_ruby, '3.0.1'
 
 # Load DSL and set up stages
 require 'capistrano/setup'
