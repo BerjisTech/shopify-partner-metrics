@@ -84,4 +84,7 @@ test:
 
 production:
   <<: *default
-  URL: <%= ENV['DATABASE_URL'] %> # metrics_production
+  # URL: <%= ENV['DATABASE_URL'] %> # metrics_production
+  database: metrics_production
+  username: prometheus
+  password: 890Berjis*()
