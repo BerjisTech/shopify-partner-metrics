@@ -1,38 +1,35 @@
 server {
-    server_name inflowmetrics.com www.inflowmetrics.com;
-    root /home/prometheus/inflowmetrics/current/public;
+  server_name inflowmetrics.com www.inflowmetrics.com;
+  root /home/prometheus/inflowmetrics/current/public;
 
-    passenger_enabled on;
-    passenger_app_env production;
+  passenger_enabled on;
+  passenger_app_env production;
 
-    location /cable {
-        passenger_app_group_name inflowmetrics_websocket;
-        passenger_force_max_concurrent_requests_per_process 0;
-    }
+  location /cable {
+    passenger_app_group_name inflowmetrics_websocket;
+    passenger_force_max_concurrent_requests_per_process 0;
+  }
 
-    # Allow uploads up to 100MB in size
-    client_max_body_size 100m;
+  # Allow uploads up to 100MB in size
+  client_max_body_size 100m;
 
-    location ~ ^/(assets|packs) {
-        expires max;
-        gzip_static on;
-    }
+  location ~ ^/(assets|packs) {
+    expires max;
+    gzip_static on;
+  }
 
-    location ~ /.well-known {
-        allow all;
-    }
+  location ~ /.well-known {
+    allow all;
+  }
 }
-
 server {
     if ($host = inflowmetrics.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    listen 80;
-    listen [::]:80 ipv6only=on default_server;
-    server_name inflowmetrics.com www.inflowmetrics.com;
-        return 404; # managed by Certbot
-
-
+  listen 80;
+  listen [::]:80 ipv6only=on default_server;
+  server_name inflowmetrics.com www.inflowmetrics.com;
+    return 404; # managed by Certbot
 }

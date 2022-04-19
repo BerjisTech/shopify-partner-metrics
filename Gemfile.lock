@@ -241,7 +241,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stripe (5.50.0)
+    stripe (5.52.0)
     thor (1.2.1)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -282,10 +282,11 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
-  capistrano (~> 3.11)
-  capistrano-passenger (~> 0.2.0)
-  capistrano-rails (~> 1.4)
-  capistrano-rbenv (~> 2.1, >= 2.1.4)
+  capistrano
+  capistrano-bundler
+  capistrano-passenger
+  capistrano-rails
+  capistrano-rbenv
   capybara (>= 3.26)
   devise
   faraday
@@ -314,4 +315,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.32
+   2.3.11

@@ -1,9 +1,10 @@
 require 'capistrano/rails'
+require 'capistrano/bundler'
 require 'capistrano/passenger'
 require 'capistrano/rbenv'
 
 set :rbenv_type, :user
-set :rbenv_ruby, '3.0.1'
+set :rbenv_ruby, '3.1.1'
 
 # Load DSL and set up stages
 require "capistrano/setup"

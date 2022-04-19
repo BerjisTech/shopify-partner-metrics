@@ -2,7 +2,7 @@
 lock "~> 3.17.0"
 
 set :application, "inflowmetrics"
-set :repo_url, "git@example.com:berjistech/inflowmetrics.git"
+set :repo_url, "git@github.com:BerjisTech/metrics.git"
 
 # Deploy to the user's home directory
 set :deploy_to, "/home/prometheus/#{fetch :application}"
