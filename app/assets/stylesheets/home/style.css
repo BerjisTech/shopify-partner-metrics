@@ -413,7 +413,7 @@ footer:-moz-placeholder, .iq-coming { /* Firefox 4 - 18 */  color: #ffffff; opac
 .iq-coming #countdown li.seperator { font-size: 50px; line-height: 40px; vertical-align: top; margin: 16px 0px; color: #ffffff; }
 .iq-coming #countdown li h6 { color: #ffffff; font-size: 20px; padding-right: 30px; }
 .iq-coming .particles-bg { position: relative; overflow: hidden; }
-.iq-coming .particles-bg #canvas { position: absolute; display: block; color: rgba(255, 255, 255.0.9); }
+.iq-coming .particles-bg #canvas { position: absolute; display: block; color: rgba(255, 255, 255, 0.9); }
 .iq-coming #countdown li p { font-size: 16px; font-weight: 600; line-height: 24px; color: #ffffff; }
 .iq-coming #countdown li span:after { position: absolute; right: -30px; top: 0; content: ":"; font-size: 50px; color: #ffffff; line-height: 50px; }
 .iq-coming #countdown li:last-child  span:after { content: none; }

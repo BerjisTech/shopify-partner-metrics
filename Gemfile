@@ -37,8 +37,6 @@ gem 'rufo'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'stripe'
-gem 'ed25519'
-gem 'bcrypt_pbkdf'
 
 ################ CAPISTRANO #################
 gem 'capistrano', '~> 3.11'

@@ -6,3 +6,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Platform.find_or_create_by!({name: 'Shopify'})
+Platform.find_or_create_by!({name: 'Stripe'})
+Platform.find_or_create_by!({name: 'Paypal'})
