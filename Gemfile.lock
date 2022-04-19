@@ -284,9 +284,9 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.11)
   capistrano-bundler
-  capistrano-passenger (~> 0.2.0)
-  capistrano-rails (~> 1.4)
-  capistrano-rbenv (~> 2.1, >= 2.1.4)
+  capistrano-passenger
+  capistrano-rails
+  capistrano-rbenv
   capybara (>= 3.26)
   devise
   faraday
