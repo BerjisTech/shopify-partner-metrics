@@ -1,0 +1,7 @@
+require('./chatbot')
+require('./circle')
+require('./countdown')
+require('./counto')
+require('./custom')
+require('./vizion-circle')
+require('./wow.min')

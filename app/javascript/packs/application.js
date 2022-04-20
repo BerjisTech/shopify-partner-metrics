@@ -9,6 +9,8 @@ import "bootstrap"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import toastr from "toastr/toastr"
+import "@fortawesome/fontawesome-free/css/all"
+
 
 Rails.start()
 Turbolinks.start()
@@ -17,4 +19,8 @@ ActiveStorage.start()
 const jQuery = $
 global.toastr = require("toastr")
 
-require("custom")
+if (is_home) {
+    require("home")
+} else {
+    require("custom")
+}

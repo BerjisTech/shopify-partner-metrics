@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= render "layouts/header" %>
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%- if controller_name == 'home' %>
+      <script>
+        var is_home = true
+      </script>
+      <%= stylesheet_link_tag "home", media: "all", 'data-turbolinks-track': "reload" %>
+    <% else %>
+      <%= render "layouts/header" %>
+      <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <% end %>
     <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
-
   <body>
     <%= render 'layouts/constants' %>
-
     <% if user_signed_in? && controller_name != 'home' %>
       <%= render 'layouts/nav' %>
       <%= render 'layouts/account_bar' %>
@@ -31,10 +35,11 @@
         <% end %>
       </div>
     <% else %>
+      <%- if controller_name == 'home' %>
+        <%= render "home/header" %>
+      <% end %>
       <%= yield %>
     <% end %>
-
     <%= toastr_flash %>
-
   </body>
 </html>
