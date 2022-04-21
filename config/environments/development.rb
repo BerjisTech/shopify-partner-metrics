@@ -76,17 +76,8 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  ActionMailer::Base.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: '587',
-    authentication: :plain,
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD'],
-    domain: 'heroku.com',
-    enable_starttls_auto: true
-  }
 
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :mailjet_api
   config.action_mailer.default_url_options = { host: 'http://localhost:3000, https://lordsombo.ngrok.io' }
   config.hosts = 'localhost:3000', 'lordsombo.ngrok.io', '127.0.0.1'
 end

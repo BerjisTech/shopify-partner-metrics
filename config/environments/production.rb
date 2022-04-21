@@ -120,15 +120,6 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  ActionMailer::Base.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: '587',
-    authentication: :plain,
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD'],
-    domain: 'heroku.com',
-    enable_starttls_auto: true
-  }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'ltvmetrics.herokuapp.com', protocol: 'https' }
+  config.action_mailer.delivery_method = :mailjet_api
+  config.action_mailer.default_url_options = { host: 'inflowmetrics.com', protocol: 'https' }
 end
