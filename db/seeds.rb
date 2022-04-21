@@ -11,3 +11,4 @@
 Platform.find_or_create_by!({ name: 'Shopify' })
 Platform.find_or_create_by!({ name: 'Stripe' })
 Platform.find_or_create_by!({ name: 'Paypal' })
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

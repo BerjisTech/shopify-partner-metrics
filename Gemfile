@@ -37,6 +37,7 @@ gem 'rubyzip'
 gem 'rufo'
 gem 'sidekiq'
 gem 'stripe'
+gem 'activeadmin'
 
 ################ CAPISTRANO #################
 gem 'capistrano', '~> 3.11'
