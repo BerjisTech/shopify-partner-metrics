@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   authenticated :user do
     resources :platforms
     resources :industries
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   get 'home/faq'
   get 'home/api'
   get 'docs', controller: :docs, action: :big_dicky
+  get 'confirm', controller: :misc, action: :confirm
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   post 'verify_email', controller: :application, action: :verify_email

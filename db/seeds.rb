@@ -11,4 +11,14 @@
 Platform.find_or_create_by!({ name: 'Shopify' })
 Platform.find_or_create_by!({ name: 'Stripe' })
 Platform.find_or_create_by!({ name: 'Paypal' })
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+Industry.find_or_create_by!({ name: 'eCommerce' })
+Industry.find_or_create_by!({ name: 'Fashion' })
+Industry.find_or_create_by!({ name: 'Food' })
+Industry.find_or_create_by!({ name: 'Tours & Travel' })
+Industry.find_or_create_by!({ name: 'IT' })
+
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password',
+                    password_confirmation: 'password')
+end

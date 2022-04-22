@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'activeadmin'
 gem 'devise'
 gem 'faraday'
 gem 'mailjet'
@@ -37,7 +38,6 @@ gem 'rubyzip'
 gem 'rufo'
 gem 'sidekiq'
 gem 'stripe'
-gem 'activeadmin'
 
 ################ CAPISTRANO #################
 gem 'capistrano', '~> 3.11'

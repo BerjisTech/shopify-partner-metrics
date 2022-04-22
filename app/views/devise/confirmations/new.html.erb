@@ -1,16 +1,26 @@
-<h2>Resend confirmation instructions</h2>
-
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+<% current_email = current_user.present? ? current_user.email : '' %>
+<div class="row mt-5">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <h2 class="my-5">Resend confirmation instructions</h2>
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="bg-white rounded border shadow p-5 d-flex flex-column align-items-center justify-content-center">
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <% if current_email.present? %>
+          <div>
+            A confirmation email has been sent to <strong><%= current_email %></strong>. 
+            Ensure to also check your spam folder and mark <a href="mailto:accounts@inflowmetrics.com">accounts@inflowmetrics.com</a> as not spam.
+            Use the form below tpo get new confirmation link.
+          </div>
+        <% end %>
+        <div class="form-floating input-group my-2">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control", placeholder: "placeholder" %>
+          <%= f.label :email, value: current_email %>
+          <%= f.submit "Resend confirmation instructions", class: "btn btn-md btn-primary input-group-addon" %>
+        </div>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <div class="col-sm-2"></div>
+</div>
