@@ -15,6 +15,9 @@ class AppsController < ApplicationController
     app_data = PlanDatum.where(app_id: @app.id,
                                date: Date.today).joins(:app_plan).select('sum(plan_data.plan_paying_users * app_plans.plan_price) as mrr, sum(plan_data.plan_trial_users * app_plans.plan_price) as trial, sum(plan_data.plan_total_users) as users')
     @app_data = app_data[0]
+
+    @external_data = ExternalMetric.where(app_id: @app.id).group_by{ |g| g.platform_id }
+    render json: @external_data.first.last
   end
 
   # GET /apps/new

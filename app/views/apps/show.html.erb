@@ -1,23 +1,28 @@
-<%- if RunningMetric.where(app_id: @app.id).present? %>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="border-bottom pb-4">
-        <span class="fs-3"><%= @app.app_name %></span>
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <%- if !@external_data.blank? %>
+      <% @external_data.each do |external_metric| %>
+        <%= render '/apps/stats/third_party_data', external_metric: external_metric %>
+      <% end %>
+    <% end %>
+    <%- if RunningMetric.where(app_id: @app.id).present? %>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="border-bottom pb-4">
+            <span class="fs-3"><%= @app.app_name %></span>
+          </div>
+        </div>
       </div>
-    </div>
+      <%= render '/apps/stats/general' %>
+      <%= render '/apps/stats/charts' %>
+      <%= render '/apps/stats/running_data' %>
+    <% else %>
+      <%= render '/apps/messages/running_data_absent' %>
+    <% end %>
   </div>
-
-  <%= render '/apps/stats/general' %>
-  <%= render '/apps/stats/charts' %>
-  <%= render '/apps/stats/running_data' %>
-<% else %>
-  <%= render '/apps/messages/running_data_absent' %>
-<% end %>
-
-<%- if ExternalMetric.where(app_id: @app.id).present? %>
-  <%= render '/apps/stats/third_party_data' %>
-<% end %>
-
+  <div class="col-sm-1"></div>
+</div>
 <% link_to 'Edit', edit_app_path(@app) %>
 <% link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% link_to 'Back', apps_path %>
