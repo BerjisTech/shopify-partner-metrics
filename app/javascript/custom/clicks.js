@@ -12,7 +12,9 @@ window.create_app_from_test = (r) => {
         url: r.path,
         method: 'POST',
         data: r,
-        success: (r) => { },
+        success: (r) => {
+            toastr.info(`${r.app['app_name']} data has been queued for import`)
+        },
         error: (e) => { toastr.error('Something went wrong') }
     })
 }
@@ -102,9 +104,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     else {
                         $('.shopify_test_button').remove()
                     }
+
                     if (response.ok.length > 0) {
                         $('.api_test_results .alert').hide()
                         response.ok.forEach((r) => {
+                            toastr.info(`${r.app['app_name']} data has been queued for import`)
                             $('.shopify_test_results').append(
                                 `
                                 <tr>
@@ -115,15 +119,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 </tr>
                             `
                             )
-
-                            $('.test_api_connection_block').append(`
-                                <span class="pointer d-flex my-3 border-bottom align-items-center justify-content-between" onclick="initial_shopify_import('${r.app_id}')">
-                                    Import Data For ${r.app['app_name']}
-                                    <div class="spinner-border" style="display: none; width: 20px; height: 20px;" role="status">
-                                        <span class="sr-only"></span>
-                                    </div>
-                                </span>
-                            `)
                         })
                     }
 

@@ -50,10 +50,16 @@ class ImporterController < ApplicationController
             }
           }
         else
+          app_id = App.find_by(app_name: t.first).id
+
+          ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
+          ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
+          ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
+          
           not_found[:ok] << {
             path: apps_path,
             authenticity_token: form_authenticity_token,
-            app_id: App.find_by(app_name: t.first).id,
+            app_id: app_id,
             app: {
               app_name: t.first,
               user_id: current_user.id,

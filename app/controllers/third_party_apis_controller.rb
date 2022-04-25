@@ -6,7 +6,7 @@ class ThirdPartyApisController < ApplicationController
   # GET /third_party_apis or /third_party_apis.json
   def index
     @third_party_apis = ThirdPartyApi.mine(current_user.id)
-    render json: PaymentHistory.where(app_id: '22769f8b-e015-42c2-a947-873410d4a62c').group(:payment_date).order(:payment_date).pluck(:payment_date)
+    # render json: PaymentHistory.where(app_id: '22769f8b-e015-42c2-a947-873410d4a62c').group(:payment_date).order(:payment_date).pluck(:payment_date)
   end
 
   # GET /third_party_apis/1 or /third_party_apis/1.json
@@ -125,7 +125,7 @@ class ThirdPartyApisController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_third_party_api
     @third_party_api = ThirdPartyApi.where(id: params[:id]).joins(:platform).select('third_party_apis.id as id', :partner_id, :app_code, :platform_id, :app_id, :api_key, :api_secret, :secondary_api_key,
-                                                                                    :secondary_api_secret, :name).first
+                                                                                    :secondary_api_secret, 'platforms.name as name').first
   end
 
   # Only allow a list of trusted parameters through.

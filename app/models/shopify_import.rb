@@ -4,7 +4,7 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def start_importer(app_id, api, time, data_set, cursor)
+    def start_importer(app_id, api, time, data_set, cursor = '')
       data = pick_importer(api, data_set, time, cursor)
 
       # process_data(data, app_id, time)

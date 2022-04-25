@@ -41,8 +41,13 @@ class AppsController < ApplicationController
       if @app.save
         AppTeam.create({ user_id: current_user.id, added_by: current_user.id, app_id: @app.id,
                          business_id: @app.business_id })
-        ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
+        api = ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
                                         api_secret: params[:app][:api_secret], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
+
+
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
 
         format.html { redirect_to app_url(@app), notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
