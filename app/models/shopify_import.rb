@@ -45,7 +45,7 @@ class ShopifyImport < ApplicationRecord
                            ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
                          else
                            grouped = edges.filter { |e| e['node']['app']['name'] == App.find(app_id).app_name }
-                           ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor, data_set)
+                           ShopifyPayment.process_data(grouped, app_id, time[:end], PLATFORM, cursor, data_set)
                          end
 
         start_importer(app_id, api, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']
