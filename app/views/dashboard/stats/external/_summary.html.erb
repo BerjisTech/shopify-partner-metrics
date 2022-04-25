@@ -1,32 +1,40 @@
+<% user_growth = (@external_metrics.sum(:new_users) + @external_metrics.sum(:reactivations)) - (@external_metrics.sum(:lost_users) + @external_metrics.sum(:deactivations)) %>
+<% growth_color = if user_growth.positive? %>
+<% "text-cuccess" %>
+<% elsif user_growth.negative? %>
+  <% "text-danger" %>
+<% else %>
+  <% "" %>
+<% end %>
 <div class="row shadow border rounded bg-white my-3">
   <div class="col-sm-3 border-end">
-    <div class="d-flex align-items-center justify-content-center whole-width">
+    <div class="d-flex align-items-center justify-content-center whole-width pointer">
       <span class="my-3">
-        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(1000000, precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_metrics.sum(:gross), precision: 2, delimiter: ',', separator: '.') %></span><br />
         <small>Gross MRR</small>
       </span>
     </div>
   </div>
   <div class="col-sm-3 border-end">
-    <div class="d-flex align-items-center justify-content-center whole-width">
+    <div class="d-flex align-items-center justify-content-center whole-width pointer">
       <span class="my-3">
-        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(1000000, precision: 2, delimiter: ',', separator: '.') %></span><br />
-        <small>Revenue In Trial</small>
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_metrics.sum(:net), precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>Net MRR</small>
       </span>
     </div>
   </div>
   <div class="col-sm-3 border-end">
-    <div class="d-flex align-items-center justify-content-center whole-width">
+    <div class="d-flex align-items-center justify-content-center whole-width pointer">
       <span class="my-3">
-        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(100000, precision: 2, delimiter: ',', separator: '.') %></span><br />
-        <small>Total Users</small>
+        <span class="fs-2 <%= growth_color %>"><%= number_with_precision(user_growth, precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>User Growth last 30 days</small>
       </span>
     </div>
   </div>
   <div class="col-sm-3">
-    <div class="d-flex align-items-center justify-content-center whole-width">
+    <div class="d-flex align-items-center justify-content-center whole-width pointer" onclick="window.location.href = '<%= apps_path %>'">
       <span class="my-3">
-        <span class="fs-2"><%= App.mine(current_user.id).size %></span><br />
+        <span class="fs-2"><%= @external_metrics.count %></span><br />
         <small>Total Apps</small>
       </span>
     </div>
