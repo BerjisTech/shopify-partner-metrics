@@ -45,7 +45,7 @@ class FileFormat < ApplicationRecord
           app_id: App.where(app_name: app[12]).joins('INNER JOIN app_teams on app_teams.app_id = apps.id').where('app_teams.user_id': user_id).pluck('apps.id').first
         )
       end
-      data.group_by { |t| t[12] }.keys.each{|app_id| PaymentHistory.calculate_metrics(app_id) }
+      data.group_by { |t| t[12] }.each_key { |app_id| PaymentHistory.calculate_metrics(app_id) }
     end
 
     def create_app(app_name, user_id)

@@ -11,7 +11,7 @@ class ThirdPartyApisController < ApplicationController
 
   # GET /third_party_apis/1 or /third_party_apis/1.json
   def show
-    # redirect_to edit_third_party_api_path
+    # render json: @third_party_api
   end
 
   # GET /third_party_apis/new
@@ -33,7 +33,7 @@ class ThirdPartyApisController < ApplicationController
       extracted_data = FileFormat.extract_data(csv_file, user_id)
 
       no_apps = find_missing_apps(extracted_data.keys)
-      
+
       status = 'no_apps' if no_apps.size.positive?
 
       message = {
@@ -125,7 +125,7 @@ class ThirdPartyApisController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_third_party_api
     @third_party_api = ThirdPartyApi.where(id: params[:id]).joins(:platform).select('third_party_apis.id as id', :partner_id, :app_code, :platform_id, :app_id, :api_key, :api_secret, :secondary_api_key,
-                                                                                    :secondary_api_secret, 'platforms.name as name').first
+                                                                                    :secondary_api_secret, 'platforms.name as name', 'third_party_apis.created_at', 'third_party_apis.updated_at').first
   end
 
   # Only allow a list of trusted parameters through.

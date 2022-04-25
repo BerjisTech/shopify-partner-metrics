@@ -1,0 +1,34 @@
+<div class="row shadow border rounded bg-white my-3">
+  <div class="col-sm-3 border-end">
+    <div class="d-flex align-items-center justify-content-center whole-width">
+      <span class="my-3">
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(1000000, precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>Gross MRR</small>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-3 border-end">
+    <div class="d-flex align-items-center justify-content-center whole-width">
+      <span class="my-3">
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(1000000, precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>Revenue In Trial</small>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-3 border-end">
+    <div class="d-flex align-items-center justify-content-center whole-width">
+      <span class="my-3">
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(100000, precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>Total Users</small>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="d-flex align-items-center justify-content-center whole-width">
+      <span class="my-3">
+        <span class="fs-2"><%= App.mine(current_user.id).size %></span><br />
+        <small>Total Apps</small>
+      </span>
+    </div>
+  </div>
+</div>

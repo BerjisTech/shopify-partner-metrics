@@ -44,6 +44,7 @@ class ShopifyImport < ApplicationRecord
         final_data_set = if data_set == 'user'
                            ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
                          else
+                           grouped = edges.filter { |e| e['node']['app']['name'] == App.find(app_id).app_name }
                            ShopifyPayment.process_data(edges, app_id, time[:end], PLATFORM, cursor, data_set)
                          end
 

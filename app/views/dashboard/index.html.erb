@@ -1,6 +1,12 @@
 <%- if App.mine(current_user.id).blank? %>
   <%= render 'dashboard/messages/no_app' %>
 <%- else %>
+  <% # EXTERNAL METRICS %>
+  <%- if @external_metrics.blank? %>
+    <%= render 'dashboard/messages/no_external_metrics' %>
+  <%- else %>
+    <%= render 'dashboard/stats/external' %>
+  <% end %>
   <% # RUNNING METRICS %>
   <%- if @running_metrics.blank? %>
     <%= render 'dashboard/messages/no_running_metrics' %>
@@ -14,12 +20,4 @@
     <% end %>
     <div class="mt-4"></div>
   <% end %>
-
-  <% # EXTERNAL METRICS %>
-  <%- if @external_metrics.blank? %>
-    <%= render 'dashboard/messages/no_external_metrics' %>
-  <%- else %>
-    <%= render 'dashboard/stats/external' %>
-  <% end %>
-
 <% end %>
