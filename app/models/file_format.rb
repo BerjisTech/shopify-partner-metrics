@@ -19,12 +19,12 @@ class FileFormat < ApplicationRecord
 
     def extract_data(csv_file, user_id)
       table = CSV.parse(File.read(csv_file))
-      ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table, user_id)
+      ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table.drop(1), user_id)
       table.drop(1).group_by { |t| t[12] }
     end
 
     def payment_history(data, user_id)
-      data.drop(1).each do |app|
+      data.each do |app|
         PaymentHistory.create!(
           payout_period: app[0],
           payment_date: app[1],
@@ -45,6 +45,7 @@ class FileFormat < ApplicationRecord
           app_id: App.where(app_name: app[12]).joins('INNER JOIN app_teams on app_teams.app_id = apps.id').where('app_teams.user_id': user_id).pluck('apps.id').first
         )
       end
+      data.group_by { |t| t[12] }.keys.each{|app_id| PaymentHistory.calculate_metrics(app_id) }
     end
 
     def create_app(app_name, user_id)

@@ -177,9 +177,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 contentType: false,
                 processData: false,
                 success: (response) => {
+                    toastr.info('Data fully imported. You can now go back to you apps page')
                     $('.shopify_csv_import_data').hide()
                     console.log(response)
-                    toastr.info('Data fully imported. You can now go back to you apps page')
+                    if (response.status === null)
+                        window.location.href = `${base_url}apps`
+
                     if (response.status === 'no_apps') {
                         $('.shopify_csv_apps_not_found').html(`
                             <div class="fs-4 fw-light my-3">You data will start importing in a few seconds. Feel free to poke around and get used to the platform as we do this for you.<br />

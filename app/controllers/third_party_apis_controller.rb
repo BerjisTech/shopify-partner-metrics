@@ -6,6 +6,7 @@ class ThirdPartyApisController < ApplicationController
   # GET /third_party_apis or /third_party_apis.json
   def index
     @third_party_apis = ThirdPartyApi.mine(current_user.id)
+    render json: PaymentHistory.where(app_id: '22769f8b-e015-42c2-a947-873410d4a62c').group(:payment_date).order(:payment_date).pluck(:payment_date)
   end
 
   # GET /third_party_apis/1 or /third_party_apis/1.json
@@ -21,6 +22,7 @@ class ThirdPartyApisController < ApplicationController
   def shopify_importer_setup
     file = params[:shopify]
     message = {}
+    user_id = current_user.id
 
     if file.nil?
       message = { status: nil, data: params }
@@ -28,10 +30,10 @@ class ThirdPartyApisController < ApplicationController
       satus = nil
       csv_file = format_file(file)
 
-      extracted_data = FileFormat.extract_data(csv_file, current_user.id)
+      extracted_data = FileFormat.extract_data(csv_file, user_id)
 
       no_apps = find_missing_apps(extracted_data.keys)
-
+      
       status = 'no_apps' if no_apps.size.positive?
 
       message = {
