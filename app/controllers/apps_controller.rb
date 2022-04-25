@@ -45,10 +45,8 @@ class AppsController < ApplicationController
                                         api_secret: params[:app][:api_secret], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
 
 
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(@app.id, api, { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
-
+        set_up_shopify_import(@app.id, api) if api.platform_id == Platform.find_by(name: 'Shopify').id
+                                        
         format.html { redirect_to app_url(@app), notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
       else
@@ -56,6 +54,12 @@ class AppsController < ApplicationController
         format.json { render json: @app.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_up_shopify_import(app_id, api)
+    ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
+    ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
+    ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api, { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
   end
 
   # PATCH/PUT /apps/1 or /apps/1.json
