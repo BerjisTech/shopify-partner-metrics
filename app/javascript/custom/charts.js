@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 dataChart.destroy()
 
             let chart_pane = $(`${chart_pane_id}`)
+            let colors = null
+
+            if (data_set.chart_type === 'doughnut') {
+                colors = []
+                for (let size = 0; size < data_set.values.length; size++) {
+                    colors.push(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
+                }
+            } else {
+                colors = `#${random_color}`
+            }
+
+            console.log(colors)
 
             if (chart_pane === undefined || chart_pane === null) return
 
@@ -23,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     compiled_data.push({
                         label: data_set.sets[count].date,
                         data: data_set.values,
-                        backgroundColor: `#${random_color}`,
+                        backgroundColor: colors,
                     })
                 }
                 stacked = true
@@ -31,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 compiled_data.push({
                     label: data_set.title,
                     data: data_set.values,
-                    backgroundColor: `#${random_color}`,
+                    backgroundColor: colors,
                 })
             }
 
