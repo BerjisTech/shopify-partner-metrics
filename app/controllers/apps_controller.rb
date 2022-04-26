@@ -16,7 +16,7 @@ class AppsController < ApplicationController
                                date: Date.today).joins(:app_plan).select('sum(plan_data.plan_paying_users * app_plans.plan_price) as mrr, sum(plan_data.plan_trial_users * app_plans.plan_price) as trial, sum(plan_data.plan_total_users) as users')
     @app_data = app_data[0]
 
-    @external_data = ExternalMetric.where(app_id: @app.id).group_by{ |g| g.platform_id }
+    @external_data = ExternalMetric.where(app_id: @app.id).group_by(&:platform_id)
     # render json: @external_data.first.last
   end
 
@@ -60,7 +60,7 @@ class AppsController < ApplicationController
 
   def set_up_shopify_import(app_id, api)
     ExternalMetric.where(app_id: app_id).destroy_all
-    
+
     ExternalDataImportJob.set(wait: 10.seconds).perform_later(app_id, api,
                                                               { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
     ExternalDataImportJob.set(wait: 20.seconds).perform_later(app_id, api,

@@ -1,6 +1,14 @@
 <%= render 'dashboard/stats/external/summary'%>
 <div class="row">
-  <%= render 'dashboard/stats/external/main_chart'%>
-  <%= render 'dashboard/stats/external/apps_pie'%>
+  <div class="col-sm-7">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: 'main_external_bar', type: 'bar', pane: 'external_bar' } %>
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: 'main_external_pie', type: 'pie', pane: 'external_pie' } %>
+    </div>
+  </div>
 </div>
 <%= render 'dashboard/stats/external/monthly_summary'%>

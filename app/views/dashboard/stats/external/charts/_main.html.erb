@@ -1,0 +1,26 @@
+<div class="m-2">
+  <h3>Balance Flow</h3>
+  <div>
+    <div class="d-flex aleign-items-center justify-content-between">
+      <div class="title">Site Stats</div>
+      <div class="options">
+        <select class="form-control fetch_data" data-pane="<%= data[:pane] %>">
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 3 months</option>
+          <option value="180">Last 6 months</option>
+          <option value="365">Last 365 days</option>
+        </select>
+      </div>
+    </div>
+    <div class="">
+      <div class="tab-content">
+        <div class="tab-pane active" id="<%= data[:pane] %>" data-path="<%= data[:path] %>">
+          <div style="width: 100%; height: 100%;" class="m-3 p-3 align-items-center justify-content-center" id="chart_area"></div>
+          <img src="https://assets.prycely.com/images/preloader.gif" style="width: 100%; height: auto;" id="chart_image">
+          <canvas id="chart_pane" width="100%" height="230px" style="display: none; max-height: 250px !important;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

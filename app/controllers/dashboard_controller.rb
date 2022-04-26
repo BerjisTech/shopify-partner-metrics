@@ -6,8 +6,7 @@ class DashboardController < ApplicationController
   def index
     @running_metrics = running_metrics
     @external_metrics = external_metrics
-    # render json: [running_metrics,external_metrics]
-    # render json: @external_metrics.sum(:gross)
+    @pie_keys = external_metrics.group_by(&:app_name).keys
   end
 
   def running_metrics

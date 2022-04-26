@@ -20,11 +20,17 @@ Rails.application.routes.draw do
     resources :running_metrics
     resources :external_metrics
     get 'dashboard', controller: :dashboard, action: :index
+
+    ######### IMPORTS
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data
     get 'import/shopify/:data_set/:start', controller: :importer, action: :shopify, as: :shopify_import
     get 'import/shopify_test', controller: :importer, action: :shopify_test, as: :shopify_test_import
     post 'shopify_importer_setup', controller: :third_party_apis, action: :shopify_importer_setup
     post 'pfd', controller: :running_data, action: :pull_first_data, as: :pfd
+
+    ########## CHARTS
+    post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
+    post 'main_external_bar', controller: :external_metrics, action: :main_external_pie
   end
 
   get 'home/index'

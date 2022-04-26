@@ -51,7 +51,7 @@ class ImporterController < ApplicationController
           }
         else
           app_id = App.find_by(app_name: t.first).id
-          
+
           ExternalMetric.where(app_id: app_id).destroy_all
 
           ExternalDataImportJob.set(wait: 10.seconds).perform_later(app_id, api,

@@ -8,6 +8,36 @@ class ExternalMetricsController < ApplicationController
     @external_metrics = ExternalMetric.all
   end
 
+  def main_external_bar
+    external_metrics = ExternalMetric.recent_metrics(current_user.id)
+    keys = external_metrics.group_by{ |g| g.app_name }.keys
+    render json: {
+      type: 'info',
+      status: 'done',
+      message: 'Test',
+      chart_type: 'bar',
+      blocks: keys.size,
+      sets: external_metrics,
+      keys: keys,
+      title: 'App Revenue Comparison'
+    }
+  end
+
+  def main_external_pie
+    external_metrics = ExternalMetric.recent_metrics(current_user.id)
+    keys = external_metrics.group_by{ |g| g.app_name }.keys
+    render json: {
+      type: '',
+      status: '',
+      message: '',
+      chart_type: 'doughnut',
+      blocks: keys.size,
+      sets: external_metrics,
+      keys: keys,
+      title: 'App Revenue Comparison'
+    }
+  end
+
   # GET /external_metrics/1 or /external_metrics/1.json
   def show; end
 
