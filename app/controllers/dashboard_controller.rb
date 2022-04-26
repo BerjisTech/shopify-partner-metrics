@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @running_metrics = running_metrics
     @external_metrics = external_metrics
     @pie_keys = external_metrics.group_by(&:app_name).keys
+    # render json: ExternalMetric.fetch_business_pie(current_user.id)
   end
 
   def running_metrics

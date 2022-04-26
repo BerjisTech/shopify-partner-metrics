@@ -5,6 +5,6 @@ class RunningDataImporterJob < ApplicationJob
 
   def perform(app_id, endpoint)
     RunningMetric.start_importer(app_id, endpoint)
-    RunningDataImporterJob.set(wait: 24.hours).perform_later(app_id, endpoint)
+    RunningDataImporterJob.set(wait: 6.hours).perform_later(app_id, endpoint)
   end
 end

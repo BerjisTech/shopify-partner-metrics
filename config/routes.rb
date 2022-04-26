@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
     ########## CHARTS
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
-    post 'main_external_bar', controller: :external_metrics, action: :main_external_pie
+    post 'main_external_bar', controller: :external_metrics, action: :main_external_bar
   end
 
   get 'home/index'

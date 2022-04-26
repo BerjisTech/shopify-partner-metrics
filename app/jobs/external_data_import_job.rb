@@ -6,6 +6,6 @@ class ExternalDataImportJob < ApplicationJob
   def perform(app_id, api, time, data_set, cursor)
     # Do something later
     ShopifyImport.start_importer(app_id, api, time, data_set, cursor)
-    ExternalDataImportJob.set(wait: 24.hours).perform_later(app_id, api, time, data_set, cursor)
+    ExternalDataImportJob.set(wait: 6.hours).perform_later(app_id, api, time, data_set, cursor)
   end
 end

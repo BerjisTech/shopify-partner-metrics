@@ -9,31 +9,41 @@ class ExternalMetricsController < ApplicationController
   end
 
   def main_external_bar
-    external_metrics = ExternalMetric.recent_metrics(current_user.id)
-    keys = external_metrics.group_by{ |g| g.app_name }.keys
+    external_metrics = ExternalMetric.fetch_business_net(current_user.id)
+    keys = external_metrics.sort.group_by(&:date).keys
+    values = []
+    dates = []
+    external_metrics.map{ |m| values << m.value.round(2) || 0 }
+    external_metrics.map{ |m| dates << m.date.strftime("%d %b, %Y") }
     render json: {
-      type: 'info',
-      status: 'done',
-      message: 'Test',
+      type: '',
+      status: '',
+      message: '',
       chart_type: 'bar',
-      blocks: keys.size,
+      blocks: 0,
       sets: external_metrics,
-      keys: keys,
-      title: 'App Revenue Comparison'
+      keys: dates,
+      values: values,
+      title: 'App Revenue By Date'
     }
   end
 
   def main_external_pie
-    external_metrics = ExternalMetric.recent_metrics(current_user.id)
-    keys = external_metrics.group_by{ |g| g.app_name }.keys
+    external_metrics = ExternalMetric.fetch_business_pie(current_user.id)
+    keys = external_metrics.group_by(&:app_name).keys
+    
+    values = []
+    external_metrics.map{ |m| values << (m.value || 0).round(2) }
+
     render json: {
       type: '',
       status: '',
       message: '',
       chart_type: 'doughnut',
-      blocks: keys.size,
+      blocks: 0,
       sets: external_metrics,
       keys: keys,
+      values: values,
       title: 'App Revenue Comparison'
     }
   end

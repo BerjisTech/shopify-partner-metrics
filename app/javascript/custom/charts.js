@@ -1,10 +1,10 @@
 import Chart from 'chart.js/auto'
+import { data } from 'jquery'
 
 document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener('turbolinks:load', () => {
 
         window.draw_graph = (data_set, chart_pane_id) => {
-
             if (dataChart !== undefined)
                 dataChart.destroy()
 
@@ -16,25 +16,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             chart_pane.empty()
             let compiled_data = []
+            let stacked = false
 
             if (data_set.blocks > 0) {
                 for (let count = 0; count < data_set.sets.length; count++) {
                     compiled_data.push({
                         label: data_set.sets[count].date,
-                        data: data_set.sets[count].gross,
+                        data: data_set.values,
                         backgroundColor: `#${random_color}`,
                     })
                 }
+                stacked = true
+            } else {
+                compiled_data.push({
+                    label: data_set.title,
+                    data: data_set.values,
+                    backgroundColor: `#${random_color}`,
+                })
             }
-            console.log(compiled_data)
 
-            var dataChart = new Chart(ctx, {
-                type: data_set.chart_type,
-                data: {
-                    labels: data_set.keys,
-                    datasets: compiled_data
-                },
-                options: {
+            let options = null
+            if (data.chart_type !== 'doughnut') {
+                options = {
                     plugins: {
                         title: {
                             display: true,
@@ -44,13 +47,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     responsive: true,
                     scales: {
                         x: {
-                            stacked: true,
+                            stacked: stacked,
                         },
                         y: {
-                            stacked: true
+                            stacked: stacked
                         }
                     }
                 }
+            }
+
+            console.log(compiled_data)
+
+            var dataChart = new Chart(ctx, {
+                type: data_set.chart_type,
+                data: {
+                    labels: data_set.keys,
+                    datasets: compiled_data
+                },
+                options: options
             });
         }
 
