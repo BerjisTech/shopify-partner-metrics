@@ -18,7 +18,9 @@ class ExternalMetric < ApplicationRecord
     end
 
     def fetch_business_pie(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).group('apps.app_name').select('apps.app_name', 'SUM(net) as value')
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).group('apps.app_name').select(
+        'apps.app_name', 'SUM(net) as value'
+      )
     end
 
     def recent_monthly_metrics(user_id)
@@ -28,7 +30,8 @@ class ExternalMetric < ApplicationRecord
     def temp_pull(app_id, start, time_end, data_set)
       api = ThirdPartyApi.find_by(platform_id: Platform.find_by(name: 'Shopify').id, app_id: app_id)
 
-      ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+      ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
+                                                                { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
     end
   end
 end

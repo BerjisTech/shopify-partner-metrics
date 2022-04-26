@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
     @running_metrics = running_metrics
     @external_metrics = external_metrics
     @pie_keys = external_metrics.group_by(&:app_name).keys
-    # render json: ExternalMetric.fetch_business_pie(current_user.id)
+    # render json: PaymentHistory.all.group_by(&:payment_date).keys.sort.filter{|f| f.to_s.include? '-01T' }
   end
 
   def running_metrics

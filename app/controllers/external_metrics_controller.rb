@@ -13,8 +13,8 @@ class ExternalMetricsController < ApplicationController
     keys = external_metrics.sort.group_by(&:date).keys
     values = []
     dates = []
-    external_metrics.map{ |m| values << m.value.round(2) || 0 }
-    external_metrics.map{ |m| dates << m.date.strftime("%d %b, %Y") }
+    external_metrics.map { |m| values << m.value.round(2) || 0 }
+    external_metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
     render json: {
       type: '',
       status: '',
@@ -31,9 +31,9 @@ class ExternalMetricsController < ApplicationController
   def main_external_pie
     external_metrics = ExternalMetric.fetch_business_pie(current_user.id)
     keys = external_metrics.group_by(&:app_name).keys
-    
+
     values = []
-    external_metrics.map{ |m| values << (m.value || 0).round(2) }
+    external_metrics.map { |m| values << (m.value || 0).round(2) }
 
     render json: {
       type: '',
