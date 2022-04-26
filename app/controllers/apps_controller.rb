@@ -60,6 +60,7 @@ class AppsController < ApplicationController
 
   def set_up_shopify_import(app_id, api)
     ExternalMetric.where(app_id: app_id).destroy_all
+    
     ExternalDataImportJob.set(wait: 10.seconds).perform_later(app_id, api,
                                                               { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
     ExternalDataImportJob.set(wait: 20.seconds).perform_later(app_id, api,
