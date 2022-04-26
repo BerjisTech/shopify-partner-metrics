@@ -54,9 +54,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         }
                     }
                 }
+            } else {
+                options = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: data_set.title
+                        }
+                    }
+                }
             }
 
             console.log(compiled_data)
+            console.log(options)
 
             var dataChart = new Chart(ctx, {
                 type: data_set.chart_type,
