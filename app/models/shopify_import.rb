@@ -4,7 +4,12 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def start_importer(app_id, api, time, data_set, cursor = '')
+    def start_importer(app_id, api, time, data_set, _cursor = '')
+      ImportLog.create!({ platform_id: time[:start], app_id: app_id, start_time: DateTime.now, status: 0 })
+      run_data(app_id, api, time, data_set, cursor = '')
+    end
+
+    def run_data(app_id, api, time, data_set, cursor = '')
       data = pick_importer(api, data_set, time, cursor)
 
       # process_data(data, app_id, time)
@@ -48,7 +53,12 @@ class ShopifyImport < ApplicationRecord
                            ShopifyPayment.process_data(grouped, app_id, time[:end], PLATFORM, cursor, data_set)
                          end
 
-        start_importer(app_id, api, time, data_set, edges.last['cursor']) if results['pageInfo']['hasNextPage']
+        if results['pageInfo']['hasNextPage']
+          run_data(app_id, api, time, data_set,
+                   edges.last['cursor'])
+        else
+          ImportLog.where(platform_id: PLATFORM, app_id: app_id).update_all({ status: 1, end_time: DateTime.now })
+        end
 
         ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))
       end

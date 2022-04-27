@@ -5,6 +5,7 @@ class RunningMetric < ApplicationRecord
 
   class << self
     def start_importer(app_id, endpoint)
+      ImportLog.create!({ platform_id: PLATFORM, app_id: app_id, start_time: DateTime.now, status: 0 })
       data = JSON.parse(Faraday.get(endpoint).body)
 
       errors = verify_data(OpenStruct.new(data))

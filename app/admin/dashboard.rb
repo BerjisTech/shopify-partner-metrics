@@ -13,14 +13,25 @@ ActiveAdmin.register_page 'Dashboard' do
 
     div do
       App.all.map do |app|
-        if ExternalMetric.where(app_id: app.id, date: Date.today).blank?
-          div do
-            app.app_name
-          end
+        next unless ExternalMetric.where(app_id: app.id, date: Date.today).blank?
+
+        div do
+          app.app_name
         end
       end
     end
 
+    # table_for import_logs do |log|
+    #   tr do
+    #     td log.id
+    #     td log.name
+    #     td log.app_name
+    #     td log.start_time
+    #     td log.end_time
+    #     td log.status
+    #   end
+    # end
+    render partial: 'admin/incomplete_imports'
     # temp_pull(app_id, start, time_end, data_set)
 
     # Here is an example of a simple dashboard with columns and panels.

@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Platform</th>
+      <th>Started At</th>
+      <th>End Time</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% ImportLog.incomplete.map do |log| %>
+      <tr>
+        <td> <%= log.app_name %> </td>
+        <td> <%= log.name %> </td>
+        <td> <%= log.start_time %> </td>
+        <td> <%= log.end_time %> </td>
+        <td> <%= log.status %> </td>
+        <td> <button onclick="re_run('<%= log.id %>')">Re Run Import</button> or <a target="_BLANK" href="rerun_import?activity=<%= log.id %>">manually</a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_421_082_210) do
+ActiveRecord::Schema.define(version: 20_220_427_112_708) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 20_220_421_082_210) do
     t.float 'refunds'
     t.float 'arr'
     t.string 'app_name'
+  end
+
+  create_table 'import_logs', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+    t.uuid 'platform_id'
+    t.uuid 'app_id'
+    t.datetime 'start_time'
+    t.datetime 'end_time'
+    t.string 'status'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'industries', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|

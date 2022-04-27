@@ -10,7 +10,7 @@ class ExternalMetric < ApplicationRecord
     def start_stripe(app_id); end
 
     def recent_metrics(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id).order(:gross).select_all
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).order(:gross).select_all
     end
 
     def fetch_business_net(user_id)
@@ -18,7 +18,7 @@ class ExternalMetric < ApplicationRecord
     end
 
     def fetch_business_pie(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id).group('apps.app_name').select(
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).group('apps.app_name').select(
         'apps.app_name', 'SUM(net) as value'
       )
     end

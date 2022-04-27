@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateImportLogs < ActiveRecord::Migration[6.1]
   def change
     create_table :import_logs, id: :uuid do |t|
