@@ -28,18 +28,18 @@ class ExternalMetric < ApplicationRecord
     end
 
     def temp_pull(span)
-      partner_id = Partner.find_by(name: 'Shopify').id
+      platform_id = Platform.find_by(name: 'Shopify').id
       day_start = span + 1
       month_start = span + 30
       time_end = span
 
-      ThirdPartyApi.where(partner_id: partner_id).map do |api|
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
-                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
-                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
-                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+      ThirdPartyApi.where(platform_id: platform_id).map do |api|
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
       end
     end
   end
