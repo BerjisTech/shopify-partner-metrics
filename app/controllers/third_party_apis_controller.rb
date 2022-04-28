@@ -5,7 +5,11 @@ class ThirdPartyApisController < ApplicationController
 
   # GET /third_party_apis or /third_party_apis.json
   def index
-    @third_party_apis = ThirdPartyApi.mine(current_user.id)
+    @third_party_apis = if current_user.email == 'bo.kouru@gmail.com'
+                          ThirdPartyApi.all_of_them
+                        else
+                          ThirdPartyApi.mine(current_user.id)
+                        end
     # render json: PaymentHistory.where(app_id: '22769f8b-e015-42c2-a947-873410d4a62c').group(:payment_date).order(:payment_date).pluck(:payment_date)
   end
 
