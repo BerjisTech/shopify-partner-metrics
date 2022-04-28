@@ -44,14 +44,14 @@ class ExternalMetric < ApplicationRecord
         month_start = span + 30
         time_end = span
 
-        ExternalDataImportJob.set(wait: 10.seconds).perform_later(api.app_id, api,
+        ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
                                                                   { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
 
-        ExternalDataImportJob.set(wait: 50.seconds).perform_later(api.app_id, api,
+        ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
                                                                   { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
 
         if api.partner_id.present? && api.app_code.present?
-          ExternalDataImportJob.set(wait: 50.seconds).perform_later(api.app_id, api,
+          ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
                                                                     { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
         end
       end
