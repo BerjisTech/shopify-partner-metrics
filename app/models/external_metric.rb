@@ -31,7 +31,7 @@ class ExternalMetric < ApplicationRecord
 
     def temp_pull(span)
       platform_id = Platform.find_by(name: 'Shopify').id
-      
+
       ThirdPartyApi.where(platform_id: platform_id).map do |api|
         recent(span, api)
       end
