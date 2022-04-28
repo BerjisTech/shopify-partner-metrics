@@ -12,7 +12,7 @@ class Business < ApplicationRecord
 
   class << self
     def mine(user_id)
-      where(user_id: user_id)
+      where('staffs.user_id': user_id)
         .joins(:staffs)
         .joins(:industry)
         .joins('LEFT JOIN apps ON businesses.id = apps.business_id')
