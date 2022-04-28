@@ -8,7 +8,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (dataChart !== undefined)
                 dataChart.destroy()
 
-            let chart_pane = $(`${chart_pane_id}`)
+            $(`#${chart_pane_id} #chart_pane`).remove()
+            $(`#${chart_pane_id}`).append(`<canvas id="chart_pane" width="100%" height="230px" style="max-height: 500px !important;"></canvas>`)
+
+            let chart_pane = $(`#${chart_pane_id} #chart_pane`)
+            console.log(`#${chart_pane_id} #chart_pane`)
+
             let colors = null
 
             if (data_set.chart_type === 'doughnut') {
@@ -121,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                     else {
                         chart_pane.show()
-                        draw_graph(response, `#${chart_pane_id} #chart_pane`)
+                        draw_graph(response, chart_pane_id)
                     }
                 },
                 error: (error) => {

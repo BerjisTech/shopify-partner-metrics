@@ -3,6 +3,7 @@
   <div>
     <div class="d-flex aleign-items-center justify-content-between">
       <div class="title">Site Stats</div>
+      <%- if data[:type] != 'pie' %>
       <div class="options">
         <select class="form-control fetch_data" data-pane="<%= data[:pane] %>">
           <option value="7">Last 7 days</option>
@@ -12,6 +13,7 @@
           <option value="365">Last 365 days</option>
         </select>
       </div>
+      <% end %>
     </div>
     <div class="">
       <div class="tab-content">
