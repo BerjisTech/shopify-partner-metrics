@@ -33,13 +33,16 @@ class ExternalMetric < ApplicationRecord
       month_start = span + 30
       time_end = span
 
-      ThirdPartyApi.where(platform_id: platform_id).map do |api|
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
-                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
-                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
-        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
-                                                                  { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
+      ThirdPartyApi.where(platform_id: platform_id).each_with_index.map do |api, index|
+        ExternalDataImportJob.set(wait: (10 * (index + 1)).seconds).perform_later(api.app_id, api,
+                                                                                  { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
+        ExternalDataImportJob.set(wait: (10 * (index + 1)).seconds).perform_later(api.app_id, api,
+                                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
+
+        if api.partner_id.present? && api.app_code.present?
+          ExternalDataImportJob.set(wait: (10 * (index + 1)).seconds).perform_later(api.app_id, api,
+                                                                                    { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
+        end
       end
     end
   end
