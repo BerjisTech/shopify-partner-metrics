@@ -9,7 +9,7 @@ class ExternalMetricsController < ApplicationController
   end
 
   def main_external_bar
-    external_metrics = ExternalMetric.fetch_business_net(current_user.id)
+    external_metrics = ExternalMetric.fetch_business_net(current_user.id, params[:from].to_i, params[:to].to_i)
     keys = external_metrics.sort.group_by(&:date).keys
     values = []
     dates = []

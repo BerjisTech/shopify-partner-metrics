@@ -13,8 +13,8 @@ class ExternalMetric < ApplicationRecord
       joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).order(:gross).select_all
     end
 
-    def fetch_business_net(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id).group(:date).select(:date, 'SUM(net) as value')
+    def fetch_business_net(user_id, from, to)
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).group(:date).select(:date, 'SUM(net) as value')
     end
 
     def fetch_business_pie(user_id)
