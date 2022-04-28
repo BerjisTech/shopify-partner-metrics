@@ -27,11 +27,20 @@ class ExternalMetric < ApplicationRecord
       joins(app: :app_teams).where('app_teams.user_id': user_id).order(:gross).select_all
     end
 
-    def temp_pull(app_id, start, time_end, data_set)
-      api = ThirdPartyApi.find_by(platform_id: Platform.find_by(name: 'Shopify').id, app_id: app_id)
+    def temp_pull(span)
+      partner_id = Partner.find_by(name: 'Shopify').id
+      day_start = span + 1
+      month_start = span + 30
+      time_end = span
 
-      ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
-                                                                { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+      ThirdPartyApi.where(partner_id: partner_id).map do |api|
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
+                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
+                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(app_id, api,
+                                                                  { start: (DateTime.now - start.days).to_s, end: (DateTime.now - time_end.days).to_s }, data_set, '')
+      end
     end
   end
 end
