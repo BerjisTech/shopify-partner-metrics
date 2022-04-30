@@ -6,20 +6,18 @@ class ShopifyImport < ApplicationRecord
   class << self
     def start_importer(app_id, api, time, data_set, cursor = '')
       ImportLog.create!({ platform_id: time[:start], app_id: app_id, start_time: DateTime.now, status: 0 })
+      ExternalMetric.where(app_id: app_id, date: time[:end].to_date.strftime('%d-%m-%Y'), platform_id: PLATFORM).dstroy_all
       run_data(app_id, api, time, data_set, cursor)
     end
 
     def run_data(app_id, api, time, data_set, cursor = '')
       data = pick_importer(api, data_set, time, cursor)
 
-      # process_data(data, app_id, time)
-      records = OpenStruct.new data.data
+      data = JSON.parse(data)
 
-      if record.blank?
-        Rollbar.error(records)
-      else
-        process(app_id, api, time, records, data_set, cursor)
-      end
+      records = OpenStruct.new data['data']
+
+      process(app_id, api, time, records, data_set, cursor)
     end
 
     def pick_importer(api, data_set, time, cursor)
@@ -30,13 +28,15 @@ class ShopifyImport < ApplicationRecord
       end
     end
 
+    def check_blank(data, app, time); end
+
     def data_importer(api, body)
       path = "https://partners.shopify.com/#{api.partner_id}/api/2021-10/graphql.json"
       header = {
         'Content-Type': 'application/graphql',
         'X-Shopify-Access-Token': api.api_key
       }
-      data = OpenStruct.new JSON.parse(Faraday.post(path, body, header).body)
+      data = Faraday.post(path, body, header).body
     end
 
     def process(app_id, api, time, records, data_set, cursor)
