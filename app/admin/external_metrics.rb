@@ -21,14 +21,14 @@ ActiveAdmin.register ExternalMetric do
         platform_id = Platform.find_by(name: 'Shopify').id
 
         job = ThirdPartyApi.where(platform_id: platform_id).map do |api|
-          ExternalDataImportJob.set(wait: 3.hours).perform_later(api.app_id, api,
+          ExternalDataImportJob.set(wait: 10.seconds).perform_later(api.app_id, api,
                                                                  { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
 
-          ExternalDataImportJob.set(wait: 3.hours).perform_later(api.app_id, api,
+          ExternalDataImportJob.set(wait: 50.seconds).perform_later(api.app_id, api,
                                                                  { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
 
           if api.partner_id.present? && api.app_code.present?
-            ExternalDataImportJob.set(wait: 3.hours).perform_later(api.app_id, api,
+            ExternalDataImportJob.set(wait: 60.seconds).perform_later(api.app_id, api,
                                                                    { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
           end
         end
