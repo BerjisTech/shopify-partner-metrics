@@ -95,7 +95,7 @@ class ShopifyPayment < ApplicationRecord
     end
 
     def net(processed_data)
-      gross(processed_data) - refunds(processed_data)
+      gross(processed_data) + refunds(processed_data)
     end
 
     def recurring_revenue(processed_data)

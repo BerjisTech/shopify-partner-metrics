@@ -4,9 +4,9 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def start_importer(app_id, api, time, data_set, _cursor = '')
+    def start_importer(app_id, api, time, data_set, cursor = '')
       ImportLog.create!({ platform_id: time[:start], app_id: app_id, start_time: DateTime.now, status: 0 })
-      run_data(app_id, api, time, data_set, cursor = '')
+      run_data(app_id, api, time, data_set, cursor)
     end
 
     def run_data(app_id, api, time, data_set, cursor = '')
@@ -15,7 +15,11 @@ class ShopifyImport < ApplicationRecord
       # process_data(data, app_id, time)
       records = OpenStruct.new data.data
 
-      process(app_id, api, time, records, data_set, cursor)
+      if record.blank?
+        Rollbar.error(records)
+      else
+        process(app_id, api, time, records, data_set, cursor)
+      end
     end
 
     def pick_importer(api, data_set, time, cursor)

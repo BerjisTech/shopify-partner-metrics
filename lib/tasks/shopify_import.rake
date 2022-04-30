@@ -3,6 +3,6 @@
 namespace :shopify_import do
   desc 'Import Shopify data daily'
   task :initiate do
-    ExternalMetric.temp_pull(0)
+    ExternalMetric.temp_pull(0,0)
   end
 end

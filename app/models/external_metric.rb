@@ -29,30 +29,30 @@ class ExternalMetric < ApplicationRecord
       joins(app: :app_teams).where('app_teams.user_id': user_id).order(:gross).select_all
     end
 
-    def temp_pull(span)
+    def temp_pull(from, span)
       platform_id = Platform.find_by(name: 'Shopify').id
 
       ThirdPartyApi.where(platform_id: platform_id).map do |api|
-        recent(span, api)
+        recent(from, span, api)
       end
     end
 
-    def recent(days, api)
-      0.upto(days).map do |span|
+    def recent(from, days, api)
+      from.upto(days).map do |span|
         p span
         day_start = span + 1
         month_start = span + 30
         time_end = span
 
-        ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
-                                                                  { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
+        ExternalDataImportJob.set(wait: ((days + 1) + 10).seconds).perform_later(api.app_id, api,
+                                                                                 { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
 
-        ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
-                                                                  { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
+        ExternalDataImportJob.set(wait: ((days + 1) + 10).seconds).perform_later(api.app_id, api,
+                                                                                 { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
 
         if api.partner_id.present? && api.app_code.present?
-          ExternalDataImportJob.set(wait: ((days + 1) * 10).seconds).perform_later(api.app_id, api,
-                                                                    { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
+          ExternalDataImportJob.set(wait: ((days + 1) + 10).seconds).perform_later(api.app_id, api,
+                                                                                   { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
         end
       end
     end
