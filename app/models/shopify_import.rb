@@ -13,13 +13,13 @@ class ShopifyImport < ApplicationRecord
     def run_data(app_id, api, time, data_set, cursor = '')
       data = pick_importer(api, data_set, time, cursor)
 
-      return Rollbar.error("No data received from Shopify", data) unless data.present?
+      return Rollbar.error("No data received from Shopify: #{data}", data) unless data.present?
 
       data = JSON.parse(data)
 
       records = OpenStruct.new data['data']
 
-      return Rollbar.error("Data.data is nil", records) unless records.present?
+      return Rollbar.error("Data.data is nil: #{records}", records) unless records.present?
 
       process(app_id, api, time, records, data_set, cursor) if records.present?
     end
@@ -43,7 +43,7 @@ class ShopifyImport < ApplicationRecord
 
     def process(app_id, api, time, records, data_set, cursor)
 
-      return Rollbar.error("No app or transaction data received", records) unless records['app'].present? || records['transactions'].present?
+      return Rollbar.error("No app or transaction data received: #{records}", records) unless records['app'].present? || records['transactions'].present?
 
       results = if data_set == 'user'
                   records['app']['events']
@@ -51,7 +51,7 @@ class ShopifyImport < ApplicationRecord
                   records['transactions']
                 end
 
-      return Rollbar.error("App events or transactions not found", results) unless results.present? && results.size.positive?
+      return Rollbar.error("App events or transactions not found: #{results}", results) unless results.present? && results.size.positive?
 
       edges = results['edges']
 
