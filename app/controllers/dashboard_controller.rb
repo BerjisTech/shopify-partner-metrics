@@ -6,8 +6,8 @@ class DashboardController < ApplicationController
   def index
     @running_metrics = running_metrics
     @external_metrics = external_metrics
+    @external_monthly_metrics = external_monthly_metrics
     @pie_keys = external_metrics.group_by(&:app_name).keys
-    # render json: ExternalMetric.temp_pull(3, 30)
   end
 
   def running_metrics
@@ -16,5 +16,9 @@ class DashboardController < ApplicationController
 
   def external_metrics
     ExternalMetric.recent_metrics(current_user.id)
+  end
+
+  def external_monthly_metrics
+    ExternalMetric.external_monthly_metrics(current_user.id)
   end
 end

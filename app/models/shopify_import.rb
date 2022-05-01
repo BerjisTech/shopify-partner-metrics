@@ -10,16 +10,22 @@ class ShopifyImport < ApplicationRecord
       run_data(app_id, api, time, data_set, cursor)
     end
 
-    def run_data(app_id, api, time, data_set, cursor = '')
+    def run_data(app_id, api, time, data_set, cursor)
       data = pick_importer(api, data_set, time, cursor)
 
-      return Rollbar.error("No data received from Shopify: #{data}", data) unless data.present?
+      unless data.present?
+        return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'No data received from Shopify',
+                                 logs: data })
+      end
 
       data = JSON.parse(data)
 
       records = OpenStruct.new data['data']
 
-      return Rollbar.error("Data.data is nil: #{records}", records) unless records.present?
+      unless records.present?
+        return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'Data.data is nil',
+                                 logs: records })
+      end
 
       process(app_id, api, time, records, data_set, cursor) if records.present?
     end
@@ -42,8 +48,10 @@ class ShopifyImport < ApplicationRecord
     end
 
     def process(app_id, api, time, records, data_set, cursor)
-
-      return Rollbar.error("No app or transaction data received: #{records}", records) unless records['app'].present? || records['transactions'].present?
+      unless records['app'].present? || records['transactions'].present?
+        return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
+                                 message: 'No app or transactions data received from Shopify', logs: records })
+      end
 
       results = if data_set == 'user'
                   records['app']['events']
@@ -51,7 +59,10 @@ class ShopifyImport < ApplicationRecord
                   records['transactions']
                 end
 
-      return Rollbar.error("App events or transactions not found: #{results}", results) unless results.present? && results.size.positive?
+      unless results.present? && results.size.positive?
+        return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
+                                 message: 'App events or transactions data not found', logs: results })
+      end
 
       edges = results['edges']
 

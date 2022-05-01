@@ -2,7 +2,6 @@
   <% if third_party_api.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(third_party_api.errors.count, "error") %> prohibited this third_party_api from being saved:</h2>
-
       <ul>
         <% third_party_api.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -16,7 +15,6 @@
       <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
         <span class="fs-2">API Details</span>
         <span class="fs-6">You can get these details from your platform's settings page or developer settings page.</span>
-
         <span class="shopify_extras fs-6 border-top py-5 mt-5">
           <b>IMPORTANT</b> To connect your account, go to your Shopify Partners Dashboard, <a href="https://shopify.dev/docs/partner-api/getting-started#create-an-api-client" target="_BLANK">create an API client</a>, with View <b>financials</b> and <b>Manage apps</b> permissions.
           Also add <b>"Manage themes"</b> and <b>"Manage Jobs"</b> permission, if you have any revenue from those. Then enter the details here:
@@ -25,51 +23,46 @@
     </div>
     <div class="col-sm-8">
       <div class="border rounded bg-white p-4 shadow">
-        <div class="field form-floating">
-          <%= form.select :app_id, options_from_collection_for_select(App.mine(current_user.id), :id, :app_name), {}, class: "form-control", placeholder: "Placeholder" %>
-          <%= form.label :app_id %>
-        </div>
-
+        <% if action_name == 'edit' %>
+          Editing <%= App.find(third_party_api.app_id).app_name %>
+        <% else %>
+          <div class="field form-floating">
+            <%= form.select :app_id, options_from_collection_for_select(App.mine(current_user.id), :id, :app_name), {}, class: "form-control", placeholder: "Placeholder" %>
+            <%= form.label :app_id %>
+          </div>
+        <% end %>
         <div class="field form-floating">
           <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Choose plaform"}, class: "form-control display_shopify_extras", placeholder: "Placeholder" %>
           <%= form.label :platform_id %>
         </div>
-
         <div class="field form-floating">
           <%= form.text_field :api_key, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :api_key %>
         </div>
-
         <div class="field form-floating">
           <%= form.text_field :api_secret, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :api_secret %>
         </div>
-
         <div class="field form-floating">
           <%= form.text_field :secondary_api_key, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :secondary_api_key %>
         </div>
-
         <div class="field form-floating">
           <%= form.text_field :secondary_api_secret, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :secondary_api_secret %>
         </div>
-
         <div class="field shopify_extras form-floating">
           <%= form.text_field :app_code, class: "form-control my-2", placeholder: "Placeholder" %>
           <%= form.label :app_code %>
         </div>
-
         <div class="field shopify_extras form-floating">
           <%= form.text_field :partner_id, class: "form-control my-2", placeholder: "Placeholder" %>
           <%= form.label :partner_id %>
         </div>
-
       </div>
     </div>
     <div class="col-sm-12 my-5 border-bottom"></div>
   </div>
-
   <div class="row">
     <div class="col-sm-12 mb-5">
       <div class="actions whole-width text-end">

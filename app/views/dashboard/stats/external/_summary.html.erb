@@ -40,3 +40,33 @@
     </div>
   </div>
 </div>
+<div class="row overview_cards m-3">
+  <div class="col-sm-3">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Recurring Revenue</div>
+      <hr>
+      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:recurring_revenue), precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">One Time Charge</div>
+      <hr>
+      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:one_time_charge), precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Refunds</div>
+      <hr>
+      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:refunds), precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">ARR</div>
+      <hr>
+      <div class="fs-1"><%= number_with_precision(@external_metrics.sum(:arr), precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_427_112_708) do
+ActiveRecord::Schema.define(version: 20_220_501_114_210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20_220_427_112_708) do
     t.text 'business_name'
     t.uuid 'user_id'
     t.uuid 'industry_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'error_logs', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+    t.string 'activity'
+    t.text 'message'
+    t.text 'logs'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
