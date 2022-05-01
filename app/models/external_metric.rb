@@ -34,7 +34,7 @@ class ExternalMetric < ApplicationRecord
     end
 
     def recent_monthly_metrics(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id).order(:gross).select_all
+      joins(app: :app_teams).where('app_teams.user_id': user_id).order(date: :asc).select_all
     end
 
     def temp_pull(from, span)
