@@ -30,7 +30,7 @@ class ShopifyImport < ApplicationRecord
 
       unless records.present?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'Data.data is nil',
-                                 logs: records })
+                                 logs: data })
       end
 
       process(app_id, api, time, records, data_set, cursor) if records.present?
@@ -67,7 +67,7 @@ class ShopifyImport < ApplicationRecord
 
       unless results.present? && results.size.positive?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
-                                 message: 'App events or transactions data not found', logs: results.inspect })
+                                 message: 'App events or transactions data not found', logs: records.inspect })
       end
 
       edges = results['edges']
