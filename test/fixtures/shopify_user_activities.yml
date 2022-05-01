@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  activity: MyString
+  app_id: 
+  date: 2022-05-01 16:32:50
+  shopify_domain: MyText
+  shop_gid: MyText
+  descritpion: MyText
+  reason: MyText
+
+two:
+  activity: MyString
+  app_id: 
+  date: 2022-05-01 16:32:50
+  shopify_domain: MyText
+  shop_gid: MyText
+  descritpion: MyText
+  reason: MyText

@@ -1,0 +1,2 @@
+class ShopifyUserActivity < ApplicationRecord
+end

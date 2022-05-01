@@ -26,8 +26,8 @@
   <div class="col-sm-3 border-end">
     <div class="d-flex align-items-center justify-content-center whole-width pointer">
       <span class="my-3">
-        <span class="fs-2 <%= growth_color %>"><%= number_with_precision(user_growth, precision: 2, delimiter: ',', separator: '.') %></span><br />
-        <small>User Growth last 24 hours</small>
+        <span class="fs-2"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_metrics.sum(:arr), precision: 2, delimiter: ',', separator: '.') %></span><br />
+        <small>ARR</small>
       </span>
     </div>
   </div>
@@ -41,32 +41,42 @@
   </div>
 </div>
 <div class="row overview_cards m-3">
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">Recurring Revenue</div>
       <hr>
-      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:recurring_revenue), precision: 2, delimiter: ',', separator: '.') %></div>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_monthly_metrics.sum(:recurring_revenue), precision: 2, delimiter: ',', separator: '.') %></div>
     </div>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">One Time Charge</div>
       <hr>
-      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:one_time_charge), precision: 2, delimiter: ',', separator: '.') %></div>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_monthly_metrics.sum(:one_time_charge), precision: 2, delimiter: ',', separator: '.') %></div>
     </div>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">Refunds</div>
       <hr>
-      <div class="fs-1"><%= number_with_precision(@external_monthly_metrics.sum(:refunds), precision: 2, delimiter: ',', separator: '.') %></div>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(@external_monthly_metrics.sum(:refunds), precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+</div>
+<div class="row overview_cards m-3">
+  <div class="col-sm-3">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">User Growth Last 24 hrs</div>
+      <hr>
+      <div class="fs-1 <%= growth_color %>"><%= number_with_precision(user_growth, precision: 2, delimiter: ',', separator: '.') %></div>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="border rounded p-3 shadow bg-white">
-      <div style="font-size: 13px; opacity: 0.6;">ARR</div>
+      <div style="font-size: 13px; opacity: 0.6;">ARPU last 30</div>
+      <% monthly_users = (@external_monthly_metrics.sum(:new_users) + @external_monthly_metrics.sum(:reactivations)) - (@external_monthly_metrics.sum(:lost_users) + @external_monthly_metrics.sum(:deactivations)) %>
       <hr>
-      <div class="fs-1"><%= number_with_precision(@external_metrics.sum(:arr), precision: 2, delimiter: ',', separator: '.') %></div>
+      <div class="fs-1"><%= number_with_precision((@external_metrics.sum(:net)/monthly_users), precision: 2, delimiter: ',', separator: '.') %></div>
     </div>
   </div>
 </div>
