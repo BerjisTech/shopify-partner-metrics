@@ -11,21 +11,37 @@ class ExternalMetricsController < ApplicationController
   def main_external_bar
     external_metrics = ExternalMetric.fetch_business_net(current_user.id, params[:from].to_i, params[:to].to_i)
     keys = external_metrics.sort.group_by(&:date).keys
+    apps = external_metrics.sort.group_by(&:app_name).keys
     values = []
     dates = []
-    external_metrics.map { |m| values << m.value.round(2) || 0 }
     external_metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
+
+    sets = []
+
+    apps.each do |app|
+      sets << {
+        title: app,
+        values: app_chart_values(external_metrics.filter { |e| e.app_name == app })
+      }
+    end
+
     render json: {
       type: '',
       status: '',
       message: '',
       chart_type: 'bar',
-      blocks: 0,
-      sets: external_metrics,
-      keys: dates,
-      values: values,
+      blocks: keys.count,
+      sets: sets.filter{ |f| f[:values].sum > 0 },
+      keys: dates.uniq,
+      values: [],
       title: 'App Revenue By Date'
     }
+  end
+
+  def app_chart_values(block)
+    data = []
+    block.each { |b| data << b.value.to_i }
+    data
   end
 
   def main_external_pie

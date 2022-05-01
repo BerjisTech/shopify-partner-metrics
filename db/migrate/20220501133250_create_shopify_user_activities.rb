@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateShopifyUserActivities < ActiveRecord::Migration[6.1]
   def change
     create_table :shopify_user_activities, id: :uuid do |t|

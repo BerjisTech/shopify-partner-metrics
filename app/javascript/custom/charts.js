@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (data_set.blocks > 0) {
                 for (let count = 0; count < data_set.sets.length; count++) {
                     compiled_data.push({
-                        label: data_set.sets[count].date,
-                        data: data_set.values,
-                        backgroundColor: colors,
+                        label: data_set.sets[count].title,
+                        data: data_set.sets[count].values,
+                        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
                     })
                 }
                 stacked = true
