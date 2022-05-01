@@ -54,14 +54,14 @@ class ExternalMetric < ApplicationRecord
 
         ExternalMetric.where(platform_id: api.platform_id, app_id: api.app_id,
                              date: (DateTime.now - time_end.days).strftime('%d-%m-%Y'))
-        ExternalDataImportJob.set(wait: (days + 1).minutes).perform_later(api.app_id, api,
+        ExternalDataImportJob.set(wait: (span + 1).minutes).perform_later(api.app_id, api,
                                                                           { start: (DateTime.now - month_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'monthly_finance', '')
 
-        ExternalDataImportJob.set(wait: (days + 1).minutes).perform_later(api.app_id, api,
+        ExternalDataImportJob.set(wait: (span + 1).minutes).perform_later(api.app_id, api,
                                                                           { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'daily_finance', '')
 
         if api.partner_id.present? && api.app_code.present?
-          ExternalDataImportJob.set(wait: (days + 1).minutes).perform_later(api.app_id, api,
+          ExternalDataImportJob.set(wait: (span + 1).minutes).perform_later(api.app_id, api,
                                                                             { start: (DateTime.now - day_start.days).to_s, end: (DateTime.now - time_end.days).to_s }, 'user', '')
         end
       end

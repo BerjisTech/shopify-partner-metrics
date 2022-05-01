@@ -11,11 +11,17 @@ class ShopifyImport < ApplicationRecord
     end
 
     def run_data(app_id, api, time, data_set, cursor)
-      data = pick_importer(api, data_set, time, cursor)
+      received_data = pick_importer(api, data_set, time, cursor)
+      data = received_data.body
 
       unless data.present?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'No data received from Shopify',
-                                 logs: data })
+                                 logs: received_data.inspect })
+      end
+
+      if data['errors'].present?
+        return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'No data received from Shopify',
+                                 logs: data['errors'] })
       end
 
       data = JSON.parse(data)
@@ -44,13 +50,13 @@ class ShopifyImport < ApplicationRecord
         'Content-Type': 'application/graphql',
         'X-Shopify-Access-Token': api.api_key
       }
-      data = Faraday.post(path, body, header).body
+      Faraday.post(path, body, header)
     end
 
     def process(app_id, api, time, records, data_set, cursor)
       unless records['app'].present? || records['transactions'].present?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
-                                 message: 'No app or transactions data received from Shopify', logs: records })
+                                 message: 'No app or transactions data received from Shopify', logs: records.inspect })
       end
 
       results = if data_set == 'user'
@@ -61,7 +67,7 @@ class ShopifyImport < ApplicationRecord
 
       unless results.present? && results.size.positive?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
-                                 message: 'App events or transactions data not found', logs: results })
+                                 message: 'App events or transactions data not found', logs: results.inspect })
       end
 
       edges = results['edges']
