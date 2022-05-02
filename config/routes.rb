@@ -38,9 +38,9 @@ Rails.application.routes.draw do
     get 'metrics/gross', controller: :metrics, action: :gross, as: :gross_metrics
     get 'metrics/net', controller: :metrics, action: :net, as: :net_metrics
     get 'metrics/arr', controller: :metrics, action: :arr, as: :arr_metrics
-    get 'metrics/user-growth', controller: :metrics, action: :user_growth, as: :user_growth_metrics
+    get 'metrics/usergrowth', controller: :metrics, action: :user_growth, as: :user_growth_metrics
     get 'metrics/refunds', controller: :metrics, action: :refunds, as: :refund_metrics
-    get 'metrics/one_time', controller: :metrics, action: :one_time, as: :one_time_metrics
+    get 'metrics/onetime', controller: :metrics, action: :one_time, as: :one_time_metrics
     get 'metrics/recurring', controller: :metrics, action: :recurring, as: :recurring_metrics
   end
 
