@@ -43,8 +43,8 @@ class ExternalMetric < ApplicationRecord
     def temp_pull(from, span)
       platform_id = Platform.find_by(name: 'Shopify').id
 
-      ThirdPartyApi.where(platform_id: platform_id).order('RAND()').map do |api|
-        recent(from, span, api)
+      ThirdPartyApi.where(platform_id: platform_id).each_with_index.map do |api, index|
+        ShopifyInitialImportJob.set(wait: (index + 1).minutes).perform_later(from, span, api)
       end
     end
 

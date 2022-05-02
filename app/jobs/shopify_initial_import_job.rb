@@ -5,6 +5,6 @@ class ShopifyInitialImportJob < ApplicationJob
 
   def perform(days, api)
     # Do something later
-    ExternalMetric.recent(0, days, api)
+    ExternalMetric.recent(from = 0, days, api)
   end
 end

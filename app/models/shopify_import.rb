@@ -83,8 +83,8 @@ class ShopifyImport < ApplicationRecord
                          end
 
         if results['pageInfo']['hasNextPage']
-          run_data(app_id, api, time, data_set,
-                   edges.last['cursor'])
+          AwaitQueJob.set(wait: 2.seconds).perform_later(app_id, api, time, data_set,
+                                                         edges.last['cursor'])
         else
           ImportLog.where(platform_id: PLATFORM, app_id: app_id).update_all({ status: 1, end_time: DateTime.now })
         end
