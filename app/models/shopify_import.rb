@@ -4,7 +4,7 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def whenever
+    def from_whenever
       ThirdPartyApi.all.map do |api|
         ExternalDataImportJob.set(wait: 10.seconds).perform_later(api.app_id, api,
                                                                   { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')

@@ -23,5 +23,5 @@ set :output, "/home/prometheus/inflowmetrics/cron_log.log"
 # Learn more: http://github.com/javan/whenever
 
 every 6.hours do
-  runner 'Mymodel.task_to_run_in_two_times_every_day'
+  runner 'ShopifyImport.from_whenever'
 end
