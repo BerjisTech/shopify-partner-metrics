@@ -34,7 +34,14 @@ Rails.application.routes.draw do
     get 'main_external_bar', controller: :external_metrics, action: :main_external_bar
 
     ########## ANALYTICS PAGES
-    get '_/*', controller: :third_party_apis, action: :index
+    get '_/!', controller: :metrics, action: :users, as: :users_metrics
+    get '_/@', controller: :metrics, action: :gross, as: :gross_metrics
+    get '_/#', controller: :metrics, action: :net, as: :net_metrics
+    get '_/$', controller: :metrics, action: :arr, as: :arr_metrics
+    get '_/%', controller: :metrics, action: :user_growth, as: :user_growth_metrics
+    get '_/^', controller: :metrics, action: :refunds, as: :refund_metrics
+    get '_/&', controller: :metrics, action: :one_time, as: :one_time_metrics
+    get '_/*', controller: :metrics, action: :recurring, as: :recurring_metrics
   end
 
   get 'home/index'
