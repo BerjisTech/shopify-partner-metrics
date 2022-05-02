@@ -10,15 +10,15 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="border-bottom pb-4">
-            <span class="fs-3"><%= @app.app_name %></span>
+            <span class="fs-3"><% @app.app_name %></span>
           </div>
         </div>
       </div>
-      <%= render '/apps/stats/general' %>
-      <%= render '/apps/stats/charts' %>
-      <%= render '/apps/stats/running_data' %>
+      <% render '/apps/stats/general' %>
+      <% render '/apps/stats/charts' %>
+      <% render '/apps/stats/running_data' %>
     <% else %>
-      <%= render '/apps/messages/running_data_absent' %>
+      <% render '/apps/messages/running_data_absent' %>
     <% end %>
   </div>
   <div class="col-sm-1"></div>

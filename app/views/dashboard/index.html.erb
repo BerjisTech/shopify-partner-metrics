@@ -9,14 +9,14 @@
   <% end %>
   <% # RUNNING METRICS %>
   <%- if @running_metrics.blank? %>
-    <%= render 'dashboard/messages/no_running_metrics' %>
+    <% render 'dashboard/messages/no_running_metrics' %>
   <%- else %>
-    <%= render 'dashboard/stats/general' %>
+    <% render 'dashboard/stats/general' %>
     <div class="mt-4"></div>
     <%- if App.mine(current_user.id).nil? %>
-      <%= render 'dashboard/stats/one_app' %>
+      <% render 'dashboard/stats/one_app' %>
     <% else %>
-      <%= render 'dashboard/stats/multiple_apps' %>
+      <% render 'dashboard/stats/multiple_apps' %>
     <% end %>
     <div class="mt-4"></div>
   <% end %>

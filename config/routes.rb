@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
     post 'main_external_bar', controller: :external_metrics, action: :main_external_bar
     get 'main_external_bar', controller: :external_metrics, action: :main_external_bar
+
+    ########## ANALYTICS PAGES
+    get '_/*', controller: :third_party_apis, action: :index
   end
 
   get 'home/index'
