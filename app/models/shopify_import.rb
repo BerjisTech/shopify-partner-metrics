@@ -16,7 +16,7 @@ class ShopifyImport < ApplicationRecord
     end
 
     def start_importer(app_id, api, time, data_set, cursor = '')
-      ImportLog.create!({ platform_id: time[:start], app_id: app_id, start_time: DateTime.now, status: 0 })
+      ImportLog.create!({ platform_id: PLATFORM, app_id: app_id, start_time: DateTime.now, status: 0 })
 
       run_data(app_id, api, time, data_set, cursor)
     end
