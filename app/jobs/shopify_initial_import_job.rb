@@ -3,8 +3,8 @@
 class ShopifyInitialImportJob < ApplicationJob
   queue_as :default
 
-  def perform(days, api)
+  def perform(from = 0, days, api)
     # Do something later
-    ExternalMetric.recent(from = 0, days, api)
+    ExternalMetric.recent(from, days, api)
   end
 end
