@@ -12,6 +12,8 @@ class MetricsController < ApplicationController
   def user_growth; end
 
   def refunds; end
+
   def one_time; end
+  
   def recurring; end
 end
