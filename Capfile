@@ -2,6 +2,9 @@
 
 set :rbenv_type, :user
 set :rbenv_ruby, '3.0.1'
+set :whenever_command, 'bundle exec whenever'
+
+require 'whenever/capistrano'
 
 # Load DSL and set up stages
 require 'capistrano/setup'

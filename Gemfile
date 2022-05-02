@@ -38,6 +38,7 @@ gem 'rubyzip'
 gem 'rufo'
 gem 'sidekiq'
 gem 'stripe'
+gem 'whenever', require: false
 
 ################ CAPISTRANO #################
 gem 'capistrano', '~> 3.11'

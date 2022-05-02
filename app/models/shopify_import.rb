@@ -4,6 +4,17 @@ class ShopifyImport < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
+    def whenever
+      ThirdPartyApi.all.map do |api|
+        ExternalDataImportJob.set(wait: 10.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
+        ExternalDataImportJob.set(wait: 20.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
+        ExternalDataImportJob.set(wait: 30.seconds).perform_later(api.app_id, api,
+                                                                  { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
+      end
+    end
+
     def start_importer(app_id, api, time, data_set, cursor = '')
       ImportLog.create!({ platform_id: time[:start], app_id: app_id, start_time: DateTime.now, status: 0 })
 
