@@ -31,7 +31,7 @@ class ExternalMetricsController < ApplicationController
       message: '',
       chart_type: 'bar',
       blocks: keys.count,
-      sets: sets.filter{ |f| f[:values].sum > 0 },
+      sets: sets.filter { |f| f[:values].sum.positive? },
       keys: dates.uniq,
       values: [],
       title: 'App Revenue By Date'

@@ -21,7 +21,7 @@ class ShopifyImport < ApplicationRecord
 
       if data['errors'].present?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s, message: 'No data received from Shopify',
-                                 logs: data['errors'] })
+                                 logs: data.inspect })
       end
 
       data = JSON.parse(data)

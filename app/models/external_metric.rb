@@ -28,9 +28,12 @@ class ExternalMetric < ApplicationRecord
       latest = joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).group('apps.app_name').select(
         'apps.app_name', 'SUM(net) as value'
       )
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).group('apps.app_name').select(
-        'apps.app_name', 'SUM(net) as value'
-      )
+      if latest.blank?
+        latest = joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today - 1.days).group('apps.app_name').select(
+          'apps.app_name', 'SUM(net) as value'
+        )
+      end
+      latest
     end
 
     def recent_monthly_metrics(user_id)
@@ -40,7 +43,7 @@ class ExternalMetric < ApplicationRecord
     def temp_pull(from, span)
       platform_id = Platform.find_by(name: 'Shopify').id
 
-      ThirdPartyApi.where(platform_id: platform_id).map do |api|
+      ThirdPartyApi.where(platform_id: platform_id).order('RAND()').map do |api|
         recent(from, span, api)
       end
     end

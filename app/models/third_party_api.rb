@@ -10,7 +10,8 @@ class ThirdPartyApi < ApplicationRecord
     end
 
     def all_of_them
-      joins(app: :app_teams).joins(:platform).select(:id, :app_name, 'platforms.name as platform_name', 'platforms.id as platform_id', 'third_party_apis.created_at', 'third_party_apis.updated_at', :api_key, :api_secret, :secondary_api_key, :secondary_api_secret, :partner_id, :app_code).uniq
+      joins(app: :app_teams).joins(:platform).select(:id, :app_name, 'platforms.name as platform_name',
+                                                     'platforms.id as platform_id', 'third_party_apis.created_at', 'third_party_apis.updated_at', :api_key, :api_secret, :secondary_api_key, :secondary_api_secret, :partner_id, :app_code).uniq
     end
 
     def update_from_app(data, app, thrid_party_data)
