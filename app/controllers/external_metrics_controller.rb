@@ -34,7 +34,7 @@ class ExternalMetricsController < ApplicationController
   def generate_sets(data, metrics)
     sets = []
     data.each do |data|
-      color = "%06x" % (rand * 0xffffff)
+      color = format('%06x', (rand * 0xffffff))
       sets << {
         title: data,
         values: app_chart_values(metrics.filter { |e| e.app_name == data }),
@@ -74,48 +74,7 @@ class ExternalMetricsController < ApplicationController
     metrics = ExternalMetric.per_app_per_platform(params[:platform_id], params[:app_id], params[:from].to_i,
                                                   params[:to].to_i)
 
-    one_time = []
-    recurring = []
-    refunds = []
-
-    metrics.map do |metric|
-      one_time << metric[:one_time_charge].to_f.round(2)
-      recurring << metric[:recurring_revenue].to_f.round(2)
-      refunds << metric[:refunds].to_f.round(2)
-    end
-
-    sets = [
-      {
-        title: 'One Time Charge',
-        values: one_time,
-        color: '#46708B'
-      },
-      {
-        title: 'Recurring Revenue',
-        values: recurring,
-        color: '#829A58'
-      },
-      {
-        title: 'Refunds',
-        values: refunds,
-        color: '#DC9B9B'
-      }
-    ]
-
-    dates = []
-    metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
-
-    render json: {
-      type: '',
-      status: '',
-      message: '',
-      chart_type: 'bar',
-      blocks: sets.count,
-      sets: sets,
-      keys: dates.uniq,
-      values: [],
-      title: 'Revenue Breakdown'
-    }
+    render json: revenue_break_down(metrics)
   end
 
   def user_growth_bar
@@ -130,29 +89,29 @@ class ExternalMetricsController < ApplicationController
       installs << metric[:new_users].to_f.round(2)
       reactivations << metric[:deactivations].to_f.round(2)
       uninstalls << metric[:lost_users].to_f.round(2) * -1
-      deactivations  << metric[:reactivations].to_f.round(2) * -1
+      deactivations << metric[:reactivations].to_f.round(2) * -1
     end
 
     sets = [
       {
         title: 'Installs',
         values: installs,
-        color: "#08742E"
+        color: '#08742E'
       },
       {
         title: 'Reactivations',
         values: reactivations,
-        color: "#058B31"
+        color: '#058B31'
       },
       {
         title: 'Uninstalls',
         values: uninstalls,
-        color: "#BC0406"
+        color: '#BC0406'
       },
       {
         title: 'Deactivations',
         values: deactivations,
-        color: "#690406"
+        color: '#690406'
       }
     ]
 
@@ -176,6 +135,10 @@ class ExternalMetricsController < ApplicationController
   def business_revenue_breakdown_chart
     metrics = ExternalMetric.business_revenue_breakdown_chart(params[:from].to_i, params[:to].to_i)
 
+    render json: revenue_break_down(metrics)
+  end
+
+  def revenue_break_down(metrics)
     one_time = []
     recurring = []
     refunds = []
@@ -207,7 +170,7 @@ class ExternalMetricsController < ApplicationController
     dates = []
     metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
 
-    render json: {
+    {
       type: '',
       status: '',
       message: '',
