@@ -10,14 +10,10 @@ class AppsController < ApplicationController
 
   # GET /apps/1 or /apps/1.json
   def show
-    last_data = PlanDatum.where(app_id: @app.id, date: Date.today)
-    RunningMetric.start_importer(@app.id, @app.endpoint) if last_data.nil?
-    app_data = PlanDatum.where(app_id: @app.id,
-                               date: Date.today).joins(:app_plan).select('sum(plan_data.plan_paying_users * app_plans.plan_price) as mrr, sum(plan_data.plan_trial_users * app_plans.plan_price) as trial, sum(plan_data.plan_total_users) as users')
-    @app_data = app_data[0]
+    @external_metric = App.latest_external_metric(@app.id)
+    @external_monthly_metric = App.monthly_external_metric(@app.id)
 
-    @external_data = ExternalMetric.where(app_id: @app.id).group_by(&:platform_id)
-    # render json: @external_data.first.last
+    # render json: @external_metric.group_by(&:platform_id).keys
   end
 
   # GET /apps/new
@@ -60,7 +56,7 @@ class AppsController < ApplicationController
 
   def set_up_shopify_import(app_id, api)
     ExternalMetric.where(app_id: app_id).destroy_all
-    ShopifyInitialImportJob.set(wait: 30.seconds).perform_later(days, api)
+    ShopifyInitialImportJob.set(wait: 30.seconds).perform_later(0, api)
   end
 
   # PATCH/PUT /apps/1 or /apps/1.json

@@ -48,6 +48,10 @@ class ExternalMetric < ApplicationRecord
       end
     end
 
+    def per_app_per_platform(platform_id, app_id, from, to)
+      where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id)
+    end
+
     def recent(from, days, api)
       from.upto(days).map do |span|
         p span

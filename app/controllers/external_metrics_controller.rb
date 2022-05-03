@@ -16,14 +16,7 @@ class ExternalMetricsController < ApplicationController
     dates = []
     external_metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
 
-    sets = []
-
-    apps.each do |app|
-      sets << {
-        title: app,
-        values: app_chart_values(external_metrics.filter { |e| e.app_name == app })
-      }
-    end
+    sets = generate_sets(apps, external_metrics)
 
     render json: {
       type: '',
@@ -36,6 +29,17 @@ class ExternalMetricsController < ApplicationController
       values: [],
       title: 'App Revenue By Date'
     }
+  end
+
+  def generate_sets(data, metrics)
+    sets = []
+    data.each do |data|
+      sets << {
+        title: data,
+        values: app_chart_values(metrics.filter { |e| e.app_name == data })
+      }
+    end
+    sets
   end
 
   def app_chart_values(block)
@@ -61,6 +65,51 @@ class ExternalMetricsController < ApplicationController
       keys: keys,
       values: values,
       title: 'App Revenue Comparison'
+    }
+  end
+
+  def app_revenue_chart
+    metrics = ExternalMetric.per_app_per_platform(params[:platform_id], params[:app_id], params[:from].to_i,
+                                                  params[:to].to_i)
+
+    one_time = []
+    recurring = []
+    refunds = []
+
+    metrics.map do |metric|
+      one_time << metric[:one_time_charge].to_f.round(2)
+      recurring << metric[:recurring_revenue].to_f.round(2)
+      refunds << metric[:refunds].to_f.round(2)
+    end
+
+    sets = [
+      {
+        title: 'One Time Charge',
+        values: one_time
+      },
+      {
+        title: 'Recurring Revenue',
+        values: recurring
+      },
+      {
+        title: 'Refunds',
+        values: refunds
+      }
+    ]
+
+    dates = []
+    metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
+
+    render json: {
+      type: '',
+      status: '',
+      message: '',
+      chart_type: 'bar',
+      blocks: sets.count,
+      sets: sets,
+      keys: dates.uniq,
+      values: [],
+      title: 'Revenue Breakdown'
     }
   end
 

@@ -72,6 +72,16 @@ class App < ApplicationRecord
       end
     end
 
+    def latest_external_metric(app_id)
+      latest = ExternalMetric.where(app_id: app_id, date: Date.today)
+      latest = ExternalMetric.where(app_id: app_id, date: Date.today - 1.days) if latest.blank?
+      latest
+    end
+
+    def monthly_external_metric(app_id)
+      ExternalMetric.where(app_id: app_id).where(date: (Date.today - 30.days)..Date.today).order(date: :ASC)
+    end
+
     def clear_all
       App.destroy_all
       AppTeam.destroy_all

@@ -148,7 +148,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (window.location.href == `${base_url}dashboard`) {
             fetch_graph_data(7, 0, 'external_pie')
             fetch_graph_data(7, 0, 'external_bar')
+        }
 
+        if (window.location.href.includes(`${base_url}apps/`)) {
+            fetch_graph_data(7, 0, 'revenue_breakdown')
+        }
+
+        if ($('.fetch_data')) {
             $('.fetch_data').on('change', (e) => {
                 fetch_graph_data($(e.target).val(), 0, $(e.target).data('pane'))
             })

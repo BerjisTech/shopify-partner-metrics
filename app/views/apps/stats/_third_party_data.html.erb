@@ -1,59 +1,57 @@
-<% data = external_metric.last.first %>
 <div class="overview_cards row m-3">
-  <h3><%= Platform.find(external_metric.first).name.humanize %> Data</h3>
+  <h3><%= platform.name.humanize %> Data</h3>
 </div>
-<div class="overview_cards row m-3">
-  <div class="col-sm-4">
-    <div class="border rounded p-3 my-2 shadow bg-white">
-      <div class="d-flex flex-column">
-        <span>Gross Mrr</span>
-        <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.gross, precision: 2, delimiter: ',', separator: '.') %></span>
-      <span></span>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: app_revenue_chart_path(@app.id, platform.id), type: 'bar', pane: 'revenue_breakdown', title: 'Revenue Breakdown' } %>
     </div>
   </div>
 </div>
-<div class="col-sm-4">
-  <div class="border rounded p-3 my-2 shadow bg-white">
-    <div class="d-flex flex-column">
-      <span>Net Revenue</span>
-      <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.net, precision: 2, delimiter: ',', separator: '.') %></span>
-    <span></span>
+<div class="overview_cards row m-3">
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Gross MRR</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.gross, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Net Rrevenue</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.net, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
+  </div>
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">ARR</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.arr, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
   </div>
 </div>
-</div>
-<div class="col-sm-4">
-  <div class="border rounded p-3 my-2 shadow bg-white">
-    <div class="d-flex flex-column">
-      <span>Annual Run Rate</span>
-      <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.arr, precision: 2, delimiter: ',', separator: '.') %></span>
-    <span></span>
+<div class="overview_cards row m-3">
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Recurring Revenue</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.recurring_revenue, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
   </div>
-</div>
-</div>
-<div class="col-sm-4">
-  <div class="border rounded p-3 my-2 shadow bg-white">
-    <div class="d-flex flex-column">
-      <span>Recurring Revenue</span>
-      <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.recurring_revenue, precision: 2, delimiter: ',', separator: '.') %></span>
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">One Time Charge</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.one_time_charge, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
   </div>
-</div>
-</div>
-<div class="col-sm-4">
-  <div class="border rounded p-3 my-2 shadow bg-white">
-    <div class="d-flex flex-column">
-      <span>One Time Charge</span>
-      <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.one_time_charge, precision: 2, delimiter: ',', separator: '.') %></span>
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
+    <div class="border rounded p-3 shadow bg-white">
+      <div style="font-size: 13px; opacity: 0.6;">Refunds</div>
+      <hr>
+      <div class="fs-1"><small class="fs-6"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(external_metric.refunds, precision: 2, delimiter: ',', separator: '.') %></div>
+    </div>
   </div>
-</div>
-</div>
-<div class="col-sm-4">
-  <div class="border rounded p-3 my-2 shadow bg-white">
-    <div class="d-flex flex-column">
-      <span>Refunds</span>
-      <span class="fs-1"><%= Money::Currency.find('USD').symbol %></small> <%= number_with_precision(data.refunds, precision: 2, delimiter: ',', separator: '.') %></span>
-    <span></span>
-  </div>
-</div>
-</div>
 </div>
 <hr />
