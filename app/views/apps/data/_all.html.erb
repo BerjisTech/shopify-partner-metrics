@@ -12,7 +12,7 @@
   <tbody>
     <% @apps.each do |app| %>
       <% logs = @import_logs.filter{|f| f.app_id == app.id } %>
-      <% log_stat = (logs.filter{|f| f.status == 0 }.count/logs.count).to_f * 100 %>
+      <% log_stat = (logs.filter{|f| f.status.to_i.zero? }.count.to_f/logs.count).to_f * 100 %>
       <tr>
         <td><%= app.app_name %></td>
         <td><%= link_to app.name, platform_path(app.platform_id) %></td>
@@ -36,6 +36,7 @@
             <span class="text-danger d-flex align-items-center justify-content-start">
               <span class="material-icons small-icons">error</span>
               <span class="ps-1">Failing</span>
+                <span class="ps-1 fs-6 text-warning">(<%= log_stat.round(2) %>% failed)</span>
             </span>
           <% end %>
         </td>
