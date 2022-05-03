@@ -30,7 +30,7 @@
           </span>
         </td>
         <td>
-          <% if log_stat < 15 || @import_logs.blank? %>
+          <% if log_stat < 15 || logs.blank? || log%>
             <span class="text-success d-flex align-items-center justify-content-start">
               <span class="material-icons small-icons">adjust</span>
               <span class="ps-1">Ok</span>
