@@ -6,11 +6,6 @@ class AppsController < ApplicationController
   # GET /apps or /apps.json
   def index
     @apps = App.mine(current_user.id)
-    app_ids = @apps.group_by(&:id).keys
-    metrics = ExternalMetric.where(app_id: app_ids, date: Date.today).select(:net, :app_id)
-    metrics = ExternalMetric.where(app_id: app_ids, date: Date.today - 1.days).select(:net, :app_id) if metrics.blank?
-    @import_logs = ImportLog.where(app_id: app_ids, created_at: (Date.today - 7.days)..Date.today)
-    @metrics = metrics
   end
 
   # GET /apps/1 or /apps/1.json
