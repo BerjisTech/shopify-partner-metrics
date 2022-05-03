@@ -46,6 +46,14 @@ class ExternalMetric < ApplicationRecord
       joins(app: :app_teams).where('app_teams.user_id': user_id).order(date: :asc).select_all
     end
 
+    def per_app_per_platform(platform_id, app_id, from, to)
+      where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id)
+    end
+
+    def business_revenue_breakdown_chart(from, to)
+      joins(app: :app_teams).where('app_teams.user_id': user_id)..where(date: (Date.today - from.days)..(Date.today - to.days))
+    end
+
     def temp_pull(from, span)
       platform_id = Platform.find_by(name: 'Shopify').id
 
@@ -54,13 +62,7 @@ class ExternalMetric < ApplicationRecord
       end
     end
 
-    def per_app_per_platform(platform_id, app_id, from, to)
-      where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id)
-    end
-
-    def business_revenue_breakdown_chart(from, to)
-      where(date: (Date.today - from.days)..(Date.today - to.days))
-    end
+    ################### IMPORT
 
     def recent(from, days, api)
       from.upto(days).map do |span|
