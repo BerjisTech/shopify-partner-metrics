@@ -15,7 +15,7 @@ class ExternalMetric < ApplicationRecord
     end
 
     def external_monthly_metrics(user_id)
-      joins(app: :app_teams).where('app_teams.user_id': user_id).where('date > ?', 30.days.ago).order(:gross).select_all
+      joins(app: :app_teams).where('app_teams.user_id': user_id).where('date > ?', 30.days.ago).order(date: :asc).select_all
     end
 
     def fetch_business_net(user_id, from, to)
@@ -47,11 +47,11 @@ class ExternalMetric < ApplicationRecord
     end
 
     def per_app_per_platform(platform_id, app_id, from, to)
-      where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id)
+      where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id).order(date: :asc)
     end
 
     def business_revenue_breakdown_chart(user_id, from, to)
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days))
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(date: :asc).group(:date).select(:date, 'SUM(one_time_charge) one_time_charge', 'SUM(recurring_revenue) recurring_revenue', 'SUM(refunds) refunds')
     end
 
     def temp_pull(from, span)
