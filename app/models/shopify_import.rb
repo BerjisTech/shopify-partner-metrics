@@ -16,12 +16,13 @@ class ShopifyImport < ApplicationRecord
     end
 
     def start_importer(app_id, api, time, data_set, cursor = '')
-      ImportLog.create!({ platform_id: PLATFORM, app_id: app_id, start_time: DateTime.now, status: 0 })
+      log_time = DateTime.now
+      ImportLog.create!({ platform_id: PLATFORM, app_id: app_id, start_time: log_time, status: 0 })
 
-      run_data(app_id, api, time, data_set, cursor)
+      run_data(app_id, api, time, data_set, cursor, log_time)
     end
 
-    def run_data(app_id, api, time, data_set, cursor)
+    def run_data(app_id, api, time, data_set, cursor, log_time)
       received_data = pick_importer(api, data_set, time, cursor)
       data = received_data.body
 
@@ -44,7 +45,7 @@ class ShopifyImport < ApplicationRecord
                                  logs: data })
       end
 
-      process(app_id, api, time, records, data_set, cursor) if records.present?
+      process(app_id, api, time, records, data_set, cursor, log_time) if records.present?
     end
 
     def pick_importer(api, data_set, time, cursor)
@@ -64,7 +65,7 @@ class ShopifyImport < ApplicationRecord
       Faraday.post(path, body, header)
     end
 
-    def process(app_id, api, time, records, data_set, cursor)
+    def process(app_id, api, time, records, data_set, cursor, log_time)
       unless records['app'].present? || records['transactions'].present?
         return ErrorLog.create({ activity: App.find(app_id).app_name.to_s,
                                  message: 'No app or transactions data received from Shopify', logs: records.inspect })
@@ -95,9 +96,9 @@ class ShopifyImport < ApplicationRecord
 
         if results['pageInfo']['hasNextPage']
           AwaitQueJob.set(wait: 2.seconds).perform_later(app_id, api, time, data_set,
-                                                         edges.last['cursor'])
+                                                         edges.last['cursor'], log_time)
         else
-          ImportLog.where(platform_id: PLATFORM, app_id: app_id).update_all({ status: 1, end_time: DateTime.now })
+          ImportLog.where(platform_id: PLATFORM, app_id: app_id, start_time: log_time, status: 0).update_all({ status: 1, end_time: DateTime.now })
         end
 
         ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))

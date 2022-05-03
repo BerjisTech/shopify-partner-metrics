@@ -12,6 +12,12 @@ class BusinessesController < ApplicationController
   def show
     @apps = App.per_business(@business.id)
     @staff = Staff.where(business_id: @business.id).joins(:user).select_all
+    app_ids = @apps.group_by(&:id).keys
+    
+    metrics = ExternalMetric.where(app_id: app_ids, date: Date.today).select(:net, :app_id)
+    metrics = ExternalMetric.where(app_id: app_ids, date: Date.today - 1.days).select(:net, :app_id) if metrics.blank?
+    @import_logs = ImportLog.where(app_id: app_ids)
+    @metrics = metrics
   end
 
   # GET /businesses/new
