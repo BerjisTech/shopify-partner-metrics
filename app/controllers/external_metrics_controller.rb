@@ -133,7 +133,7 @@ class ExternalMetricsController < ApplicationController
   end
 
   def business_revenue_breakdown_chart
-    metrics = ExternalMetric.business_revenue_breakdown_chart(params[:from].to_i, params[:to].to_i)
+    metrics = ExternalMetric.business_revenue_breakdown_chart(current_user.id, params[:from].to_i, params[:to].to_i)
 
     render json: revenue_break_down(metrics)
   end
