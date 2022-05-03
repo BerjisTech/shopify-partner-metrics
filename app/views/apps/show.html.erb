@@ -1,14 +1,12 @@
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm-10">
+    <h3><%= @app.app_name.humanize %></h3>
     <%- if @external_metric.present? %>
       <% @external_metric.group_by(&:platform_id).keys.each do |platform_id| %>
         <%= render '/apps/stats/third_party_data', platform: Platform.find(platform_id), monthly_metrics: @external_monthly_metric.filter{ |f| f.platform_id == platform_id }, external_metric: @external_metric.filter{ |f| f.platform_id == platform_id }.first %>
       <% end %>
     <% end %>
-
-
-
     <%- if RunningMetric.where(app_id: @app.id).present? %>
       <div class="row">
         <div class="col-sm-12">
