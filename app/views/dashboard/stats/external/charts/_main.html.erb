@@ -2,9 +2,7 @@
   <div>
     <div class="d-flex aleign-items-center justify-content-between">
       <h3 class="title"><%= data[:title].humanize %></h3>
-      <%- if data[:type] == 'pie' %>
-        <%= @external_metrics.count %> apps
-      <% else %>
+      <%- if data[:type] != 'pie' %>
         <div class="options">
           <select class="form-control fetch_data" data-pane="<%= data[:pane] %>">
             <option value="7">Last 7 days</option>
@@ -27,3 +25,6 @@
     </div>
   </div>
 </div>
+<script>
+  fetch_graph_data(7, 0, '<%= data[:pane] %>')
+</script>

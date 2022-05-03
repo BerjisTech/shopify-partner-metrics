@@ -24,7 +24,7 @@ class ExternalMetricsController < ApplicationController
       message: '',
       chart_type: 'bar',
       blocks: keys.count,
-      sets: sets.filter { |f| f[:values].sum.positive? },
+      sets: sets,
       keys: dates.uniq,
       values: [],
       title: 'App Revenue By Date'
@@ -34,9 +34,11 @@ class ExternalMetricsController < ApplicationController
   def generate_sets(data, metrics)
     sets = []
     data.each do |data|
+      color = "%06x" % (rand * 0xffffff)
       sets << {
         title: data,
-        values: app_chart_values(metrics.filter { |e| e.app_name == data })
+        values: app_chart_values(metrics.filter { |e| e.app_name == data }),
+        color: "##{color}"
       }
     end
     sets
@@ -85,15 +87,18 @@ class ExternalMetricsController < ApplicationController
     sets = [
       {
         title: 'One Time Charge',
-        values: one_time
+        values: one_time,
+        color: '#46708B'
       },
       {
         title: 'Recurring Revenue',
-        values: recurring
+        values: recurring,
+        color: '#829A58'
       },
       {
         title: 'Refunds',
-        values: refunds
+        values: refunds,
+        color: '#DC9B9B'
       }
     ]
 
@@ -101,6 +106,61 @@ class ExternalMetricsController < ApplicationController
     metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
 
     render json: {
+      type: '',
+      status: '',
+      message: '',
+      chart_type: 'bar',
+      blocks: sets.count,
+      sets: sets,
+      keys: dates.uniq,
+      values: [],
+      title: 'Revenue Breakdown'
+    }
+  end
+
+  def user_growth_bar
+    metrics = ExternalMetric.fetch_business_user_growth(current_user.id, params[:from].to_i, params[:to].to_i)
+
+    installs = []
+    uninstalls = []
+    reactivations = []
+    deactivations = []
+
+    metrics.map do |metric|
+      installs << metric[:new_users].to_f.round(2)
+      reactivations << metric[:deactivations].to_f.round(2)
+      uninstalls << metric[:lost_users].to_f.round(2) * -1
+      deactivations  << metric[:reactivations].to_f.round(2) * -1
+    end
+
+    sets = [
+      {
+        title: 'Installs',
+        values: installs,
+        color: "#08742E"
+      },
+      {
+        title: 'Reactivations',
+        values: reactivations,
+        color: "#058B31"
+      },
+      {
+        title: 'Uninstalls',
+        values: uninstalls,
+        color: "#BC0406"
+      },
+      {
+        title: 'Deactivations',
+        values: deactivations,
+        color: "#690406"
+      }
+    ]
+
+    dates = []
+    metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
+
+    render json: {
+      metrics: metrics,
       type: '',
       status: '',
       message: '',

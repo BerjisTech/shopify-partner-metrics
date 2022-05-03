@@ -98,7 +98,8 @@ class ShopifyImport < ApplicationRecord
           AwaitQueJob.set(wait: 2.seconds).perform_later(app_id, api, time, data_set,
                                                          edges.last['cursor'], log_time)
         else
-          ImportLog.where(platform_id: PLATFORM, app_id: app_id, start_time: log_time, status: 0).update_all({ status: 1, end_time: DateTime.now })
+          ImportLog.where(platform_id: PLATFORM, app_id: app_id, start_time: log_time,
+                          status: 0).update_all({ status: 1, end_time: DateTime.now })
         end
 
         ExternalMetric.where(app_id: app_id, platform_id: PLATFORM, date: time[:end].to_date.strftime('%d-%m-%Y'))

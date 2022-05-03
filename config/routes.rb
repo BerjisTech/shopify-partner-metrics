@@ -31,7 +31,9 @@ Rails.application.routes.draw do
     ########## CHARTS
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
     post 'main_external_bar', controller: :external_metrics, action: :main_external_bar
-    post 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart, as: :app_revenue_chart
+    post 'user_growth_bar', controller: :external_metrics, action: :user_growth_bar
+    post 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart,
+                                                   as: :app_revenue_chart
     get 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart
 
     ########## ANALYTICS PAGES
