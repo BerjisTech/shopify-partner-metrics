@@ -35,7 +35,7 @@
               <span class="material-icons small-icons">adjust</span>
               <span class="ps-1">Ok</span>
               <% if log_stat.positive? %>
-                <span class="ps-1 fs-6 text-warning">(<%= log_stat %>% failed)</span>
+                <span class="ps-1 fs-6 text-warning">(<%= log_stat.round(2) %>% failed)</span>
               <% end %>
             </span>
           <% else %>
