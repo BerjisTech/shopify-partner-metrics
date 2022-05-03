@@ -16,8 +16,8 @@
       <tr>
         <td><%= app.app_name %></td>
         <td><%= link_to app.name, platform_path(app.platform_id) %></td>
-        <% net_data = @metrics.filter{|f| f.app_id == app.id} %>
-        <td>$<%= number_with_precision(net_data.nil? ? 0 : net_data.first[:net], precision: 2, delimiter: ',') %></td>
+        <% net_data = @metrics.filter{|f| f.app_id == app.id}.first %>
+        <td>$<%= number_with_precision(net_data.nil? ? 0 : net_data[:net], precision: 2, delimiter: ',') %></td>
         <td>
           <span class="text-success d-flex align-items-center justify-content-start">
             <span class="material-icons small-icons">adjust</span>
