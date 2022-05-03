@@ -16,4 +16,6 @@ class MetricsController < ApplicationController
   def one_time; end
 
   def recurring; end
+
+  def revenue_breakdown; end
 end

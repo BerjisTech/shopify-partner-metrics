@@ -58,6 +58,10 @@ class ExternalMetric < ApplicationRecord
       where(date: (Date.today - from.days)..(Date.today - to.days), platform_id: platform_id, app_id: app_id)
     end
 
+    def business_revenue_breakdown_chart(from, to)
+      where(date: (Date.today - from.days)..(Date.today - to.days))
+    end
+
     def recent(from, days, api)
       from.upto(days).map do |span|
         p span

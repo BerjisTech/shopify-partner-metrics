@@ -32,9 +32,9 @@ Rails.application.routes.draw do
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
     post 'main_external_bar', controller: :external_metrics, action: :main_external_bar
     post 'user_growth_bar', controller: :external_metrics, action: :user_growth_bar
+    post 'business_revenue_breakdown_chart', controller: :external_metrics, action: :business_revenue_breakdown_chart
     post 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart,
                                                    as: :app_revenue_chart
-    get 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart
 
     ########## ANALYTICS PAGES
     get 'metrics/users', controller: :metrics, action: :users, as: :users_metrics
@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     get 'metrics/refunds', controller: :metrics, action: :refunds, as: :refund_metrics
     get 'metrics/onetime', controller: :metrics, action: :one_time, as: :one_time_metrics
     get 'metrics/recurring', controller: :metrics, action: :recurring, as: :recurring_metrics
+    get 'metrics/revenue_breakdown', controller: :metrics, action: :revenue_breakdown, as: :revenue_breakdown
   end
 
   get 'home/index'

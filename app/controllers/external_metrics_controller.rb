@@ -173,6 +173,53 @@ class ExternalMetricsController < ApplicationController
     }
   end
 
+  def business_revenue_breakdown_chart
+    metrics = ExternalMetric.business_revenue_breakdown_chart(params[:from].to_i, params[:to].to_i)
+
+    one_time = []
+    recurring = []
+    refunds = []
+
+    metrics.map do |metric|
+      one_time << metric[:one_time_charge].to_f.round(2)
+      recurring << metric[:recurring_revenue].to_f.round(2)
+      refunds << metric[:refunds].to_f.round(2)
+    end
+
+    sets = [
+      {
+        title: 'One Time Charge',
+        values: one_time,
+        color: '#46708B'
+      },
+      {
+        title: 'Recurring Revenue',
+        values: recurring,
+        color: '#829A58'
+      },
+      {
+        title: 'Refunds',
+        values: refunds,
+        color: '#DC9B9B'
+      }
+    ]
+
+    dates = []
+    metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
+
+    render json: {
+      type: '',
+      status: '',
+      message: '',
+      chart_type: 'bar',
+      blocks: sets.count,
+      sets: sets,
+      keys: dates.uniq,
+      values: [],
+      title: 'Revenue Breakdown'
+    }
+  end
+
   # GET /external_metrics/1 or /external_metrics/1.json
   def show; end
 
