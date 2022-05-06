@@ -1,7 +1,14 @@
 <div class="overview_cards row m-3">
   <span class="fs-3 fw-lighter"><%= platform.name.humanize %> Data</span>
 </div>
-<div class="row">
+<div class="row my-2">
+  <div class="col-sm-12">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: app_mrr_path(@app.id, platform.id), type: 'bar', pane: 'revenue_trend', title: 'Revenue Trend' } %>
+    </div>
+  </div>
+</div>
+<div class="row my-2">
   <div class="col-sm-12">
     <div class="bg-white border rounded shadow">
       <%= render 'dashboard/stats/external/charts/main', data: { path: app_revenue_chart_path(@app.id, platform.id), type: 'bar', pane: 'revenue_breakdown', title: 'Revenue Breakdown' } %>

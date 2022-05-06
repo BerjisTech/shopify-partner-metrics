@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'activeadmin'
+gem 'cronitor'
 gem 'devise'
 gem 'faraday'
 gem 'mailjet'

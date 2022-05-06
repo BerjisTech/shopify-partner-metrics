@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get 'import/shopify_test', controller: :importer, action: :shopify_test, as: :shopify_test_import
     post 'shopify_importer_setup', controller: :third_party_apis, action: :shopify_importer_setup
     post 'pfd', controller: :running_data, action: :pull_first_data, as: :pfd
+    get 's/f/w', controller: :importer, action: :from_whenever
 
     ########## CHARTS
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
@@ -35,6 +36,8 @@ Rails.application.routes.draw do
     post 'business_revenue_breakdown_chart', controller: :external_metrics, action: :business_revenue_breakdown_chart
     post 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart,
                                                    as: :app_revenue_chart
+    post 'app_mrr/:app_id/:platform_id', controller: :external_metrics, action: :app_mrr,
+                                         as: :app_mrr
 
     ########## ANALYTICS PAGES
     get 'metrics/users', controller: :metrics, action: :users, as: :users_metrics

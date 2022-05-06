@@ -22,6 +22,6 @@ set :output, '/home/prometheus/inflowmetrics/cron_log.log'
 
 # Learn more: http://github.com/javan/whenever
 
-every 6.hours do
-  runner 'ShopifyImport.from_whenever'
-end
+# every 6.hours do
+#   runner 'ShopifyImport.from_whenever'
+# end

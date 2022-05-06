@@ -5,6 +5,18 @@ class ImporterController < ApplicationController
 
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
+  def from_whenever
+    ThirdPartyApi.all.each_with_index.map do |api, index|
+      ExternalDataImportJob.set(wait: (index + 1).minutes).perform_later(api.app_id, api,
+                                                                         { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'user', '')
+      ExternalDataImportJob.set(wait: (index + 2).minutes).perform_later(api.app_id, api,
+                                                                         { start: (DateTime.now - 1.days).to_s, end: DateTime.now.to_s }, 'daily_finance', '')
+      ExternalDataImportJob.set(wait: (index + 3).minutes).perform_later(api.app_id, api,
+                                                                         { start: (DateTime.now - 30.days).to_s, end: DateTime.now.to_s }, 'monthly_finance', '')
+    end
+    render json: { object: 'Object' }
+  end
+
   def shopify
     start = params[:start].to_i.nil? ? params[:data_set] : 1
     render json: ShopifyImport.start_importer(params[:app_id], api,

@@ -44,12 +44,6 @@ class ExternalMetricsController < ApplicationController
     sets
   end
 
-  def app_chart_values(block)
-    data = []
-    block.each { |b| data << b.value.to_i }
-    data
-  end
-
   def main_external_pie
     external_metrics = ExternalMetric.fetch_business_pie(current_user.id)
     keys = external_metrics.group_by(&:app_name).keys
@@ -75,6 +69,36 @@ class ExternalMetricsController < ApplicationController
                                                   params[:to].to_i)
 
     render json: revenue_break_down(metrics)
+  end
+
+  def app_chart_values(block)
+    data = []
+    block.each { |b| data << b.value.to_i }
+    data
+  end
+
+  def app_mrr
+    metrics = ExternalMetric.per_app_per_platform(params[:platform_id], params[:app_id], params[:from].to_i,
+                                                  params[:to].to_i)
+
+    dates = []
+    metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
+
+    sets = []
+    metrics.map { |m| sets << m.net.to_f }
+
+    render json: {
+      metrics: metrics,
+      type: '',
+      status: '',
+      message: '',
+      chart_type: 'bar',
+      blocks: 0,
+      sets: sets,
+      keys: dates.uniq,
+      values: sets,
+      title: 'Revenue Trend'
+    }
   end
 
   def user_growth_bar
@@ -128,7 +152,7 @@ class ExternalMetricsController < ApplicationController
       sets: sets,
       keys: dates.uniq,
       values: [],
-      title: 'Revenue Breakdown'
+      title: 'User Growth'
     }
   end
 
