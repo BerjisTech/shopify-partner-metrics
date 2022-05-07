@@ -2,6 +2,9 @@
 
 class ShopifyUserActivity < ApplicationRecord
   belongs_to :app
+  belongs_to :platform
+
+  PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
     def save_for_today(app_id, data)
@@ -23,6 +26,7 @@ class ShopifyUserActivity < ApplicationRecord
         ShopifyUserActivity.find_or_create_by!(
           activity: activity,
           app_id: app_id,
+          platform_id: PLATFORM,
           date: i['node']['occurredAt'].to_date,
           shopify_domain: i['node']['shop']['myshopifyDomain'],
           shop_gid: i['node']['shop']['id'],
@@ -30,6 +34,10 @@ class ShopifyUserActivity < ApplicationRecord
           reason: reason
         )
       end
+    end
+
+    def for_app(app_id, platform_id, from, to)
+        where(app_id: app_id, platform_id: platform_id, date: (Date.today - from.days)..(Date.today - to.days))
     end
   end
 end
