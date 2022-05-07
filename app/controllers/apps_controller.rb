@@ -41,7 +41,7 @@ class AppsController < ApplicationController
         AppTeam.create({ user_id: current_user.id, added_by: current_user.id, app_id: @app.id,
                          business_id: @app.business_id })
         api = ThirdPartyApi.find_or_create_by(app_id: @app.id, api_key: params[:app][:api_key],
-          secondary_api_key: params[:app][:secondary_api_key], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
+                                              secondary_api_key: params[:app][:secondary_api_key], platform_id: @app.platform_id, app_code: params[:app][:app_code], partner_id: params[:app][:partner_id])
 
         set_up_shopify_import(@app.id, api) if api.platform_id == Platform.find_by(name: 'Shopify').id
 

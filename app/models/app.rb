@@ -8,6 +8,7 @@ class App < ApplicationRecord
   has_many :running_data
   has_many :external_metrics
   has_many :running_metrics
+  has_many :shopify_user_activities
 
   belongs_to :business
   belongs_to :platform
