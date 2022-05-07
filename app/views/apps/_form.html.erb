@@ -64,23 +64,24 @@
           <%= form.label :running_data_endpoint %>
           <%= form.text_field :running_data_endpoint, class: "form-control my-2", required: "required"  %>
         </div>
-        <div class="field m-3">
-          <%= form.label :platform_id %>
-          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control display_shopify_extras my-2"  %>
-        </div>
+        <!-- div class="field m-3">
+          <% form.label :platform_id %>
+          <% form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control display_shopify_extras my-2"  %>
+        </div-->
+        <%= form.hidden_field :platform_id, value: Platform.find_by(name: 'Shopify').id %>
         <div class="field m-3">
           <%= form.label :api_key %>
           <%= form.text_field "api_key", class: "form-control my-2" %>
         </div>
         <div class="field m-3">
-          <%= form.label :api_secret %>
-          <%= form.text_field "api_secret", class: "form-control my-2" %>
+          <% form.label :secondary_api_key %>
+          <% form.text_field "secondary_api_key", class: "form-control my-2" %>
         </div>
-        <div class="field m-3 shopify_extras" style="display: none;">
+        <div class="field m-3 _shopify_extras" style="/*display: none;*/">
           <%= form.label :app_code %>
           <%= form.text_field "app_code", class: "form-control my-2" %>
         </div>
-        <div class="field m-3 shopify_extras" style="display: none;">
+        <div class="field m-3 _shopify_extras" style="/*display: none;*/">
           <%= form.label :partner_id %>
           <%= form.text_field "partner_id", class: "form-control my-2" %>
         </div>

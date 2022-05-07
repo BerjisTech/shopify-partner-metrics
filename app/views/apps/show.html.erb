@@ -6,6 +6,10 @@
       <% @external_metric.group_by(&:platform_id).keys.each do |platform_id| %>
         <%= render '/apps/stats/third_party_data', platform: Platform.find(platform_id), monthly_metrics: @external_monthly_metric.filter{ |f| f.platform_id == platform_id }, external_metric: @external_metric.filter{ |f| f.platform_id == platform_id }.first %>
       <% end %>
+    <% else %>
+      <div class="shadow border rounded p-3 col-xs-12 m-3 bg-white fs-4 fw-lighter">
+        <%= link_to "Set Up #{@app.app_name} Shopify API connection", third_party_api_path(ThirdPartyApi.find_by(app_id: @app.id, platform_id: Platform.find_by(name: 'Shopify').id).id) %>
+      </div>
     <% end %>
     <%- if RunningMetric.where(app_id: @app.id).present? %>
       <div class="row">
