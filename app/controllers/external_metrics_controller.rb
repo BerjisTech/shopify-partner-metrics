@@ -207,6 +207,11 @@ class ExternalMetricsController < ApplicationController
     }
   end
 
+  def user_activity
+    @activity = ShopifyUserActivity.for_app(params[:app_id], params[:platform_id], params[:from].to_i, params[:to].to_i)
+    render partial: 'metrics/user_activity'
+  end
+
   # GET /external_metrics/1 or /external_metrics/1.json
   def show; end
 

@@ -48,6 +48,9 @@ Rails.application.routes.draw do
     get 'metrics/onetime', controller: :metrics, action: :one_time, as: :one_time_metrics
     get 'metrics/recurring', controller: :metrics, action: :recurring, as: :recurring_metrics
     get 'metrics/revenue_breakdown', controller: :metrics, action: :revenue_breakdown, as: :revenue_breakdown
+
+    ########## TABLE DATA PAGES
+    post 'user_activity', controller: :external_metrics, action: :user_activity
   end
 
   ##### Important external links

@@ -61,4 +61,10 @@
     </div>
   </div>
 </div>
+<div class="overview_cards row m-3">
+  <div id="user_activity"></div>
+  <script>
+    pull_for_table('<%= user_activity_path %>', '<%= @app.id %>', '<%= platform.id %>', 7, 0, 'user_activity')
+  </script>
+</div>
 <hr />

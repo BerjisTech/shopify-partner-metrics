@@ -37,7 +37,7 @@ class ShopifyUserActivity < ApplicationRecord
     end
 
     def for_app(app_id, platform_id, from, to)
-        where(app_id: app_id, platform_id: platform_id, date: (Date.today - from.days)..(Date.today - to.days))
+        where(app_id: app_id, platform_id: platform_id, date: (Date.today - from.days)..(Date.today - to.days)).joins(:app).select_all
     end
   end
 end
