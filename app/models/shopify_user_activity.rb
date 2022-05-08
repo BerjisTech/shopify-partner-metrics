@@ -7,7 +7,9 @@ class ShopifyUserActivity < ApplicationRecord
   PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
-    def save_for_today(app_id, data)
+    def save_for_today(app_id, data, cursor)
+        ShopifyUserActivity.where(app_id: app_id, platform: PLATFORM, created_at: Date.today).destroy_all
+
       # i['node']['type']
       data.map do |i|
         description = i['node']['description'].present? ? i['node']['description'] : nil

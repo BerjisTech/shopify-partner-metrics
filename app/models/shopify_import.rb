@@ -88,7 +88,7 @@ class ShopifyImport < ApplicationRecord
         edges.group_by { |e| e['node']['app']['name'] }
       else
         final_data_set = if data_set == 'user'
-                           SaveUserActivityJob.set(wait: 30.seconds).perform_later(app_id, edges)
+                           SaveUserActivityJob.set(wait: 30.seconds).perform_later(app_id, edges, cursor)
                            ShopifyUser.process_data(edges, app_id, time[:end], PLATFORM, cursor)
                          else
                            grouped = edges.filter { |e| e['node']['app']['name'] == App.find(app_id).app_name }
