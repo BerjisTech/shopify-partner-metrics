@@ -15,7 +15,7 @@
           <% width = ((reason_count.to_f/uninstalls.count) * 100)%>
           <% border = "10px 0px 0px 10px" if index == 0 %>
           <% border = "0px 10px 10px 0px" if index == (reasons.count - 1) %>
-          <span data-tooltip="<%= reason || "Unspecified" %>: <%= width %>%" style="width: <%= width %>%; background: #<%= colors[index] %>; color: #<%= colors[index] %>; padding: 10px; border-radius: <%= border %>; height: 10px;"></span>
+          <span data-tooltip="<%= reason || "Unspecified" %>: <%= width.round(2) %>%" style="width: <%= width %>%; background: #<%= colors[index] %>; color: #<%= colors[index] %>; padding: 10px; border-radius: <%= border %>; height: 10px;"></span>
         <% end %>
       </div>
       <div class="d-flex flex-column align-items-start justify-content-start whole-width my-2">
@@ -27,7 +27,7 @@
               <span class="material-icons" style="color: #<%= colors[index] %>;">noise_control_off</span>
               <span class="flex-grow-4"><%= reason.present? ? reason.humanize : "Unspecified" %></span>
             </span>
-            <span class="flex-grow-4" style="color: #<%= colors[index] %>;"><%= percentage %>%</span>
+            <span class="flex-grow-4" style="color: #<%= colors[index] %>;"><%= percentage.round(2) %>%</span>
           </div>
         <% end %>
       </div>
