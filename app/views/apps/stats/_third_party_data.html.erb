@@ -1,4 +1,4 @@
-<div class="overview_cards row m-3">
+<div class="row m-3">
   <span class="fs-3 fw-lighter"><%= platform.name.humanize %> Data</span>
 </div>
 <div class="row my-2">
@@ -15,7 +15,7 @@
     </div>
   </div>
 </div>
-<div class="overview_cards row m-3">
+<div class="row m-3">
   <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">Gross MRR</div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 </div>
-<div class="overview_cards row m-3">
+<div class="row m-3">
   <div class="col-sm-4 pointer" onclick="window.location.href = '<%= refund_metrics_path %>'">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">Recurring Revenue</div>
@@ -61,10 +61,7 @@
     </div>
   </div>
 </div>
-<div class="overview_cards row m-3">
-  <div id="user_activity"></div>
-  <script>
-    pull_for_table('<%= user_activity_path %>', '<%= @app.id %>', '<%= platform.id %>', 7, 0, 'user_activity')
-  </script>
-</div>
-<hr />
+<div id="user_activity"></div>
+<script>
+  pull_for_table('<%= user_activity_path %>', '<%= @app.id %>', '<%= platform.id %>', 7, 0, 'user_activity')
+</script>
