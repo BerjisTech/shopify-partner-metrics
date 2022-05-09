@@ -39,6 +39,8 @@ window.fetch_graph_data = (from = 0, to = 30, chart_pane_id) => {
     })
 }
 
+window.colors = ['#0e90be','#7ce3d5','#4eae2d','#1670a5','#330d0c','#baa5bf','#db865d','#ba976a','#7c6360','#013f35','#9A77BF','#1A98CE','#914404','#41bb71']
+
 document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener('turbolinks:load', () => {
 
@@ -50,17 +52,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $(`#${chart_pane_id}`).append(`<canvas id="chart_pane" width="100%" height="230px" style="max-height: 500px !important;"></canvas>`)
 
             let chart_pane = $(`#${chart_pane_id} #chart_pane`)
-
-            let colors = null
-
-            if (data_set.chart_type === 'doughnut') {
-                colors = []
-                for (let size = 0; size < data_set.values.length; size++) {
-                    colors.push(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
-                }
-            } else {
-                colors = `#${random_color}`
-            }
 
             if (chart_pane === undefined || chart_pane === null) return
 
@@ -80,10 +71,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 stacked = true
             } else {
+                let background = '#41BB71'
+                if (data_set.chart_type == 'doughnut' || data_set.chart_type == 'pie')
+                    background = colors
+
                 compiled_data.push({
                     label: data_set.title,
                     data: data_set.values,
-                    backgroundColor: colors,
+                    backgroundColor: background,
                 })
             }
 

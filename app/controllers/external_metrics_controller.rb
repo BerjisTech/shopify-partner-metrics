@@ -2,6 +2,7 @@
 
 class ExternalMetricsController < ApplicationController
   before_action :set_external_metric, only: %i[show edit update destroy]
+  COLORS = ['#0e90be','#7ce3d5','#4eae2d','#1670a5','#330d0c','#baa5bf','#db865d','#ba976a','#7c6360','#013f35','#9A77BF','#1A98CE','#914404','#41bb71']
 
   # GET /external_metrics or /external_metrics.json
   def index
@@ -33,12 +34,11 @@ class ExternalMetricsController < ApplicationController
 
   def generate_sets(data, metrics)
     sets = []
-    data.each do |data|
-      color = format('%06x', (rand * 0xffffff))
+    data.each_with_index.map do |data, index|
       sets << {
         title: data,
         values: app_chart_values(metrics.filter { |e| e.app_name == data }),
-        color: "##{color}"
+        color: COLORS[index]
       }
     end
     sets
