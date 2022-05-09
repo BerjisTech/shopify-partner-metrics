@@ -39,7 +39,7 @@ window.fetch_graph_data = (from = 0, to = 30, chart_pane_id) => {
     })
 }
 
-window.colors = ['#0e90be','#7ce3d5','#4eae2d','#1670a5','#330d0c','#baa5bf','#db865d','#ba976a','#7c6360','#013f35','#9A77BF','#1A98CE','#914404','#41bb71']
+window.colors = ['#6a65d2', '#3610c1', '#162bb1', '#422bda', '#2e50cc', '#050c8f', '#2e50cc', '#1b5ca1', '#0a5b76', '#1b5ca1', '#8bf9f3', '#49fdc4', '#729782', '#57755b', '#3b5837', '#26351c', '#0b0e06',]
 
 document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener('turbolinks:load', () => {
