@@ -31,6 +31,12 @@ class ExternalMetric < ApplicationRecord
       )
     end
 
+    def fetch_app_user_growth(app_id, from, to)
+      where(app_id: app_id, date: (Date.today - from.days)..(Date.today - to.days)).order(date: :asc).group(:date).select(
+        :date, 'SUM(reactivations) reactivations', 'SUM(deactivations) deactivations', 'SUM(new_users) new_users', 'SUM(lost_users) lost_users'
+      )
+    end
+
     def fetch_business_pie(user_id)
       latest = joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).order(app_id: :desc).group('apps.app_name', 'external_metrics.app_id').select(
         'apps.app_name', 'SUM(net) as value', 'external_metrics.app_id'

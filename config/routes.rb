@@ -31,7 +31,8 @@ Rails.application.routes.draw do
     ########## CHARTS
     post 'main_external_pie', controller: :external_metrics, action: :main_external_pie
     post 'main_external_bar', controller: :external_metrics, action: :main_external_bar
-    post 'user_growth_bar', controller: :external_metrics, action: :user_growth_bar
+    post 'business_user_growth_bar', controller: :external_metrics, action: :business_user_growth_bar
+    post 'app_user_growth_bar/:app_id', controller: :external_metrics, action: :app_user_growth_bar, as: :app_user_growth_bar
     post 'business_revenue_breakdown_chart', controller: :external_metrics, action: :business_revenue_breakdown_chart
     post 'app_revenue_chart/:app_id/:platform_id', controller: :external_metrics, action: :app_revenue_chart,
                                                    as: :app_revenue_chart
@@ -43,7 +44,7 @@ Rails.application.routes.draw do
     get 'metrics/gross', controller: :metrics, action: :gross, as: :gross_metrics
     get 'metrics/net', controller: :metrics, action: :net, as: :net_metrics
     get 'metrics/arr', controller: :metrics, action: :arr, as: :arr_metrics
-    get 'metrics/usergrowth', controller: :metrics, action: :user_growth, as: :user_growth_metrics
+    get 'metrics/usergrowth', controller: :metrics, action: :user_growth, as: :business_user_growth_metrics
     get 'metrics/refunds', controller: :metrics, action: :refunds, as: :refund_metrics
     get 'metrics/onetime', controller: :metrics, action: :one_time, as: :one_time_metrics
     get 'metrics/recurring', controller: :metrics, action: :recurring, as: :recurring_metrics

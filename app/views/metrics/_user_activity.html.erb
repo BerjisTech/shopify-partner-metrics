@@ -33,6 +33,11 @@
       </div>
     </div>
   </div>
+  <div class="col-7">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: app_user_growth_bar_path(@activity.first.app_id), type: 'bar', pane: 'user_growth', title: 'User Growth' } %>
+    </div>
+  </div>
 </div>
 <table class="table table-hover">
   <thead></thead>

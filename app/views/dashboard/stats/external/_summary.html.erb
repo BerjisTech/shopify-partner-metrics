@@ -77,10 +77,10 @@
   </div>
 </div>
 <div class="row overview_cards m-3">
-  <% to_deactivations = "#{user_growth_metrics_path}#deactivations" %>
-  <% to_reactivations = "#{user_growth_metrics_path}#reactivations" %>
-  <% to_installs = "#{user_growth_metrics_path}#installs" %>
-  <% to_uninstalls = "#{user_growth_metrics_path}#uninstalls" %>
+  <% to_deactivations = "#{business_user_growth_metrics_path}#deactivations" %>
+  <% to_reactivations = "#{business_user_growth_metrics_path}#reactivations" %>
+  <% to_installs = "#{business_user_growth_metrics_path}#installs" %>
+  <% to_uninstalls = "#{business_user_growth_metrics_path}#uninstalls" %>
   <div class="col-sm-3 pointer" onclick="window.location.href = '<%= to_installs %>'">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">New Users Last 24 hrs</div>

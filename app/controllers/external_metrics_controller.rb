@@ -101,9 +101,17 @@ class ExternalMetricsController < ApplicationController
     }
   end
 
-  def user_growth_bar
+  def business_user_growth_bar
     metrics = ExternalMetric.fetch_business_user_growth(current_user.id, params[:from].to_i, params[:to].to_i)
+    user_growth_break_down(metrics)
+  end
 
+  def app_user_growth_bar
+    metrics = ExternalMetric.fetch_app_user_growth(params[:app_id], params[:from].to_i, params[:to].to_i)
+    user_growth_break_down(metrics)
+  end
+
+  def user_growth_break_down(metrics)
     installs = []
     uninstalls = []
     reactivations = []
@@ -158,7 +166,6 @@ class ExternalMetricsController < ApplicationController
 
   def business_revenue_breakdown_chart
     metrics = ExternalMetric.business_revenue_breakdown_chart(current_user.id, params[:from].to_i, params[:to].to_i)
-
     render json: revenue_break_down(metrics)
   end
 
