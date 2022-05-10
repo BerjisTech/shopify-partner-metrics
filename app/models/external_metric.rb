@@ -6,8 +6,7 @@ class ExternalMetric < ApplicationRecord
 
   class << self
     def recent_metrics(user_id)
-      latest = joins(app: :app_teams).where('app_teams.user_id': user_id,
-                                            date: Date.today).order(app_id: :desc).select_all
+      latest = joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).order(app_id: :desc).select_all
       if latest.blank?
         latest = joins(app: :app_teams).where('app_teams.user_id': user_id,
                                               date: Date.today - 1.days).order(app_id: :desc).select_all
@@ -21,13 +20,13 @@ class ExternalMetric < ApplicationRecord
     end
 
     def fetch_business_net(user_id, from, to)
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(app_id: :desc).order(date: :asc).group('external_metrics.date', 'apps.app_name', 'external_metrics.app_id').select(
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(app_id: :desc).order(date: :asc).group('external_metrics.date', 'apps.app_name','external_metrics.app_id').select(
         :date, 'SUM(net) as value', 'apps.app_name'
       )
     end
 
     def fetch_business_user_growth(user_id, from, to)
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(app_id: :desc).group(:date, 'external_metrics.app_id').select(
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(date: :asc).group(:date).select(
         :date, 'SUM(reactivations) reactivations', 'SUM(deactivations) deactivations', 'SUM(new_users) new_users', 'SUM(lost_users) lost_users'
       )
     end
