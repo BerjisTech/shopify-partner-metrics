@@ -138,12 +138,12 @@ class ExternalMetricsController < ApplicationController
       {
         title: 'Uninstalls',
         values: uninstalls,
-        color: '#BC0406'
+        color: '#690406'
       },
       {
         title: 'Deactivations',
         values: deactivations,
-        color: '#690406'
+        color: '#BC0406'
       }
     ]
 

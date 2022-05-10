@@ -61,7 +61,14 @@
     </div>
   </div>
 </div>
-<div id="user_activity"></div>
+<div class="row m-3">
+  <div class="col-sm-5" id="user_activity"></div>
+  <div class="col-sm-7">
+    <div class="bg-white border rounded shadow">
+      <%= render 'dashboard/stats/external/charts/main', data: { path: app_user_growth_bar_path(@app.id), type: 'bar', pane: 'user_growth', title: 'User Growth' } %>
+    </div>
+  </div>
+</div>
 <script>
   pull_for_table('<%= user_activity_path %>', '<%= @app.id %>', '<%= platform.id %>', 7, 0, 'user_activity')
 </script>
