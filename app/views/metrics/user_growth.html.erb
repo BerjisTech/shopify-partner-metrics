@@ -8,7 +8,8 @@
         </div>
       </div>
     </div>
-    <% App.mine(current_user.id).map do |app| %>
+    <% apps = App.mine(current_user.id) %>
+    <% apps.map do |app| %>
       <div class="row m-3">
         <div class="col-12">
           <span class="fs-3 my-2"><%= app.app_name.humanize %></span>
@@ -21,10 +22,16 @@
         </div>
       </div>
       <hr />
-      <script>
-        pull_for_table('<%= user_activity_path %>', '<%= app.id %>', '<%= Platform.find_by(name: "Shopify") .id %>', 7, 0, '<%= app.id %>_user_activity')
-      </script>
     <% end %>
   </div>
   <div class="col-sm-1"></div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+      document.addEventListener('turbolinks:load', () => {
+        <% apps.map do |app| %>
+        pull_for_table('<%= user_activity_path %>', '<%= app.id %>', '<%= Platform.find_by(name: "Shopify") .id %>', 7, 0, '<%= app.id %>_user_activity')
+        <% end %>
+      })
+  })
+</script>
