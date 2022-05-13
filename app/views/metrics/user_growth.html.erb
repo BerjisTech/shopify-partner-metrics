@@ -8,6 +8,23 @@
         </div>
       </div>
     </div>
+    <% App.mine(current_user.id).map do |app| %>
+      <div class="row m-3">
+        <div class="col-12">
+          <span class="fs-3 my-2"><%= app.app_name.humanize %></span>
+        </div>
+        <div class="col-sm-5" id="<%= app.id %>_user_activity"></div>
+        <div class="col-sm-7">
+          <div class="bg-white border rounded shadow">
+            <%= render 'dashboard/stats/external/charts/main', data: { path: app_user_growth_bar_path(app.id), type: 'bar', pane: "#{app.id}_user_growth", title: "#{app.app_name.humanize} User Growth" } %>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <script>
+        pull_for_table('<%= user_activity_path %>', '<%= app.id %>', '<%= Platform.find_by(name: "Shopify") .id %>', 7, 0, '<%= app.id %>_user_activity')
+      </script>
+    <% end %>
   </div>
   <div class="col-sm-1"></div>
 </div>
