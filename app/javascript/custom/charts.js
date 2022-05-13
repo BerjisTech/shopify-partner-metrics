@@ -1,50 +1,54 @@
 import Chart from 'chart.js/auto'
 
-window.fetch_graph_data = (from = 0, to = 30, chart_pane_id) => {
-    let chart_pane = $(`#${chart_pane_id} #chart_pane`)
-    let chart_image = $(`#${chart_pane_id} #chart_image`)
-    let chart_area = $(`#${chart_pane_id} #chart_area`)
-    let data_path = $(`#${chart_pane_id}`).data('path')
-
-    chart_pane.hide()
-    chart_image.show()
-    chart_area.hide()
-
-    $.ajax({
-        url: data_path,
-        method: 'POST',
-        data: {
-            'authenticity_token': $('[name="csrf-token"]')[0].content,
-            'from': from,
-            'to': to
-        },
-        success: (response) => {
-            chart_image.hide()
-            if (response.type == 'error' || response.type == 'info') {
-                chart_area.show()
-                chart_area.html(response.message)
-            }
-            else {
-                chart_pane.show()
-                draw_graph(response, chart_pane_id)
-            }
-        },
-        error: (error) => {
-            chart_area.hide()
-            chart_image.hide()
-            console.log(error.responseText)
-            console.error(error.responseText)
-            chart_area.html('<div style="width: 100%; height: 100%;" class="m-3 p-3 d-flex align-items-center justify-content-center">There has been an error fetching your transactions</div>')
-        }
-    })
-}
-
-window.colors = ["#ea795d", "#de7412", "#8bf9f3", "#729782", "#6a65d2", "#57755b", "#49fdc4", "#422bda", "#3b5837", "#2e50cc", "#2e50cc", "#26351c", "#1b5ca1", "#162bb1", "#0b0e06", "#0a5b76", "#050c8f"]
-
 document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener('turbolinks:load', () => {
 
+        window.fetch_graph_data = (from = 0, to = 30, chart_pane_id) => {
+            let chart_pane = $(`#${chart_pane_id} #chart_pane`)
+            let chart_image = $(`#${chart_pane_id} #chart_image`)
+            let chart_area = $(`#${chart_pane_id} #chart_area`)
+            let data_path = $(`#${chart_pane_id}`).data('path')
+
+            chart_pane.hide()
+            chart_image.show()
+            chart_area.hide()
+
+            $.ajax({
+                url: data_path,
+                method: 'POST',
+                data: {
+                    'authenticity_token': $('[name="csrf-token"]')[0].content,
+                    'from': from,
+                    'to': to
+                },
+                success: (response) => {
+                    chart_image.hide()
+                    if (response.type == 'error' || response.type == 'info') {
+                        chart_area.show()
+                        chart_area.html(response.message)
+                    }
+                    else {
+                        chart_pane.show()
+                        draw_graph(response, chart_pane_id)
+                    }
+                },
+                error: (error) => {
+                    chart_area.hide()
+                    chart_image.hide()
+                    console.log(error.responseText)
+                    console.error(error.responseText)
+                    chart_area.html('<div style="width: 100%; height: 100%;" class="m-3 p-3 d-flex align-items-center justify-content-center">There has been an error fetching your transactions</div>')
+                }
+            })
+        }
+
+        window.colors = ["#ea795d", "#de7412", "#8bf9f3", "#729782", "#6a65d2", "#57755b", "#49fdc4", "#422bda", "#3b5837", "#2e50cc", "#2e50cc", "#26351c", "#1b5ca1", "#162bb1", "#0b0e06", "#0a5b76", "#050c8f"]
+
         window.draw_graph = (data_set, chart_pane_id) => {
+            if (data_set.values.length == 0 && data_set.sets.length == 0)
+                return
+
+
             if (dataChart !== undefined)
                 dataChart.destroy()
 
