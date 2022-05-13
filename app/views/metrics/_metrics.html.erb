@@ -5,7 +5,7 @@
   }
 </style>
 <div class="my-3" id="<%= group %>">
-  <div class="fs-3 fw-lighter"><%= group.classify %> Last 30 Days</div>
+  <div class="fs-3 fw-lighter"><%= group.humanize %> Last 30 Days</div>
   <div class="bg-white shadow rounded border p-3 d-flex flex-row">
     <div class="d-flex flex-column border-end flex-shrink-1">
       <table class="table table-hover" style="table-layout:fixed; width: 130px !important;">
@@ -17,7 +17,7 @@
         <tbody>
           <% @apps.map do |app| %>
             <tr class="20_px_height">
-              <td width="150"><%= app[0..16] %>...</td>
+              <td width="150"><%= app.humanize[0..16] %>...</td>
             </tr>
           <% end %>
         </tbody>
