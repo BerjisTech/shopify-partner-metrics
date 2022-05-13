@@ -35,8 +35,20 @@
         <tbody>
           <% @apps.map do |app| %>
             <tr class="20_px_height">
-              <% @metrics.filter{|f| f.app_name == app}.map do |metric| %>
-                <td width="150"><%= number_with_precision(metric["#{group}"] || 0, precision: 2, delimiter: ',') %></td>
+              <% app_metrics = @metrics.filter{|f| f.app_name == app} %>
+              <% app_metrics.each_with_index.map do |metric, index| %>
+                <td width="150">
+                  <% text_color = if metric["#{group}"].to_f >app_metrics[index - 1]["#{group}"].to_f
+                                            "#198754"
+                                          elsif metric["#{group}"].to_f < app_metrics[index - 1]["#{group}"].to_f
+                                            "#FF0000"
+                                          else
+                                            "#333333"
+                                          end %>
+                  <span style="color: <%= text_color %>;">
+                    <%= number_with_precision(metric["#{group}"].to_f, precision: 2, delimiter: ',') %>
+                  </span>
+                </td>
               <% end %>
             </tr>
           <% end %>
