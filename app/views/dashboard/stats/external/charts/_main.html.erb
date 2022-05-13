@@ -26,5 +26,9 @@
   </div>
 </div>
 <script>
-  fetch_graph_data(7, 0, '<%= data[:pane] %>')
+  document.addEventListener('DOMContentLoaded', async () => {
+      document.addEventListener('turbolinks:load', () => {
+        fetch_graph_data(7, 0, '<%= data[:pane] %>')
+      })
+  })
 </script>
