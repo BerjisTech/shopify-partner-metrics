@@ -1,5 +1,5 @@
 import Chart from 'chart.js/auto'
-import { data } from 'jquery'
+
 window.fetch_graph_data = (from = 0, to = 30, chart_pane_id) => {
     let chart_pane = $(`#${chart_pane_id} #chart_pane`)
     let chart_image = $(`#${chart_pane_id} #chart_image`)
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
 
             let options = null
-            if (data.chart_type !== 'doughnut') {
+            if (data_set.chart_type !== 'doughnut') {
                 options = {
                     plugins: {
                         title: {
