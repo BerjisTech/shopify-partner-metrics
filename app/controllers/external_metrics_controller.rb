@@ -2,7 +2,8 @@
 
 class ExternalMetricsController < ApplicationController
   before_action :set_external_metric, only: %i[show edit update destroy]
-  COLORS = ["#ea795d", "#de7412", "#8bf9f3", "#729782", "#6a65d2", "#57755b", "#49fdc4", "#422bda", "#3b5837", "#2e50cc", "#2e50cc", "#26351c", "#1b5ca1", "#162bb1", "#0b0e06", "#0a5b76", "#050c8f"]
+  COLORS = ['#ea795d', '#de7412', '#8bf9f3', '#729782', '#6a65d2', '#57755b', '#49fdc4', '#422bda', '#3b5837',
+            '#2e50cc', '#2e50cc', '#26351c', '#1b5ca1', '#162bb1', '#0b0e06', '#0a5b76', '#050c8f'].freeze
 
   # GET /external_metrics or /external_metrics.json
   def index

@@ -17,5 +17,9 @@ class MetricsController < ApplicationController
 
   def recurring; end
 
-  def revenue_breakdown; end
+  def revenue_breakdown
+    @metrics = ExternalMetric.monthly_metrics_for_tables(current_user.id)
+    @apps = @metrics.group_by(&:app_name).keys
+    @dates = @metrics.group_by(&:date).keys
+  end
 end

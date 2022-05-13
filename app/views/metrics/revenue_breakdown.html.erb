@@ -3,9 +3,15 @@
   <div class="col-sm-10">
     <div class="row">
       <div class="col-sm-12">
-        <div class="bg-white border rounded shadow">
+        <div class="bg-white border rounded shadow mb-3">
           <%= render 'dashboard/stats/external/charts/main', data: { path: business_revenue_breakdown_chart_path, type: 'bar', pane: 'user_growth', title: 'General Revenue Breakdown' } %>
         </div>
+        <%= render 'gross', group: 'gross' %>
+        <%= render 'gross', group: 'net' %>
+        <%= render 'gross', group: 'arr' %>
+        <%= render 'gross', group: 'one_time_charge' %>
+        <%= render 'gross', group: 'recurring_revenue' %>
+        <%= render 'gross', group: 'refunds' %>
       </div>
     </div>
   </div>

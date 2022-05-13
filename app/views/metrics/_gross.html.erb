@@ -1,0 +1,47 @@
+<style>
+  .20_px_height{
+    height: 20px !important;
+    font-size: 12px !important;
+  }
+</style>
+<div class="my-3" id="gross">
+  <div class="fs-3 fw-lighter"><%= group.classify %> Last 30 Days</div>
+  <div class="bg-white shadow rounded border p-3 d-flex flex-row">
+    <div class="d-flex flex-column border-end flex-shrink-1">
+      <table class="table table-hover" style="table-layout:fixed; width: 130px !important;">
+        <thead>
+          <tr class="20_px_height">
+            <th width="150">Apps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @apps.map do |app| %>
+            <tr class="20_px_height">
+              <td width="150"><%= app[0..16] %>...</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex flex-column border-end flex-grow-1" style="overflow-x: auto;">
+      <table class="table table-hover" style="table-layout:fixed;">
+        <thead>
+          <tr class="20_px_height">
+            <% @dates.map do |date| %>
+              <th width="150"><%= date.strftime('%Y-%m-%d') %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @apps.map do |app| %>
+            <tr class="20_px_height">
+              <% @metrics.filter{|f| f.app_name == app}.map do |metric| %>
+                <td width="150"><%= number_with_precision(metric["#{group}"] || 0, precision: 2, delimiter: ',') %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

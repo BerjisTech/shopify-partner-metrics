@@ -17,6 +17,10 @@
 @import "bootstrap/scss/bootstrap";
 @import "toastr/toastr";
 
+html {
+    scroll-behavior: smooth;
+}
+
 html,
 body {
     background-color: #FAFAFA !important;

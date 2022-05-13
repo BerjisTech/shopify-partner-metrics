@@ -6,7 +6,8 @@ class ExternalMetric < ApplicationRecord
 
   class << self
     def recent_metrics(user_id)
-      latest = joins(app: :app_teams).where('app_teams.user_id': user_id, date: Date.today).order(app_id: :desc).select_all
+      latest = joins(app: :app_teams).where('app_teams.user_id': user_id,
+                                            date: Date.today).order(app_id: :desc).select_all
       if latest.blank?
         latest = joins(app: :app_teams).where('app_teams.user_id': user_id,
                                               date: Date.today - 1.days).order(app_id: :desc).select_all
@@ -19,8 +20,13 @@ class ExternalMetric < ApplicationRecord
                                                                        30.days.ago).order(date: :asc).order(app_id: :desc).select_all
     end
 
+    def monthly_metrics_for_tables(user_id)
+      joins(app: :app_teams).where('app_teams.user_id': user_id).where('date > ?',
+                                                                       30.days.ago).order(date: :desc).order(app_id: :asc).select_all
+    end
+
     def fetch_business_net(user_id, from, to)
-      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(app_id: :desc).order(date: :asc).group('external_metrics.date', 'apps.app_name','external_metrics.app_id').select(
+      joins(app: :app_teams).where('app_teams.user_id': user_id, date: (Date.today - from.days)..(Date.today - to.days)).order(app_id: :desc).order(date: :asc).group('external_metrics.date', 'apps.app_name', 'external_metrics.app_id').select(
         :date, 'SUM(net) as value', 'apps.app_name'
       )
     end
@@ -64,6 +70,8 @@ class ExternalMetric < ApplicationRecord
       )
     end
 
+    ################### IMPORT
+
     def temp_pull(from, span)
       platform_id = Platform.find_by(name: 'Shopify').id
 
@@ -71,8 +79,6 @@ class ExternalMetric < ApplicationRecord
         ShopifyInitialImportJob.set(wait: (index + 1).minutes).perform_later(from, span, api)
       end
     end
-
-    ################### IMPORT
 
     def recent(from, days, api)
       from.upto(days).map do |span|
