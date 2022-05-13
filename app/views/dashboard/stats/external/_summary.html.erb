@@ -53,14 +53,14 @@
   </div>
 </div>
 <div class="row overview_cards m-3">
-  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= apps_path %>'">
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= revenue_breakdown_path %>'">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">User Growth Last 24 hrs</div>
       <hr>
       <div class="fs-1 <%= growth_color %>"><%= number_with_precision(user_growth, precision: 2, delimiter: ',', separator: '.') %></div>
     </div>
   </div>
-  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= apps_path %>'">
+  <div class="col-sm-4 pointer" onclick="window.location.href = '<%= revenue_breakdown_path %>'">
     <div class="border rounded p-3 shadow bg-white">
       <div style="font-size: 13px; opacity: 0.6;">ARPU last 30</div>
       <% monthly_users = (@external_monthly_metrics.sum(:new_users) + @external_monthly_metrics.sum(:reactivations)) - (@external_monthly_metrics.sum(:lost_users) + @external_monthly_metrics.sum(:deactivations)) %>
