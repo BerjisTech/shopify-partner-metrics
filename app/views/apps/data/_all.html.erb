@@ -7,7 +7,6 @@
   <thead>
     <tr>
       <th>App name</th>
-      <th>Platform</th>
       <th>Revenue</th>
       <th>Running Data Import</th>
       <th>Platform Data Import</th>
@@ -20,7 +19,6 @@
       <% log_stat = (logs.filter{|f| f.status.to_i.zero? }.count.to_f/logs.count) * 100 %>
       <tr>
         <td><%= app.app_name %></td>
-        <td><%= link_to app.name, platform_path(app.platform_id) %></td>
         <% net_data = @metrics.filter{|f| f.app_id == app.id}.first %>
         <td>$<%= number_with_precision(net_data.nil? ? 0 : net_data[:net], precision: 2, delimiter: ',') %></td>
         <td>
