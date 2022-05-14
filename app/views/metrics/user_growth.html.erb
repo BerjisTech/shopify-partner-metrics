@@ -17,7 +17,7 @@
         <div class="col-sm-5" id="<%= app.id %>_user_activity"></div>
         <div class="col-sm-7">
           <div class="bg-white border rounded shadow">
-            <%= render 'dashboard/stats/external/charts/main', data: { path: app_user_growth_bar_path(app.id), type: 'bar', pane: "#{app.id}_user_growth", title: "#{app.app_name.humanize} User Growth" } %>
+            <%= render 'dashboard/stats/external/charts/main', data: { path: app_user_growth_bar_path(app.id), type: 'bar', pane: "#{app.id}_user_growth", title: "" } %>
           </div>
         </div>
       </div>
