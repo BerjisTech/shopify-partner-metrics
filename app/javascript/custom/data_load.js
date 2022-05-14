@@ -11,7 +11,6 @@ window.pull_for_table = (path, app_id, platform_id, from, to, target_div) => {
         },
         method: 'POST',
         success: (response) => {
-            console.log(response)
             $(`#${target_div}`).html(response)
         },
         error: (error) => {
