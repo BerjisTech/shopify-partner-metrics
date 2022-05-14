@@ -2,6 +2,11 @@
 
 class RunningMetricsController < ApplicationController
   before_action :set_running_metric, only: %i[show edit update destroy]
+  before_action :redirect
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /running_metrics or /running_metrics.json
   def index

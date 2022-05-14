@@ -2,6 +2,11 @@
 
 class RunningDataController < ApplicationController
   before_action :set_running_datum, only: %i[show edit update destroy]
+  before_action :redirect
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /running_data or /running_data.json
   def index

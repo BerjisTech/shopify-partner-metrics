@@ -2,6 +2,11 @@
 
 class PlatformsController < ApplicationController
   before_action :set_platform, only: %i[show edit update destroy]
+  before_action :redirect, only: %i[index show edit new]
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /platforms or /platforms.json
   def index

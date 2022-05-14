@@ -2,6 +2,11 @@
 
 class PlanDataController < ApplicationController
   before_action :set_plan_datum, only: %i[show edit update destroy]
+  before_action :redirect, only: %i[index show edit new create update destroy]
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /plan_data or /plan_data.json
   def index

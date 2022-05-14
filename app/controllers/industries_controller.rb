@@ -2,6 +2,11 @@
 
 class IndustriesController < ApplicationController
   before_action :set_industry, only: %i[show edit update destroy]
+  before_action :redirect
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /industries or /industries.json
   def index

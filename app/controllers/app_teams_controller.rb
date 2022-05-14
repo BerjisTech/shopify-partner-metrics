@@ -2,6 +2,11 @@
 
 class AppTeamsController < ApplicationController
   before_action :set_app_team, only: %i[show edit update destroy]
+  before_action :redirect
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /app_teams or /app_teams.json
   def index

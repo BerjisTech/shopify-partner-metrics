@@ -2,6 +2,11 @@
 
 class AppPlansController < ApplicationController
   before_action :set_app_plan, only: %i[show edit update destroy]
+  before_action :redirect
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /app_plans or /app_plans.json
   def index

@@ -2,6 +2,11 @@
 
 class InviteAcceptsController < ApplicationController
   before_action :set_invite_accept, only: %i[show edit update destroy]
+  before_action :redirect, only: %i[index show edit new]
+
+  def redirect
+    redirect_to docs_path
+  end
 
   # GET /invite_accepts or /invite_accepts.json
   def index
