@@ -31,26 +31,27 @@
             <%= form.label :app_id %>
           </div>
         <% end %>
-        <div class="field form-floating">
-          <%= form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Choose plaform"}, class: "form-control display_shopify_extras", placeholder: "Placeholder" %>
-          <%= form.label :platform_id %>
-        </div>
+        <!--div class="field form-floating">
+          <% form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Choose plaform"}, class: "form-control display_shopify_extras", placeholder: "Placeholder" %>
+          <% form.label :platform_id %>
+        </div-->
+        <%= form.hidden_field :platform_id, value: Platform.find_by(name: 'Shopify').id %>
         <div class="field form-floating">
           <%= form.text_field :api_key, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :api_key %>
         </div>
-        <div class="field form-floating">
-          <%= form.text_field :api_secret, class: "form-control", placeholder: "Placeholder" %>
-          <%= form.label :api_secret %>
-        </div>
+        <!--div class="field form-floating">
+          <% form.text_field :api_secret, class: "form-control", placeholder: "Placeholder" %>
+          <% form.label :api_secret %>
+        </div-->
         <div class="field form-floating">
           <%= form.text_field :secondary_api_key, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :secondary_api_key %>
         </div>
-        <div class="field form-floating">
-          <%= form.text_field :secondary_api_secret, class: "form-control", placeholder: "Placeholder" %>
-          <%= form.label :secondary_api_secret %>
-        </div>
+        <!--div class="field form-floating">
+          <% form.text_field :secondary_api_secret, class: "form-control", placeholder: "Placeholder" %>
+          <% form.label :secondary_api_secret %>
+        </div-->
         <div class="field shopify_extras form-floating">
           <%= form.text_field :app_code, class: "form-control my-2", placeholder: "Placeholder" %>
           <%= form.label :app_code %>
