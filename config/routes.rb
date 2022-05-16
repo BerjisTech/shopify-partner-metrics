@@ -66,7 +66,9 @@ Rails.application.routes.draw do
   get 'docs', controller: :docs, action: :big_dicky
   get 'confirm', controller: :misc, action: :confirm
 
-  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
+                     controllers: { registrations: 'registrations' }
+
   post 'verify_email', controller: :application, action: :verify_email
 
   root to: 'home#index'

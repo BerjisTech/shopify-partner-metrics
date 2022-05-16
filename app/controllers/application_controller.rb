@@ -7,12 +7,9 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
 
-  def after_sign_up_path_for(resource)
-    new_confirmation_path(resource)
-  end
-
   def after_sign_out_path_for(_resource_or_scope)
     reset_session
-    request.referrer || root_path
+    root_path
+    # request.referrer || root_path
   end
 end
