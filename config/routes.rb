@@ -53,6 +53,12 @@ Rails.application.routes.draw do
 
     ########## TABLE DATA PAGES
     post 'user_activity', controller: :external_metrics, action: :user_activity
+
+    ########## App Pages
+    get 'team/:app_id', controller: :app_teams, action: :for_app, as: :team
+
+    ########## Business Pages
+    get 'staff/:business_id', controller: :staffs, action: :for_app, as: :employee
   end
 
   ##### Important external links
