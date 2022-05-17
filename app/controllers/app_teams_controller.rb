@@ -2,7 +2,7 @@
 
 class AppTeamsController < ApplicationController
   before_action :set_app_team, only: %i[show edit update destroy]
-  before_action :redirect
+  before_action :redirect, only: %i[index show edit update destroy]
 
   def redirect
     redirect_to docs_path
@@ -13,11 +13,18 @@ class AppTeamsController < ApplicationController
     @app_teams = AppTeam.all
   end
 
+  def for_app
+    @team = AppTeam.where(app_id: params[:app_id]).joins(:user).select(:email, 'app_teams.created_at')
+    @app = App.find(params[:app_id])
+  end
+
   # GET /app_teams/1 or /app_teams/1.json
   def show; end
 
   # GET /app_teams/new
   def new
+    redirect_to apps_path if params[:app_id].empty? || params[:app_id].blank?
+    @app = App.find(params[:app_id])
     @app_team = AppTeam.new
   end
 
@@ -27,14 +34,26 @@ class AppTeamsController < ApplicationController
   # POST /app_teams or /app_teams.json
   def create
     @app_team = AppTeam.new(app_team_params)
+    user = User.find_by(email: params[:app_team]['user_id'])
 
     respond_to do |format|
-      if @app_team.save
-        format.html { redirect_to app_team_url(@app_team), notice: 'App team was successfully created.' }
-        format.json { render :show, status: :created, location: @app_team }
+      if user.nil?
+        @app_team.errors.add(:user_id, 'This user does not exist, ask them to first create an account')
+        format.html do
+          redirect_to new_app_team_url(app_id: @app_team.app_id),
+                      alert: 'This user does not exist, ask them to first create an account'
+        end
+        format.json { render json: @app_team.errors }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @app_team.errors, status: :unprocessable_entity }
+        Staff.find_or_create_by!(user_id: user.id, business_id: @app_team.business_id, status: 1, designation: 2)
+        @app_team.user_id = user.id
+        if @app_team.save
+          format.html { redirect_to team_path(@app_team.app_id), notice: 'App team was successfully created.' }
+          format.json { render :show, status: :created, location: @app_team }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @app_team.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

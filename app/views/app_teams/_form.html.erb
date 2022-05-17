@@ -2,7 +2,6 @@
   <% if app_team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(app_team.errors.count, "error") %> prohibited this app_team from being saved:</h2>
-
       <ul>
         <% app_team.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,28 +9,14 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :business_id %>
-    <%= form.text_field :business_id %>
+  <%= form.hidden_field :business_id, value: @app.business_id %>
+  <%= form.hidden_field :app_id, value: @app.id %>
+  <%= form.hidden_field :added_by, value: current_user.id %>
+  <div class="form-floating my-2">
+    <%= form.text_field :user_id, class: "form-control", placeholder: "Add user email here", type: "email", required: "required" %>
+    <%= form.label :user_email %>
   </div>
-
-  <div class="field">
-    <%= form.label :app_id %>
-    <%= form.text_field :app_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :added_by %>
-    <%= form.text_field :added_by %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions my-2">
+    <%= form.submit class: "shopify-button btn btn-md" %>
   </div>
 <% end %>

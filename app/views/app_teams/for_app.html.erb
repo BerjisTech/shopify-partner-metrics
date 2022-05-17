@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <div class="d-flex align-items-center justify-content-between p-3">
+      <span class="fs-3 fw-bolder"><%= @app.app_name.humanize %></span>
+      <%= link_to "Add Teammate", new_app_team_path(app_id: @app.id), class: "shopify-button text-center py-2" %>
+    </div>
+    <div class="shadow border rounded p-3 m-3 bg-white">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Joined on</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @team.map do |team| %>
+            <tr>
+              <td><%= team.email %></td>
+              <td><%= team.created_at.strftime('%d %b, %Y') %></td>
+              <td><%= team.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+</div>
