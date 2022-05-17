@@ -19,8 +19,8 @@ class FileFormat < ApplicationRecord
 
     def extract_data(csv_file, user_id)
       table = CSV.parse(File.read(csv_file))
-      ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table.drop(1), user_id)
-      table.drop(1).group_by { |t| t[12] }
+      # ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table.drop(1), user_id)
+      table.drop(1).group_by { |t| t[1] }
     end
 
     def payment_history(data, user_id)
