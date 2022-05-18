@@ -58,5 +58,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                 $('header').removeClass('menu-sticky')
             }
         })
+        
+        /*------------------------
+        6 Docs
+        --------------------------*/
+        window.get_doc = (doc_path) => {
+            $.ajax({
+                url: doc_path,
+                method: 'GET',
+                success: (doc) => {
+                    $('#docs').html(doc)
+                },
+                error: (e) => {
+                    toastr.error('Marcello he say the request went a little bit off to the left. Mama mia 🤌')
+                }
+            })
+        }
     })
 })

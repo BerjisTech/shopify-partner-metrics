@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   get 'docs', controller: :docs, action: :big_dicky
   get 'confirm', controller: :misc, action: :confirm
 
+  ###### Docs
+  get 'd/:doc_id', controller: :docs, action: :doc, as: :doc
+
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
                      controllers: { registrations: 'registrations' }
 

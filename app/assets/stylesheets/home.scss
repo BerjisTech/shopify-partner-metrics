@@ -13,3 +13,12 @@
  *= require_tree ./home
  *= require_self
  */
+
+@import "bootstrap/scss/bootstrap";
+@import "toastr/toastr";
+
+ .point_me,
+.pointer,
+.pointed {
+    cursor: pointer;
+}
