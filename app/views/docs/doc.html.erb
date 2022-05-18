@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center justify-content-center bg-primary pt-5 pb-3">
+</div>
+<div class="d-flex align-items-start justify-content-start">
+  <div class="d-flex flex-column flex-shrink border-end" style="min-height: 100vh;">
+    <% Doc.all.map do |doc| %>
+      <%= link_to doc.topic.classify, doc_path(doc.id), class: "taxt-default m-2" %>
+    <% end %>
+  </div>
+  <div class="d-flex flex-column flex-fill" id="docs">
+    <div class="mx-3 px-3 pointer">
+      <div class="fs-4"><%= @doc.topic %></div>
+      <hr />
+      <div class="fs-6"><%= @doc.description.html_safe %></div>
+    </div>
+  </div>
+</div>
