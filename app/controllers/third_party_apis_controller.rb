@@ -36,15 +36,15 @@ class ThirdPartyApisController < ApplicationController
 
       extracted_data = FileFormat.extract_data(csv_file, user_id)
 
-      # no_apps = find_missing_apps(extracted_data.keys)
+      no_apps = find_missing_apps(extracted_data.keys)
 
-      # status = 'no_apps' if no_apps.size.positive?
+      status = 'no_apps' if no_apps.size.positive?
 
       message = {
         status: status,
         data: {
           grouped: extracted_data,
-          # not_found: no_apps
+          not_found: no_apps
         }
       }
     end

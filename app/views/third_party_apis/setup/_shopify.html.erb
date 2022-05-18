@@ -34,7 +34,7 @@
     In your Shopify Partners Dashboard, go to the Payouts page, and click the Export CSV button.
     Then drop the received ZIP file here:
   </div>
-  <%= form_tag({:action => :shopify_importer_setup}, multipart: true, class: "my-4 form _shopify_csv_import_data") do %>
+  <%= form_tag({:action => :shopify_importer_setup}, multipart: true, class: "my-4 form shopify_csv_import_data") do %>
     <%= file_field_tag :shopify, accept: ".csv, .zip", required: "required" %>
     <progress style="display:none;"></progress>
     <%= submit_tag( "Import", class: "shopify-button btn btn-lg") %>
