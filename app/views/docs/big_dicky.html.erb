@@ -12,9 +12,9 @@
         <% Doc.where(docs_category_id: DocsCategory.find_by(name: "Setup").id).limit(3).map do |doc| %>
           <div class="col-sm-4" onclick="window.location.href = '<%= doc_path(doc.id) %>'">
             <div class="bg-white shadow rounded border p-2 pointer">
-              <div class="fs-4"><%= doc.topic %></div>
+              <div class="fw-bolder"><%= doc.topic %></div>
               <hr />
-              <div class="fs-6"><%= ActionView::Base.full_sanitizer.sanitize(doc.description)[0..215] %>...</div>
+              <div><%= ActionView::Base.full_sanitizer.sanitize(doc.description)[0..215] %>...</div>
             </div>
           </div>
         <% end %>
@@ -24,9 +24,9 @@
         <% Doc.order(requests: :desc).limit(3).map do |doc| %>
           <div class="col-sm-4" onclick="window.location.href = '<%= doc_path(doc.id) %>'">
             <div class="bg-white shadow rounded border p-2 pointer">
-              <div class="fs-4"><%= doc.topic %></div>
+              <div class="fw-bolder"><%= doc.topic[] %></div>
               <hr />
-              <div class="fs-6"><%= ActionView::Base.full_sanitizer.sanitize(doc.description)[0..215] %>...</div>
+              <div><%= ActionView::Base.full_sanitizer.sanitize(doc.description)[0..215] %>...</div>
             </div>
           </div>
         <% end %>
