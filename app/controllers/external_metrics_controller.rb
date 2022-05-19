@@ -24,10 +24,7 @@ class ExternalMetricsController < ApplicationController
     dates = []
     external_metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
 
-    vals = []
-    dates.uniq.map { |_d| vals << 0 }
-
-    sets = generate_sets(apps, dates.uniq, vals, external_metrics)
+    sets = generate_sets(apps, dates.uniq, external_metrics)
 
     render json: {
       type: '',
@@ -42,18 +39,12 @@ class ExternalMetricsController < ApplicationController
     }
   end
 
-  def generate_sets(data, dates, vals, metrics)
+  def generate_sets(data, dates, metrics)
     sets = []
     data.each_with_index.map do |data, index|
-      dates.each_with_index.map do |date, i|
-        value = metrics.filter do |e|
-          e.app_name == data && e.date.strftime('%d %b, %Y') == date
-        end
-        vals[i] = value.first.nil? ? 0 : value.first[:value]
-      end
       sets << {
         title: data,
-        values: vals,
+        values: app_chart_values(metrics.filter { |e| e.app_name == data }, dates),
         color: COLORS[index]
       }
     end
@@ -87,9 +78,14 @@ class ExternalMetricsController < ApplicationController
     render json: revenue_break_down(metrics)
   end
 
-  def app_chart_values(block)
+  def app_chart_values(block, dates)
     data = []
-    block.each { |b| data << b.value.to_i }
+    dates.each { |_d| data << 0 }
+    dates.each_with_index.map do |date, index|
+      revenue = block.filter { |b| b.date.strftime('%d %b, %Y') == date }.first
+      data[index] = revenue.present? ? revenue.value.to_f : 0
+    end
+    # block.each { |b| data << b.value.to_i }
     data
   end
 
