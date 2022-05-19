@@ -24,7 +24,10 @@ class ExternalMetricsController < ApplicationController
     dates = []
     external_metrics.map { |m| dates << m.date.strftime('%d %b, %Y') }
 
-    sets = generate_sets(apps, external_metrics)
+    vals = []
+    dates.uniq.map { |_d| vals << 0 }
+
+    sets = generate_sets(apps, dates.uniq, vals, external_metrics)
 
     render json: {
       type: '',
@@ -39,12 +42,18 @@ class ExternalMetricsController < ApplicationController
     }
   end
 
-  def generate_sets(data, metrics)
+  def generate_sets(data, dates, vals, metrics)
     sets = []
     data.each_with_index.map do |data, index|
+      dates.each_with_index.map do |date, i|
+        value = metrics.filter do |e|
+          e.app_name == data && e.date.strftime('%d %b, %Y') == date
+        end
+        vals[i] = value.first.nil? ? 0 : value.first[:value]
+      end
       sets << {
         title: data,
-        values: app_chart_values(metrics.filter { |e| e.app_name == data }),
+        values: vals,
         color: COLORS[index]
       }
     end

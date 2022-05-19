@@ -177,21 +177,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log(response)
                     if (response.status === null)
                         window.location.href = `${base_url}apps`
-
-                    if (response.status === 'no_apps') {
-                        $('.shopify_csv_apps_not_found').html(`
-                            <div class="fs-4 fw-light my-3">You data will start importing in a few seconds. Feel free to poke around and get used to the platform as we do this for you.<br />
-                            NOTE: ${response.data.not_found.length} apps on this list were not found in your InFlowMetrics Apps list. They have all been automatically created. You can edit them or delete the ones you don't want below</div>
-                        `)
-
-                        for (let app = 0; app < response.data.not_found.length; app++) {
-                            $('.shopify_csv_apps_not_found').append(`
-                                <div><a href="${response.data.not_found[app][1]}">${response.data.not_found[app][0]}</a></div>
-                            `)
-                        }
-
-                        $('.shopify_csv_apps_not_found').append(`<div class="mt-3"><a class="shopify-button btn btn-md" href="${base_url}apps">Go to apps page</a></div>`)
-                    }
                 },
                 error: (e) => {
                     $('.shopify_csv_import_data progress').hide()

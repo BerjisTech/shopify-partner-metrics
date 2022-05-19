@@ -42,16 +42,20 @@ class FileFormat < ApplicationRecord
           theme_name: app[13],
           tax_description: app[14],
           charge_id: app[15],
-          app_id: create_app(app[12].blank? ? "other" : app[12], user_id)
+          app_id: create_app(app[12].blank? ? 'other' : app[12], user_id)
         )
       end
       data.group_by do |t|
         t[12]
-      end.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name.blank? ? "other" : app_name, user_id)) }
+      end.each_key do |app_name|
+        PaymentHistory.calculate_initial_metrics(
+          App.where(app_name: app_name.blank? ? 'other' : app_name).joins('INNER JOIN app_teams on app_teams.app_id = apps.id').where('app_teams.user_id': user_id).pluck('apps.id').first
+        )
+      end
     end
 
     def create_app(app_name, user_id)
-      business_id = Business.mine(user_id).first.id
+      business_id = Business.mine(user_id).last.id
 
       app = App.find_or_create_by!({
                                      app_name: app_name,

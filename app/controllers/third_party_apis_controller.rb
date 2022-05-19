@@ -36,15 +36,10 @@ class ThirdPartyApisController < ApplicationController
 
       extracted_data = FileFormat.extract_data(csv_file, user_id)
 
-      no_apps = find_missing_apps(extracted_data.keys)
-
-      status = 'no_apps' if no_apps.size.positive?
-
       message = {
         status: status,
         data: {
-          grouped: extracted_data,
-          not_found: no_apps
+          grouped: extracted_data
         }
       }
     end
@@ -60,23 +55,6 @@ class ThirdPartyApisController < ApplicationController
     else
       { status: 'error', message: 'Please provide a zip or csv file' }
     end
-  end
-
-  def find_missing_apps(keys)
-    apps = []
-    keys.each do |key|
-      unless App.where(app_name: key).joins('INNER JOIN app_teams on app_teams.app_id = apps.id').where('app_teams.user_id': current_user.id).blank?
-        next
-      end
-
-      app_name = (key.nil? ? 'Other' : key)
-      FileFormat.create_app(app_name, current_user.id)
-
-      app = App.find_by(app_name: app_name)
-      app_path = app.present? ? edit_app_path(app.id) : '#'
-      apps << [app_name, app_path]
-    end
-    apps
   end
 
   # GET /third_party_apis/1/edit

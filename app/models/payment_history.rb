@@ -26,7 +26,7 @@ class PaymentHistory < ApplicationRecord
 
     def update_metrics(data, app_id)
       data.map do |metric|
-        external_metric = ExternalMetric.find_ro_create_by!(
+        external_metric = ExternalMetric.find_or_create_by!(
           app_id: app_id,
           platform_id: PLATFORM,
           date: metric.month
