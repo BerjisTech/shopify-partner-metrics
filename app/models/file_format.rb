@@ -42,12 +42,12 @@ class FileFormat < ApplicationRecord
           theme_name: app[13],
           tax_description: app[14],
           charge_id: app[15],
-          app_id: create_app(app[12], user_id)
+          app_id: create_app(app[12].blank? ? "other" : app[12], user_id)
         )
       end
       data.group_by do |t|
         t[12]
-      end.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name, user_id)) }
+      end.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name.blank? ? "other" : app_name, user_id)) }
     end
 
     def create_app(app_name, user_id)
