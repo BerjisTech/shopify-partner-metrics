@@ -26,17 +26,19 @@ class PaymentHistory < ApplicationRecord
 
     def update_metrics(data, app_id)
       data.map do |metric|
-        ExternalMetric.create!(
+        external_metric = ExternalMetric.find_ro_create_by!(
           app_id: app_id,
           platform_id: PLATFORM,
-          date: metric.month,
-          recurring_revenue: metric.recurring_revenue.to_f,
-          one_time_charge: metric.one_time_charge.to_f,
-          refunds: metric.refunds.to_f,
-          net: (metric.income.to_f + metric.refunds.to_f),
-          gross: metric.income.to_f,
-          arr: (metric.income.to_f * 12)
+          date: metric.month
         )
+        external_metric.update({
+                                 recurring_revenue: metric.recurring_revenue.to_f,
+                                 one_time_charge: metric.one_time_charge.to_f,
+                                 refunds: metric.refunds.to_f,
+                                 net: (metric.income.to_f + metric.refunds.to_f),
+                                 gross: metric.income.to_f,
+                                 arr: (metric.income.to_f * 12)
+                               })
       end
     end
   end

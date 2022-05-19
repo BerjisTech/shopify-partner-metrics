@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDocsCategories < ActiveRecord::Migration[6.1]
   def change
     create_table :docs_categories, id: :uuid do |t|

@@ -6,6 +6,6 @@ class DocsController < ApplicationController
   def doc
     @doc = Doc.find(params[:id])
     requests = @doc.requests.present? ? @doc.requests : 0
-    @doc.update(requests:  requests + 1)
+    @doc.update(requests: requests + 1)
   end
 end

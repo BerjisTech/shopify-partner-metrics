@@ -45,18 +45,20 @@ class FileFormat < ApplicationRecord
           app_id: create_app(app[12], user_id)
         )
       end
-      data.group_by { |t| t[12] }.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name, user_id)) }
+      data.group_by do |t|
+        t[12]
+      end.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name, user_id)) }
     end
 
     def create_app(app_name, user_id)
       business_id = Business.mine(user_id).first.id
 
       app = App.find_or_create_by!({
-                          app_name: app_name,
-                          platform_id: Platform.find_by(name: 'Shopify').id,
-                          business_id: business_id,
-                          user_id: user_id
-                        })
+                                     app_name: app_name,
+                                     platform_id: Platform.find_by(name: 'Shopify').id,
+                                     business_id: business_id,
+                                     user_id: user_id
+                                   })
 
       AppTeam.find_or_create_by!({ user_id: user_id, added_by: user_id, app_id: app.id, business_id: business_id })
       app.id
