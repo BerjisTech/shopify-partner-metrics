@@ -19,8 +19,8 @@ class FileFormat < ApplicationRecord
 
     def extract_data(csv_file, user_id)
       table = CSV.parse(File.read(csv_file))
-      # ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table.drop(1), user_id)
-      table.drop(1).group_by { |t| t[1] }
+      ShopifyCsvImportJob.set(wait: 10.seconds).perform_later(table.drop(1), user_id)
+      table.drop(1).group_by { |t| t[12] }
     end
 
     def payment_history(data, user_id)
@@ -42,23 +42,24 @@ class FileFormat < ApplicationRecord
           theme_name: app[13],
           tax_description: app[14],
           charge_id: app[15],
-          app_id: App.where(app_name: app[12]).joins('INNER JOIN app_teams on app_teams.app_id = apps.id').where('app_teams.user_id': user_id).pluck('apps.id').first
+          app_id: create_app(app[12], user_id)
         )
       end
-      data.group_by { |t| t[12] }.each_key { |app_id| PaymentHistory.calculate_initial_metrics(app_id) }
+      data.group_by { |t| t[12] }.each_key { |app_name| PaymentHistory.calculate_initial_metrics(create_app(app_name, user_id)) }
     end
 
     def create_app(app_name, user_id)
       business_id = Business.mine(user_id).first.id
 
-      app = App.create!({
+      app = App.find_or_create_by!({
                           app_name: app_name,
                           platform_id: Platform.find_by(name: 'Shopify').id,
                           business_id: business_id,
                           user_id: user_id
                         })
 
-      AppTeam.create({ user_id: user_id, added_by: user_id, app_id: app.id, business_id: business_id })
+      AppTeam.find_or_create_by!({ user_id: user_id, added_by: user_id, app_id: app.id, business_id: business_id })
+      app.id
     end
   end
 end
