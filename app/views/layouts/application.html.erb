@@ -37,12 +37,8 @@
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-213531854-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-213531854-1');
+    <script type="text/javascript">
+      window.$crisp=[];window.CRISP_WEBSITE_ID="b370846f-047a-490f-aa91-48831119125e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
     </script>
   </head>
   <body>
@@ -70,11 +66,5 @@
       <%= yield %>
     <% end %>
     <%= toastr_flash %>
-    <script>
-      (function(w,d,u){
-              var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
-              var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
-      })(window,document,'https://cdn.bitrix24.com/b21475217/crm/site_button/loader_2_499meq.js');
-    </script>
   </body>
 </html>
