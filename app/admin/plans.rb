@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Plan do
-  config.sort_order = "created_at_desc"
-  
+  config.sort_order = 'created_at_desc'
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

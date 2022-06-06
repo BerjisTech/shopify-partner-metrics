@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     ######### PLANS AND BILLING
     get 'billing', controller: :billings, action: :index
     get 'bill/:id', controller: :billings, action: :show, as: :bill
+    post 'new_bill', controller: :billings, action: :to_stripe
+    get 'billing_success', controller: :billings, action: :success
+    get 'billing_cancel', controller: :billings, action: :cancel
 
     ######### IMPORTS
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data

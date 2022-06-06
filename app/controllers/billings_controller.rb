@@ -16,15 +16,19 @@ class BillingsController < InheritedResources::Base
     session = Stripe::Checkout::Session.create({
                                                  line_items: [{
                                                    # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                                                   price: '{{PRICE_ID}}',
+                                                   price: params[:price_id],
                                                    quantity: 1
                                                  }],
                                                  mode: 'payment',
-                                                 success_url: "#{root_url}/success.html",
-                                                 cancel_url: "#{root_url}/cancel.html"
+                                                 success_url: billing_success_path,
+                                                 cancel_url: billing_cancel_path
                                                })
     redirect session.url, 303
   end
+
+  def success; end
+
+  def cancel; end
 
   private
 
