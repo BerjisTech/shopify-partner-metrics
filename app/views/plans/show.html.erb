@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plan.name %>
+</p>
+
+<p>
+  <strong>Has exports:</strong>
+  <%= @plan.has_exports %>
+</p>
+
+<p>
+  <strong>Has breakdown:</strong>
+  <%= @plan.has_breakdown %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @plan.price %>
+</p>
+
+<p>
+  <strong>Has csv import:</strong>
+  <%= @plan.has_csv_import %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>

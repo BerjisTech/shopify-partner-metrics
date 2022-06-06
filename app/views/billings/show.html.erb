@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @billing.app_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @billing.user_id %>
+</p>
+
+<p>
+  <strong>Business:</strong>
+  <%= @billing.business_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @billing.amount %>
+</p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @billing.plan_id %>
+</p>
+
+<%= link_to 'Edit', edit_billing_path(@billing) %> |
+<%= link_to 'Back', billings_path %>

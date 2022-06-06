@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  has_exports: false
+  has_breakdown: false
+  price: 1.5
+  has_csv_import: false
+
+two:
+  name: MyString
+  has_exports: false
+  has_breakdown: false
+  price: 1.5
+  has_csv_import: false
