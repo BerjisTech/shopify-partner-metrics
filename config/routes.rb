@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :plans
-  resources :billings
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -21,7 +19,13 @@ Rails.application.routes.draw do
     resources :staffs
     resources :running_metrics
     resources :external_metrics
+    # resources :plans
+    # resources :billings
     get 'dashboard', controller: :dashboard, action: :index
+
+    ######### PLANS AND BILLING
+    get 'billing', controller: :billings, action: :index
+    get 'bill/:id', controller: :billings, action: :show, as: :bill
 
     ######### IMPORTS
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data

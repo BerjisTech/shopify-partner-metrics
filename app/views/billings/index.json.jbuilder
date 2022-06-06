@@ -1,1 +1,3 @@
-json.array! @billings, partial: "billings/billing", as: :billing
+# frozen_string_literal: true
+
+json.array! @billings, partial: 'billings/billing', as: :billing

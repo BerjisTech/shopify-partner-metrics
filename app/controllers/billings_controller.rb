@@ -1,9 +1,21 @@
+# frozen_string_literal: true
+
 class BillingsController < InheritedResources::Base
+  before_action :set_bill, only: %i[show]
+  def index
+    @billings = Billing.all
+  end
+
+  def show
+  end
 
   private
 
-    def billing_params
-      params.require(:billing).permit(:app_id, :user_id, :business_id, :amount, :plan_id)
-    end
+  def set_bill
+    @bill = Billing.find(params[:id])
+  end
 
+  def billing_params
+    params.require(:billing).permit(:app_id, :user_id, :business_id, :amount, :plan_id)
+  end
 end
