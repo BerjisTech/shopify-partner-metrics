@@ -6,7 +6,24 @@ class BillingsController < InheritedResources::Base
     @billings = Billing.all
   end
 
-  def show
+  def show; end
+
+  def to_stripe
+    Stripe.api_key = 'sk_test_51KCeiSR1t9C4RD6OI2oDkdJH5VoN0xYPIS6vtTTYBL2fLi7LdIScU5PpJuzbmQkKkiNtmMdwDwF3snZCVY4aUgwR00r3h3iCsJ'
+
+    content_type 'application/json'
+
+    session = Stripe::Checkout::Session.create({
+                                                 line_items: [{
+                                                   # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+                                                   price: '{{PRICE_ID}}',
+                                                   quantity: 1
+                                                 }],
+                                                 mode: 'payment',
+                                                 success_url: "#{root_url}/success.html",
+                                                 cancel_url: "#{root_url}/cancel.html"
+                                               })
+    redirect session.url, 303
   end
 
   private
