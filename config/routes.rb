@@ -22,11 +22,13 @@ Rails.application.routes.draw do
     # resources :plans
     # resources :billings
     get 'dashboard', controller: :dashboard, action: :index
+    get 'account', controller: :account, action: :index
 
     ######### PLANS AND BILLING
     get 'billing', controller: :billings, action: :index
     get 'bill/:id', controller: :billings, action: :show, as: :bill
-    post 'new_bill', controller: :billings, action: :to_stripe
+    post 'stripe_subscribe', controller: :billings, action: :stripe_subscribe
+    post 'stripe_portal', controller: :billings, action: :stripe_portal
     get 'billing_success', controller: :billings, action: :success
     get 'billing_cancel', controller: :billings, action: :cancel
 
