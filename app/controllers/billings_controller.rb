@@ -46,8 +46,8 @@ class BillingsController < InheritedResources::Base
                                                    quantity: 1
                                                  }],
                                                  mode: 'subscription', # or payment
-                                                 success_url: stripe_success_url,
-                                                 cancel_url: stripe_cancel_url
+                                                 success_url: stripe_success_url(apps),
+                                                 cancel_url: stripe_cancel_url(apps)
                                                })
     redirect_to session.url
   end

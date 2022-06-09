@@ -31,8 +31,8 @@ Rails.application.routes.draw do
     get 'stripe_session', controller: :billings, action: :stripe_session
     post 'stripe_subscribe', controller: :billings, action: :stripe_subscribe
     post 'stripe_portal', controller: :billings, action: :stripe_portal
-    get 'stripe/success', controller: :billings, action: :success, as: :stripe_success
-    get 'stripe/cancel', controller: :billings, action: :cancel, as: :stripe_cancel
+    get 'stripe/success/:apps', controller: :billings, action: :success, as: :stripe_success
+    get 'stripe/cancel/:apps', controller: :billings, action: :cancel, as: :stripe_cancel
     post 'billing/downgrade_batch', controller: :billings, action: :downgrade, as: :downgrade_batch
     post 'billing/upgrade_batch', controller: :billings, action: :upgrade, as: :upgrade_batch
     post 'billing/pay_all', controller: :billings, action: :pay_all, as: :pay_all
