@@ -21,6 +21,8 @@ window.create_app_from_test = (r) => {
 
 document.addEventListener('DOMContentLoaded', async () => {
     $(document).on('turbolinks:load', () => {
+        let billing_batch_action_apps = []
+        
         $('[data-target="test_running_data"]').on('click', (e) => {
             $(`.active_${$(e.target).attr('data-target')}_loader`).show()
 
@@ -186,6 +188,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log(e.responseText)
                 }
             })
+        })
+
+        $('.billing_batch_actions a').on('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+
+            console.log(e.data('action'))
+        })
+
+        $('.billing_page_select').on('change', (e) => {
+
         })
     })
 })

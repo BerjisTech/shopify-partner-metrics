@@ -15,8 +15,8 @@ class App < ApplicationRecord
 
   class << self
     def mine(user_id)
-      joins(:platform).joins(:business).joins(:app_teams).joins('LEFT JOIN PLANS WHERE plans.id = apps.current_plan').where('app_teams.user_id': user_id).select(
-        'apps.id as id, app_teams.id as team_id', :platform_id, :user_id, :app_name, :name, :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at', 'plans.name as plan_name'
+      joins(:platform).joins(:business).joins(:app_teams).joins('LEFT JOIN PLANS ON plans.id = apps.current_plan').where('app_teams.user_id': user_id).select(
+        'apps.id as id, app_teams.id as team_id', :platform_id, :user_id, :app_name, 'platforms.name as platform_name', :app_url, :running_data_endpoint, 'apps.created_at', 'apps.updated_at', 'plans.name as plan_name'
       )
     end
 

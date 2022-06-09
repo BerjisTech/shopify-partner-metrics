@@ -1,29 +1,50 @@
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm-10">
+    <div class="p-3 my-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <div></div>
+        <div class="d-flex">
+          <span class="btn btn-primary btn-md">Pay All Due</span>
+          <div class="dropdown ms-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Batch Actions
+            </button>
+            <ul class="dropdown-menu billing_batch_actions" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" data-action="upgrade" href="#">Upgrade selected</a></li>
+              <li><a class="dropdown-item" data-action="downgrade" href="#">Downgrade Slected</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="bg-white rounded border shadow p-3">
-      <table>
+      <table class="table table-responsive table-hover">
         <thead>
           <tr>
+            <th></th>
             <th>App</th>
             <th>Plan</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <% App.mine(current_user.id)%>
-          <tr>
-            <td><%= app.app_name%></td>
-            <td><%= app.plan_name%></td>
-            <td>
-              <span class="bt btn-primary btn-md">$ 9.99 due</span>
-              <span class="bt btn-primary btn-md">Pay Now</span>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+          <% App.mine(current_user.id).map do |app| %>
+            <tr>
+              <td>
+                <input type="checkbox" name="<%= app.id %>" class="billing_page_select">
+              </td>
+              <td><%= app.app_name%></td>
+              <td><%= app.plan_name%></td>
+              <td>
+                <span class="text-danger">$ 9.99 due</span>
+                <span class="btn btn-primary btn-md">Pay Now</span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div class="col-sm-1"></div>
+  <div class="col-sm-1"></div>
 </div>
