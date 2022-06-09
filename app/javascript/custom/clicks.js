@@ -1,6 +1,5 @@
 // ES6
 
-const { formatSchema } = require("webpack/lib/WebpackOptionsValidationError")
 
 window.initial_shopify_import = (app_id) => {
     console.log(`app_id : ${app_id}`)
@@ -19,10 +18,26 @@ window.create_app_from_test = (r) => {
     })
 }
 
+window.update_billing = (path, apps) => {
+    $.ajax({
+        url: path,
+        method: 'POST',
+        data: {
+            'authenticity_token': $('[name="csrf-token"]')[0].content,
+            apps: apps
+        },
+        success: (response) => { },
+        error: (response) => { }
+    })
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     $(document).on('turbolinks:load', () => {
         let billing_batch_action_apps = []
-        
+        let downgrade_path = `${base_url}billing/downgrade`
+        let upgrade_path = `${base_url}billing/upgrade`
+        let pay_all_path = `${base_url}billing/pay_all`
+
         $('[data-target="test_running_data"]').on('click', (e) => {
             $(`.active_${$(e.target).attr('data-target')}_loader`).show()
 
@@ -194,11 +209,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.preventDefault()
             e.stopPropagation()
 
-            console.log(e.data('action'))
+            let action = $(e)[0].currentTarget.dataset.action
+
+            console.log(billing_batch_action_apps)
+
+            if (billing_batch_action_apps.length == 0) { return toastr.error('No apps selected') }
+            if (action == 'downgrade') { return update_billing(downgrade_path, billing_batch_action_apps) };
+            if (action == 'upgrade') { return update_billing(upgrade_path, billing_batch_action_apps) };
+            if (action == 'pay_all') { return update_billing(pay_all_path, billing_batch_action_apps) };
+
         })
 
         $('.billing_page_select').on('change', (e) => {
-
+            let app_id = $(e)[0].currentTarget.name
+            if ($(e)[0].currentTarget.checked === true) { return billing_batch_action_apps.push(app_id) }
+            if ($(e)[0].currentTarget.checked === false) { return billing_batch_action_apps.splice(billing_batch_action_apps.indexOf(app_id, 1)) }
         })
     })
 })

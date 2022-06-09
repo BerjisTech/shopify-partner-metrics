@@ -28,10 +28,17 @@ Rails.application.routes.draw do
     get 'billing', controller: :billings, action: :billing
     get 'billing/all', controller: :billings, action: :index
     get 'bill/:id', controller: :billings, action: :show, as: :bill
+    get 'stripe_session', controller: :billings, action: :stripe_session
     post 'stripe_subscribe', controller: :billings, action: :stripe_subscribe
     post 'stripe_portal', controller: :billings, action: :stripe_portal
-    get 'billing_success', controller: :billings, action: :success
-    get 'billing_cancel', controller: :billings, action: :cancel
+    get 'stripe/success', controller: :billings, action: :success, as: :stripe_success
+    get 'stripe/cancel', controller: :billings, action: :cancel, as: :stripe_cancel
+    post 'billing/downgrade_batch', controller: :billings, action: :downgrade, as: :downgrade_batch
+    post 'billing/upgrade_batch', controller: :billings, action: :upgrade, as: :upgrade_batch
+    post 'billing/pay_all', controller: :billings, action: :pay_all, as: :pay_all
+    post 'billing/downgrade', controller: :billings, action: :downgrade, as: :downgrade
+    post 'billing/upgrade', controller: :billings, action: :upgrade, as: :upgrade
+    post 'billing/pay', controller: :billings, action: :pay_all, as: :pay
 
     ######### IMPORTS
     get 'test/data/running/:app_id', controller: :running_data, action: :test, as: :test_running_data
