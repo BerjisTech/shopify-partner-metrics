@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_09_095749) do
+ActiveRecord::Schema.define(version: 2022_06_09_103658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2022_06_09_095749) do
     t.text "running_data_endpoint"
     t.integer "data_rounds"
     t.uuid "current_plan"
+    t.datetime "last_paid_on"
   end
 
   create_table "billings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
