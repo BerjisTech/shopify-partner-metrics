@@ -35,6 +35,7 @@ class AppsController < ApplicationController
     @app = App.new(app_params)
 
     @app.user_id = current_user.id
+    @app.current_plan = Plan.find_or_create_by(name: 'Free').id
 
     respond_to do |format|
       if @app.save

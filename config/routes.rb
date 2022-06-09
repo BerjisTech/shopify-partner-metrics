@@ -25,7 +25,8 @@ Rails.application.routes.draw do
     get 'account', controller: :account, action: :index
 
     ######### PLANS AND BILLING
-    get 'billing', controller: :billings, action: :index
+    get 'billing', controller: :billings, action: :billing
+    get 'billing/all', controller: :billings, action: :index
     get 'bill/:id', controller: :billings, action: :show, as: :bill
     post 'stripe_subscribe', controller: :billings, action: :stripe_subscribe
     post 'stripe_portal', controller: :billings, action: :stripe_portal

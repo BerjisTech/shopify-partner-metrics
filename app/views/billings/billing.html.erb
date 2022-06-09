@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <div class="bg-white rounded border shadow p-3">
+      <table>
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Plan</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% App.mine(current_user.id)%>
+          <tr>
+            <td><%= app.app_name%></td>
+            <td><%= app.plan_name%></td>
+            <td>
+              <span class="bt btn-primary btn-md">$ 9.99 due</span>
+              <span class="bt btn-primary btn-md">Pay Now</span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-sm-1"></div>
+</div>

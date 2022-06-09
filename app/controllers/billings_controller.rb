@@ -9,6 +9,8 @@ class BillingsController < InheritedResources::Base
 
   def show; end
 
+  def billing; end
+
   def stripe_subscribe
     subscription = Stripe::Subscription.create({
                                                  customer: params[:customer_id],
