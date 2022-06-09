@@ -39,12 +39,10 @@ class BillingsController < InheritedResources::Base
 
   def stripe_session
     head :not_acceptable unless params['_json'] || request.body.read.blank?
-    Stripe.api_key = 'sk_test_51KCeiSR1t9C4RD6OI2oDkdJH5VoN0xYPIS6vtTTYBL2fLi7LdIScU5PpJuzbmQkKkiNtmMdwDwF3snZCVY4aUgwR00r3h3iCsJ'
 
     session = Stripe::Checkout::Session.create({
                                                  line_items: [{
-                                                   # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                                                   price: Plan.find_by(name: 'Free').price_id,
+                                                   price: Plan.find_by(name: 'Free').price_id, # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
                                                    quantity: 1
                                                  }],
                                                  mode: 'subscription', # or payment
