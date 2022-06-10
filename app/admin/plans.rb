@@ -24,7 +24,7 @@ ActiveAdmin.register Plan do
                                         amount: plan.price.to_i,
                                         currency: 'USD',
                                         interval: 'month',
-                                        product: 'prod_LpG7jyDigz4iCL'
+                                        product: 'prod_LquO1GrDvD0h5n' # 'prod_LpG7jyDigz4iCL'
                                       })
     plan.price_id = stripe_plan.id
   end

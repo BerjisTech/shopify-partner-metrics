@@ -36,10 +36,32 @@
                 <input type="checkbox" name="<%= app.id %>" class="billing_page_select">
               </td>
               <td><%= app.app_name%></td>
-              <td><%= app.plan_name%></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <%= app.plan_name%>
+                  <div class="dropdown ms-2">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Change Plan
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <% @plans.map do |plan| %>
+                        <% if app.current_plan != plan.id %>
+                          <li>
+                            <a class="dropdown-item change_plan" href="<%= change_plan_path(app.id,app.current_plan,plan.id) %>">
+                              <%= plan.name.humanize%> Plan ($<%= plan.price/100 %>)
+                            </a>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </td>
               <td class="text-end">
-                <span class="text-danger">$ 9.99 due</span>
-                <span class="btn btn-primary btn-md">Pay Now</span>
+                <% if app.current_plan != @free_plan && app.next_bill_date >= Date.today %>
+                  <span class="text-danger">$ <%= Plan.find(app.current_plan).price/100 %> due</span>
+                  <span class="btn btn-primary btn-md">Pay Now</span>
+                <% end %>
               </td>
             </tr>
           <% end %>

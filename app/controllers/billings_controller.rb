@@ -13,7 +13,19 @@ class BillingsController < InheritedResources::Base
 
   def show; end
 
-  def billing; end
+  def change_plan
+    plan_ids = [params[:current_plan], params[:new_plan]]
+    plans = Plan.where(id: [plan_ids])
+    @current_plan = plans.filter { |f| f.id == params[:current_plan] }.first
+    @new_plan = plans.filter { |f| f.id == params[:new_plan] }.first
+  end
+
+  def update_plan; end
+
+  def billing
+    @plans = Plan.where(visible: true)
+    @free_plan = @plans.filter { |f| f.name == 'Free' }.first.id
+  end
 
   def downgrade_batch
     batch_apps = App.mine(current_user.id).filter { |f| params[:apps].include? f.id }
@@ -36,7 +48,7 @@ class BillingsController < InheritedResources::Base
 
   def pay_all
     paid_apps = @my_apps.filter { |a| a.current_plan != FREE_PLAN }
-    payment_due = paid_apps.filter { |a| a <= Date.today }
+    payment_due = paid_apps.filter { |a| a.next_bill_date <= Date.today }
     active_plans = paid_apps.group_by(&:price_id).keys.uniq
     line_items = []
     active_plans.map do |plan|
@@ -44,8 +56,7 @@ class BillingsController < InheritedResources::Base
                                                f.price_id == plan
                                              end.count }
     end
-    render json: line_items
-    # stripe_session(apps)
+    stripe_session(line_items, paid_apps)
   end
 
   def pay; end
@@ -66,27 +77,59 @@ class BillingsController < InheritedResources::Base
     redirect_to session.url
   end
 
-  def stripe_session(apps)
+  def stripe_session(line_items, apps)
     head :not_acceptable unless params['_json'] || request.body.read.blank?
 
     session = Stripe::Checkout::Session.create({
-                                                 line_items: [{
-                                                   price: Plan.find_by(name: 'Free').price_id, # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                                                   quantity: 1
-                                                 }],
-                                                 mode: 'subscription', # or payment
+                                                 line_items: [line_items],
+                                                 mode: 'payment', # or payment
                                                  success_url: stripe_success_url(apps),
                                                  cancel_url: stripe_cancel_url(apps)
                                                })
     redirect_to session.url
+    # render json: line_items
+  end
+
+  def stripe_webhook
+    endpoint_secret = 'whsec_05b7145c91c72ee27e05dbd5e9d0b6faceea02d025307eabbc1469676da9a0b3'
+    payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    event = nil
+
+    begin
+      event = Stripe::Webhook.construct_event(
+        payload, sig_header, endpoint_secret
+      )
+    rescue JSON::ParserError => e
+      # Invalid payload
+      status 400
+      return
+    rescue Stripe::SignatureVerificationError => e
+      # Invalid signature
+      status 400
+      return
+    end
+
+    # Handle the event
+    case event.type
+    when 'payment_intent.succeeded'
+      payment_intent = event.data.object
+    # ... handle other event types
+    else
+      puts "Unhandled event type: #{event.type}"
+    end
+
+    status 200
+    render json: [params, request.referer, event, payload]
   end
 
   def success
-    render json: 'Success'
+    results = params[:apps].split('/')
+    render json: results
   end
 
   def cancel
-    render json: 'Cancel'
+    render json: params
   end
 
   private

@@ -64,10 +64,17 @@ class AppsController < ApplicationController
   def update
     respond_to do |format|
       if @app.update(app_params)
-        ThirdPartyApi.update_from_app(params[:app], @app, app_params[:platform_id])
+        # ThirdPartyApi.update_from_app(params[:app], @app, app_params[:platform_id])
 
-        format.html { redirect_to app_url(@app), notice: 'App was successfully updated.' }
-        format.json { render :show, status: :ok, location: @app }
+        if params[:app][:update_tag].present?
+          format.html do
+            redirect_to billing_path,
+                        notice: "#{@app.app_name} has been moved to #{Plan.find(params[:app][:current_plan]).name.humanize} Plan"
+          end
+        else
+          format.html { redirect_to app_url(@app), notice: 'App was successfully updated.' }
+          format.json { render :show, status: :ok, location: @app }
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @app.errors, status: :unprocessable_entity }
@@ -94,6 +101,7 @@ class AppsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def app_params
-    params.require(:app).permit(:app_name, :user_id, :platform_id, :business_id, :app_url, :running_data_endpoint)
+    params.require(:app).permit(:app_name, :user_id, :platform_id, :business_id, :app_url, :running_data_endpoint,
+                                :current_plan, :next_bill_date)
   end
 end

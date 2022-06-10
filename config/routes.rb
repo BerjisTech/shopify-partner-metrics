@@ -28,19 +28,23 @@ Rails.application.routes.draw do
     get 'billing', controller: :billings, action: :billing
     get 'billing/all', controller: :billings, action: :index
     get 'bill/:id', controller: :billings, action: :show, as: :bill
-    
-    get 'stripe_session', controller: :billings, action: :stripe_session
+    get 'billing/change_plan/:app_id/:current_plan/:new_plan', controller: :billings, action: :change_plan,
+                                                               as: :change_plan
+    get 'update_plan', controller: :billings, action: :show
+
+    get 'stripe_session/:line_items', controller: :billings, action: :stripe_session, as: :stripe_session
     post 'stripe_subscribe', controller: :billings, action: :stripe_subscribe
     post 'stripe_portal', controller: :billings, action: :stripe_portal
     get 'stripe/success/:apps', controller: :billings, action: :success, as: :stripe_success
     get 'stripe/cancel/:apps', controller: :billings, action: :cancel, as: :stripe_cancel
-    
+    post 'stripe/webhook', controller: :billings, action: :stripe_webhook
+
     get 'billing/downgrade_batch', controller: :billings, action: :downgrade, as: :downgrade_batch
     get 'billing/downgrade', controller: :billings, action: :downgrade, as: :downgrade
-    
+
     get 'billing/upgrade_batch', controller: :billings, action: :upgrade, as: :upgrade_batch
     get 'billing/upgrade', controller: :billings, action: :upgrade, as: :upgrade
-    
+
     get 'billing/pay_batch', controller: :billings, action: :pay_batch, as: :pay_batch
     get 'billing/pay_all', controller: :billings, action: :pay_all, as: :pay_all
     get 'billing/pay', controller: :billings, action: :pay_all, as: :pay
