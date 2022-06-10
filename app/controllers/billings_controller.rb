@@ -82,45 +82,44 @@ class BillingsController < InheritedResources::Base
 
     session = Stripe::Checkout::Session.create({
                                                  line_items: [line_items],
-                                                 mode: 'payment', # or payment
+                                                 mode: 'subscription', # or payment
                                                  success_url: stripe_success_url(apps),
                                                  cancel_url: stripe_cancel_url(apps)
                                                })
     redirect_to session.url
-    # render json: line_items
   end
 
   def stripe_webhook
-    endpoint_secret = 'whsec_05b7145c91c72ee27e05dbd5e9d0b6faceea02d025307eabbc1469676da9a0b3'
-    payload = request.body.read
-    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    event = nil
+    # endpoint_secret = 'whsec_05b7145c91c72ee27e05dbd5e9d0b6faceea02d025307eabbc1469676da9a0b3'
+    # payload = request.body.read
+    # sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    # event = nil
 
-    begin
-      event = Stripe::Webhook.construct_event(
-        payload, sig_header, endpoint_secret
-      )
-    rescue JSON::ParserError => e
-      # Invalid payload
-      status 400
-      return
-    rescue Stripe::SignatureVerificationError => e
-      # Invalid signature
-      status 400
-      return
-    end
+    # begin
+    #   event = Stripe::Webhook.construct_event(
+    #     payload, sig_header, endpoint_secret
+    #   )
+    # rescue JSON::ParserError => e
+    #   # Invalid payload
+    #   head 400
+    #   return
+    # rescue Stripe::SignatureVerificationError => e
+    #   # Invalid signature
+    #   head 400
+    #   return
+    # end
 
-    # Handle the event
-    case event.type
-    when 'payment_intent.succeeded'
-      payment_intent = event.data.object
-    # ... handle other event types
-    else
-      puts "Unhandled event type: #{event.type}"
-    end
+    # # Handle the event
+    # case event.type
+    # when 'payment_intent.succeeded'
+    #   payment_intent = event.data.object
+    # # ... handle other event types
+    # else
+    #   puts "Unhandled event type: #{event.type}"
+    # end
 
-    status 200
-    render json: [params, request.referer, event, payload]
+    # head 200
+    render json: [params, request.referer]
   end
 
   def success

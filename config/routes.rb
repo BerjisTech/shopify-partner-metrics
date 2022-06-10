@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get 'stripe/success/:apps', controller: :billings, action: :success, as: :stripe_success
     get 'stripe/cancel/:apps', controller: :billings, action: :cancel, as: :stripe_cancel
     post 'stripe/webhook', controller: :billings, action: :stripe_webhook
+    get 'stripe/webhook', controller: :billings, action: :stripe_webhook
 
     get 'billing/downgrade_batch', controller: :billings, action: :downgrade, as: :downgrade_batch
     get 'billing/downgrade', controller: :billings, action: :downgrade, as: :downgrade
