@@ -27,8 +27,8 @@ window.update_billing = (path, apps) => {
         },
         success: (response) => {
             console.log(response)
-         },
-        error: (error) => { 
+        },
+        error: (error) => {
             console.log(error.responseText)
         }
     })
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         $('.billing_page_select').on('change', (e) => {
             let app_id = $(e)[0].currentTarget.name
             if ($(e)[0].currentTarget.checked === true) { return billing_batch_action_apps.push(app_id) }
-            if ($(e)[0].currentTarget.checked === false) { return billing_batch_action_apps.splice(billing_batch_action_apps.indexOf(app_id, 1)) }
+            if ($(e)[0].currentTarget.checked === false) { return billing_batch_action_apps.splice(billing_batch_action_apps.indexOf(app_id), 1) }
         })
     })
 })
