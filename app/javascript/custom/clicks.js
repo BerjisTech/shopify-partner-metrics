@@ -21,22 +21,25 @@ window.create_app_from_test = (r) => {
 window.update_billing = (path, apps) => {
     $.ajax({
         url: path,
-        method: 'POST',
+        method: 'GET',
         data: {
-            'authenticity_token': $('[name="csrf-token"]')[0].content,
             apps: apps
         },
-        success: (response) => { },
-        error: (response) => { }
+        success: (response) => {
+            console.log(response)
+         },
+        error: (error) => { 
+            console.log(error.responseText)
+        }
     })
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
     $(document).on('turbolinks:load', () => {
         let billing_batch_action_apps = []
-        let downgrade_path = `${base_url}billing/downgrade`
-        let upgrade_path = `${base_url}billing/upgrade`
-        let pay_all_path = `${base_url}billing/pay_all`
+        let downgrade_path = `${base_url}billing/downgrade_batch`
+        let upgrade_path = `${base_url}billing/upgrade_batch`
+        let pay_batch_path = `${base_url}billing/pay_batch`
 
         $('[data-target="test_running_data"]').on('click', (e) => {
             $(`.active_${$(e.target).attr('data-target')}_loader`).show()
@@ -216,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (billing_batch_action_apps.length == 0) { return toastr.error('No apps selected') }
             if (action == 'downgrade') { return update_billing(downgrade_path, billing_batch_action_apps) };
             if (action == 'upgrade') { return update_billing(upgrade_path, billing_batch_action_apps) };
-            if (action == 'pay_all') { return update_billing(pay_all_path, billing_batch_action_apps) };
+            if (action == 'pay_all') { return update_billing(pay_batch_path, billing_batch_action_apps) };
 
         })
 

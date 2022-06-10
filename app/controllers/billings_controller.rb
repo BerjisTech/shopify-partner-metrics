@@ -3,6 +3,9 @@
 class BillingsController < InheritedResources::Base
   before_action :set_bill, only: %i[show]
   before_action :set_stripe
+  before_action :set_my_apps
+
+  FREE_PLAN = Plan.find_by(name: 'Free').id
 
   def index
     @billings = Billing.all
@@ -12,13 +15,39 @@ class BillingsController < InheritedResources::Base
 
   def billing; end
 
-  def downgrade_batch; end
+  def downgrade_batch
+    batch_apps = App.mine(current_user.id).filter { |f| params[:apps].include? f.id }
+    render json: batch_apps
+  end
+
   def downgrade; end
 
-  def upgrade_batch; end
+  def upgrade_batch
+    batch_apps = App.mine(current_user.id).filter { |f| params[:apps].include? f.id }
+    render json: batch_apps
+  end
+
   def upgrade; end
 
-  def pay_all; end
+  def pay_batch
+    batch_apps = App.mine(current_user.id).filter { |f| params[:apps].include? f.id }
+    render json: batch_apps
+  end
+
+  def pay_all
+    paid_apps = @my_apps.filter { |a| a.current_plan != FREE_PLAN }
+    payment_due = paid_apps.filter { |a| a <= Date.today }
+    active_plans = paid_apps.group_by(&:price_id).keys.uniq
+    line_items = []
+    active_plans.map do |plan|
+      line_items << { price: plan, quantity: paid_apps.filter do |f|
+                                               f.price_id == plan
+                                             end.count }
+    end
+    render json: line_items
+    # stripe_session(apps)
+  end
+
   def pay; end
 
   def stripe_subscribe
@@ -37,7 +66,7 @@ class BillingsController < InheritedResources::Base
     redirect_to session.url
   end
 
-  def stripe_session
+  def stripe_session(apps)
     head :not_acceptable unless params['_json'] || request.body.read.blank?
 
     session = Stripe::Checkout::Session.create({
@@ -64,6 +93,10 @@ class BillingsController < InheritedResources::Base
 
   def set_stripe
     Stripe.api_key = 'sk_test_51KCeiSR1t9C4RD6OI2oDkdJH5VoN0xYPIS6vtTTYBL2fLi7LdIScU5PpJuzbmQkKkiNtmMdwDwF3snZCVY4aUgwR00r3h3iCsJ'
+  end
+
+  def set_my_apps
+    @my_apps = App.mine(current_user.id)
   end
 
   def set_bill
