@@ -103,14 +103,14 @@ class BillingsController < InheritedResources::Base
       )
     rescue JSON::ParserError => e
       # Invalid payload
-      # head 400
+      head 400
       error = 'Invalid payload'
-      # return
+      return
     rescue Stripe::SignatureVerificationError => e
       # Invalid signature
-      # head 400
+      head 400
       error = 'Invalid signature'
-      # return
+      return
     end
 
     # Handle the event
@@ -124,8 +124,8 @@ class BillingsController < InheritedResources::Base
       end
     end
 
-    # head 200
-    render json: { error: error, params: params, request: request.referer }
+    head 200
+    # render json: { error: error, params: params, request: request.referer }
   end
 
   def webhook_json
