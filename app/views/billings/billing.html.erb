@@ -71,3 +71,6 @@
   </div>
   <div class="col-sm-1"></div>
 </div>
+<%= form_tag({action: :stripe_webhook}) do |form| %>
+  <%= submit_tag "Update Plan", class: "form-control btn btn-primary btn-lg mt-4" %>
+<% end %>
