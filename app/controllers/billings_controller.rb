@@ -113,6 +113,18 @@ class BillingsController < InheritedResources::Base
       return
     end
 
+    ## event.type
+    ### -charge.succeeded
+    ### -payment_intent.succeeded
+    ### -payment_intent.created
+    ### -customer.subscription.updated
+    ### -customer.subscription.deleted
+
+    ## Important Variables
+    ### -subscription = event.data.object
+    ### -subscription.items[0].price.lookup_key
+    ### -subscription.customer
+
     # Handle the event
     if event.present?
       case event.type
@@ -138,11 +150,11 @@ class BillingsController < InheritedResources::Base
 
   def success
     results = params[:apps].split('/')
-    render json: results
+    render json: {results: results, referer: request.referer}
   end
 
   def cancel
-    render json: params
+    render json: {results: params, referer: request.referer}
   end
 
   private
