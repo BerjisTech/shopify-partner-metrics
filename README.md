@@ -176,12 +176,5 @@ If you want to restart using `passenger-config restart-app`, add this to your co
 Note that `nil` is NOT the same as `false` here
 
 If you don't set `:passenger_restart_with_touch`, capistrano-passenger will check what version of passenger you are running
-and use `passenger-config restart-app` if it is available in that version.
-
-If you are running passenger in standalone mode, it is possible for you to put passenger in your
-Gemfile and rely on capistrano-bundler to install it with the rest of your bundle.
-If you are installing passenger during your deployment AND you want to restart using `passenger-config restart-app`,
-you need to set `:passenger_in_gemfile` to `true` in your `config/deploy.rb`.
-================================================
-
+and use `passenger-config restart-app` if it is available in that version. If you are running passenger in standalone mode, it is possible for you to put passenger in your Gemfile and rely on capistrano-bundler to install it with the rest of your bundle. If you are installing passenger during your deployment AND you want to restart using `passenger-config restart-app`, you need to set `:passenger_in_gemfile` to `true` in your `config/deploy.rb`.
 * ...
