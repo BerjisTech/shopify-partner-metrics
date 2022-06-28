@@ -135,24 +135,6 @@ Change the default order by for the models using
 self.implicit_order_column = 'created_at'
 ```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
 ### CAPISTRANO
 Post-install message from capistrano-passenger:
 ==== Release notes for capistrano-passenger ====
