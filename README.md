@@ -113,8 +113,8 @@ All capistrano configs are set on the different cap files
 
 Check these links for further details on rails capistrano deploy
 
-[Puma Deploy](https://webdevchallenges.com/how-to-deploy-a-rails-6-application-with-capistrano)
-[Passenger deploy](https://gorails.com/deploy/ubuntu/20.04)
+- [Puma Deploy](https://webdevchallenges.com/how-to-deploy-a-rails-6-application-with-capistrano)
+- [Passenger deploy](https://gorails.com/deploy/ubuntu/20.04)
 
 This project uses passenger but the puma doc is also helpful in some steps
 
@@ -171,7 +171,9 @@ If you want to restart using `touch tmp/restart.txt`, add this to your config/de
 
 If you want to restart using `passenger-config restart-app`, add this to your config/deploy.rb:
 
-    set :passenger_restart_with_touch, false # Note that `nil` is NOT the same as `false` here
+    set :passenger_restart_with_touch, false 
+
+Note that `nil` is NOT the same as `false` here
 
 If you don't set `:passenger_restart_with_touch`, capistrano-passenger will check what version of passenger you are running
 and use `passenger-config restart-app` if it is available in that version.
