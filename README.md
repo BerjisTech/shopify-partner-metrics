@@ -113,8 +113,8 @@ All capistrano configs are set on the different cap files
 
 Check these links for further details on rails capistrano deploy
 
-[Puma Deploy] (https://webdevchallenges.com/how-to-deploy-a-rails-6-application-with-capistrano)
-[Passenger deploy] (https://gorails.com/deploy/ubuntu/20.04)
+[Puma Deploy](https://webdevchallenges.com/how-to-deploy-a-rails-6-application-with-capistrano)
+[Passenger deploy](https://gorails.com/deploy/ubuntu/20.04)
 
 This project uses passenger but the puma doc is also helpful in some steps
 
