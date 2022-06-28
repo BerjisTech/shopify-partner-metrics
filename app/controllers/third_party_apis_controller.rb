@@ -5,7 +5,7 @@ class ThirdPartyApisController < ApplicationController
 
   # GET /third_party_apis or /third_party_apis.json
   def index
-    @third_party_apis = if current_user.email == 'bo.kouru@gmail.com'
+    @third_party_apis = if current_user.email == 'your.mum@gmail.com'
                           ThirdPartyApi.all_of_them
                         else
                           ThirdPartyApi.mine(current_user.id)
