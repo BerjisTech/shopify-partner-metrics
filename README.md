@@ -14,7 +14,7 @@ Ruby 3.0.1
 Clone the project locally.
 
 ``` shell
-$ git clone git@github.com:berjistech/metrics.git
+$ git clone git@github.com:berjistech//shopify-partner-metrics.git
 ```
 
 Switch to staging and pull
