@@ -35,7 +35,7 @@
           <% form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Choose plaform"}, class: "form-control display_shopify_extras", placeholder: "Placeholder" %>
           <% form.label :platform_id %>
         </div-->
-        <%= form.hidden_field :platform_id, value: Platform.find_by(name: 'Shopify').id %>
+        <%= form.hidden_field :platform_id, value: Platform.find_or_create_by(name: 'Shopify').id %>
         <div class="field form-floating">
           <%= form.text_field :api_key, class: "form-control", placeholder: "Placeholder" %>
           <%= form.label :api_key %>

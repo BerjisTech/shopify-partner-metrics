@@ -18,7 +18,7 @@ ActiveAdmin.register ExternalMetric do
   ActiveAdmin.register_page 'reset_imports' do
     controller do
       def index
-        platform_id = Platform.find_by(name: 'Shopify').id
+        platform_id = Platform.find_or_create_by(name: 'Shopify').id
 
         job = ThirdPartyApi.where(platform_id: platform_id).map do |api|
           ExternalDataImportJob.set(wait: 10.seconds).perform_later(api.app_id, api,

@@ -30,7 +30,7 @@
   document.addEventListener('DOMContentLoaded', async () => {
       document.addEventListener('turbolinks:load', () => {
         <% apps.map do |app| %>
-        pull_for_table('<%= user_activity_path %>', '<%= app.id %>', '<%= Platform.find_by(name: "Shopify") .id %>', 7, 0, '<%= app.id %>_user_activity')
+        pull_for_table('<%= user_activity_path %>', '<%= app.id %>', '<%= Platform.find_or_create_by(name: "Shopify") .id %>', 7, 0, '<%= app.id %>_user_activity')
         <% end %>
       })
   })

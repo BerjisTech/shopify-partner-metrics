@@ -26,7 +26,7 @@ ActiveAdmin.register ImportLog do
     controller do
       def index
         import = ImportLog.find(params[:activity])
-        api = ThirdPartyApi.find_by(app_id: import.app_id, platform_id: import.platform_id)
+        api = ThirdPartyApi.find_or_create_by(app_id: import.app_id, platform_id: import.platform_id)
 
         if Platform.find(import.platform_id).name == 'Shopify'
           ExternalDataImportJob.set(wait: 10.seconds).perform_later(import.app_id, api,

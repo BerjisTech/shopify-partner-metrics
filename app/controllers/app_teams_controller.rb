@@ -34,7 +34,7 @@ class AppTeamsController < ApplicationController
   # POST /app_teams or /app_teams.json
   def create
     @app_team = AppTeam.new(app_team_params)
-    user = User.find_by(email: params[:app_team]['user_id'])
+    user = User.find_or_create_by(email: params[:app_team]['user_id'])
 
     respond_to do |format|
       if user.nil?

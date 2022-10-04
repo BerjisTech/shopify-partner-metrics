@@ -65,7 +65,7 @@ class App < ApplicationRecord
     end
 
     def mrr_at(date, app_id)
-      mrr = RunningMetric.find_by(app_id: app_id, date: date)
+      mrr = RunningMetric.find_or_create_by(app_id: app_id, date: date)
       if mrr.present?
         "$ #{number_with_precision(mrr.gross_paying_mrr, precision: 2, delimiter: ',', separator: '.')}"
       else

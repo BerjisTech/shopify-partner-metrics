@@ -73,7 +73,7 @@ class ExternalMetric < ApplicationRecord
     ################### IMPORT
 
     def temp_pull(from, span)
-      platform_id = Platform.find_by(name: 'Shopify').id
+      platform_id = Platform.find_or_create_by(name: 'Shopify').id
 
       ThirdPartyApi.where(platform_id: platform_id).each_with_index.map do |api, index|
         ShopifyInitialImportJob.set(wait: (index + 1).minutes).perform_later(from, span, api)

@@ -45,7 +45,7 @@
       <div class="d-flex flex-column align-items-start jsutify-content-center mb-3">
         <span class="fs-2">API Keys and Endpoints</span>
         <span class="fs-6">
-          This information will be used top pull data from your app, Shopify, Stripe and any thrid party platform. 
+          This information will be used top pull data from your app, Shopify, Stripe and any thrid party platform.
           It's important to double check as a typo in any of the details <b>WILL</b> result in inaccurate data.
           <%= link_to docs_path, target: "_BLANK" do %>
             Learn more about data import<span class="material-icons tiny-icons">open_in_new</span>
@@ -68,7 +68,7 @@
           <% form.label :platform_id %>
           <% form.select :platform_id, options_from_collection_for_select(Platform.all, :id, :name), {prompt: "Select Default Platform"}, class: "form-control display_shopify_extras my-2"  %>
         </div-->
-        <%= form.hidden_field :platform_id, value: Platform.find_by(name: 'Shopify').id %>
+        <%= form.hidden_field :platform_id, value: Platform.find_or_create_by(name: 'Shopify').id %>
         <div class="field m-3">
           <%= form.label :api_key %>
           <%= form.text_field "api_key", class: "form-control my-2" %>

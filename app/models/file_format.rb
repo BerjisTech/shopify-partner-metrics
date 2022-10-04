@@ -59,7 +59,7 @@ class FileFormat < ApplicationRecord
 
       app = App.find_or_create_by!({
                                      app_name: app_name,
-                                     platform_id: Platform.find_by(name: 'Shopify').id,
+                                     platform_id: Platform.find_or_create_by(name: 'Shopify').id,
                                      business_id: business_id,
                                      user_id: user_id
                                    })
