@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PaymentHistory < ApplicationRecord
-  PLATFORM = Platform.find_create_by!(name: 'Shopify').id
+  PLATFORM = Platform.find_or_create_by!(name: 'Shopify').id
   CHARGE_TYPES = ['App sale - usage',
                   'App sale - 30-day subscription',
                   'App downgrade',
