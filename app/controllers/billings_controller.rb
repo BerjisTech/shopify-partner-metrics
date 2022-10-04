@@ -6,7 +6,7 @@ class BillingsController < InheritedResources::Base
   before_action :set_my_apps, except: %i[stripe_webhook webhook_json]
   skip_before_action :verify_authenticity_token, only: :stripe_webhook
 
-  FREE_PLAN = Plan.find_by(name: 'Free').id
+  # FREE_PLAN = Plan.find_by(name: 'Free').id
 
   def index
     @billings = Billing.all

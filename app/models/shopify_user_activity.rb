@@ -4,7 +4,7 @@ class ShopifyUserActivity < ApplicationRecord
   belongs_to :app
   belongs_to :platform
 
-  PLATFORM = Platform.find_by(name: 'Shopify').id
+  # PLATFORM = Platform.find_by(name: 'Shopify').id
 
   class << self
     def save_for_today(app_id, data, _cursor)

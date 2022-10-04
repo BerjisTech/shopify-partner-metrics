@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StripeImport < ApplicationRecord
-  PLATFORM = Platform.find_by(name: 'Stripe').id
+  # PLATFORM = Platform.find_by(name: 'Stripe').id
   class << self
     def start_importer(app_id, time)
       api = ThirdPartyApi.find_by(app_id: app_id, platform_id: PLATFORM)

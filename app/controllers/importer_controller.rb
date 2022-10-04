@@ -3,7 +3,7 @@
 class ImporterController < ApplicationController
   respond_to :json, only: :shopify_test
 
-  PLATFORM = Platform.find_by(name: 'Shopify').id
+  # PLATFORM = Platform.find_by(name: 'Shopify').id
 
   def from_whenever
     ThirdPartyApi.all.map do |api|
