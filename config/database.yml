@@ -84,7 +84,6 @@ test:
 
 production:
   <<: *default
-  # URL: <%= ENV['DATABASE_URL'] %> # metrics_production
   database: da8390qfeebget
   host: ec2-52-22-136-117.compute-1.amazonaws.com:5432
   username: wpefynzeogaqce

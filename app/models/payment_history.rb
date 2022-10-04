@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class PaymentHistory < ApplicationRecord
-  # PLATFORM = Platform.find_by(name: 'Shopify').id
-  # CHARGE_TYPES = ['App sale - usage',
-  #                 'App sale - 30-day subscription',
-  #                 'App downgrade',
-  #                 'App sale - subscription',
-  #                 'App refund',
-  #                 'App credit'].freeze
+  PLATFORM = Platform.find_create_by!(name: 'Shopify').id
+  CHARGE_TYPES = ['App sale - usage',
+                  'App sale - 30-day subscription',
+                  'App downgrade',
+                  'App sale - subscription',
+                  'App refund',
+                  'App credit'].freeze
   class << self
     def calculate_initial_metrics(app_id)
       from_csv = PaymentHistory

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShopifyUser < ApplicationRecord
-  # PLATFORM = Platform.find_by(name: 'Shopify').id
+  PLATFORM = Platform.find_by(name: 'Shopify').id
   class << self
     def gql_data(api, time, cursor)
       "
