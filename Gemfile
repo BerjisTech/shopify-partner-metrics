@@ -40,7 +40,9 @@ gem 'rufo'
 gem 'sidekiq'
 gem 'stripe'
 gem 'whenever', require: false
-gem 'net-smtp'
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 ################ CAPISTRANO #################
 gem 'capistrano', '~> 3.11'
